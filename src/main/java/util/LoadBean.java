@@ -8,9 +8,9 @@ public class LoadBean {
 
 	public static Usuario getUsuario() {
 		usuario = new Usuario();
-		usuario.setNome("Usuario Teste");
-		usuario.setLogin("usuarioTeste");
-		usuario.setEmail("usuarioTeste@portosdobrasil.gov.br");
+		usuario.setNome("admin");
+		usuario.setLogin("admin");
+		usuario.setEmail("admin@portosdobrasil.gov.br");
 		usuario.setSenha("123");
 		return usuario;
 	}

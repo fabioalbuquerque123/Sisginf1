@@ -10,9 +10,9 @@ public class Conn {
 	private static EntityManager entityManager;
 	
 	public static EntityManager getEntityManager(){
-		if(entityManagerFactory == null)
+		if(entityManagerFactory == null || entityManagerFactory.isOpen() == false)
 			entityManagerFactory = Persistence.createEntityManagerFactory("sisginf_versao1");
-		if(entityManager == null)
+		if(entityManager == null || entityManager.isOpen() == false)
 			entityManager = entityManagerFactory.createEntityManager();
 		return entityManager;		
 	}
@@ -21,6 +21,7 @@ public class Conn {
 		if(em != null && em.isOpen()==true){
 			em.close();
 			entityManager = null;
+			entityManagerFactory = null;
 		}
 	}
 }
