@@ -3,7 +3,6 @@ package beans;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,6 +35,10 @@ public class Projeto extends Bean implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="idProcesso", referencedColumnName="idProcesso")
 	private Processo processo;
+	
+	@ManyToOne
+	@JoinColumn(name="idPessoaJuridica", referencedColumnName="idPessoaJuridica")
+	private PessoaJuridica pessoaJuridica; 
 	
 	@Column
 	private String nome;
@@ -293,5 +296,13 @@ public class Projeto extends Bean implements Serializable{
 
 	public void setDataCienciaOficioPJ(Date dataCienciaOficioPJ) {
 		this.dataCienciaOficioPJ = dataCienciaOficioPJ;
+	}
+
+	public PessoaJuridica getPessoaJuridica() {
+		return pessoaJuridica;
+	}
+
+	public void setPessoaJuridica(PessoaJuridica pessoaJuridica) {
+		this.pessoaJuridica = pessoaJuridica;
 	}
 }
