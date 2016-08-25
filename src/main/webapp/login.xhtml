@@ -1,24 +1,30 @@
-  <html xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
+  		xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:p="http://primefaces.org/ui">
    
-  <h:head>
    
+  <h:head>
+
   </h:head>
    
-  <h:body>
-        <h:form>
-        	<h:panelGrid columns="2">
-        		<h:outputLabel for="nomeUsuario" value="Nome Usuário:"></h:outputLabel>
-        		<h:inputText id="nomeUsuario" value="#{LoginMB.usuario.nome}" />
+   <h:body style="background: #c6deff">
+        <h:form>        
+        <br/><br/><br/><br/><br/><br/>
+        <p:panel  header="Login" style="width: 500px; min-width: 500px; min-height: 200px; margin: 0 auto;">
+        	<p:panelGrid columns="2"  style="width:100%; height:10%;" >
+        		<p:outputLabel for="nomeUsuario" value="Nome Usuário:" /> 
+        		<p:inputText id="nomeUsuario" value="#{LoginMB.usuario.nome}" size="15" />
         		
-        		<h:outputLabel for="senha" value="Senha:" />
-        		<h:inputText id="senha" value="#{LoginMB.usuario.senha}"></h:inputText>
+        		<p:outputLabel for="senha" value="Senha:" /> 
+        		<p:password id="senha" value="#{LoginMB.usuario.senha}" size="15" />
         		
-        		<h:commandButton value="Enviar" action="#{LoginMB.envia}"></h:commandButton>
-<!--         		<h:outputText value="#{LoginMB.mensagem}" rendered="#{LoginMB.mensagemRendered}"/> -->
-        	</h:panelGrid>
+        		     
+        	</p:panelGrid>
+        	<br/>
+        	<p:commandButton value="Enviar" action="#{LoginMB.envia}" />
+        </p:panel>
         </h:form>
-  </h:body>
-  </html>
+	</h:body>
+</html>
