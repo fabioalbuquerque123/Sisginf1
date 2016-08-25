@@ -16,5 +16,9 @@
             	<from-outcome>loginOk</from-outcome>
 	            <to-view-id>/inicial.xhtml</to-view-id>
       		</navigation-case>
+      		<navigation-case>
+            	<from-outcome>loginFail</from-outcome>
+	            <to-view-id>/login.xhtml</to-view-id>
+      		</navigation-case>
 	</navigation-rule>
 </faces-config>

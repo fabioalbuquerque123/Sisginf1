@@ -9,7 +9,7 @@
 
   </h:head>
    
-   <h:body style="background: #c6deff">
+   <h:body style="background: #FFFAFA">
         <h:form>        
         <br/><br/><br/><br/><br/><br/>
         <p:panel  header="Login" style="width: 500px; min-width: 500px; min-height: 200px; margin: 0 auto;">
@@ -23,7 +23,10 @@
         		     
         	</p:panelGrid>
         	<br/>
+        	<p:messages id="Login"></p:messages>
+        	<br/>
         	<p:commandButton value="Enviar" action="#{LoginMB.envia}" />
+        	
         </p:panel>
         </h:form>
 	</h:body>

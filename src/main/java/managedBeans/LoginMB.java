@@ -1,7 +1,9 @@
 package managedBeans;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import beans.Usuario;
 import dataAcessObject.UsuarioDAO;
@@ -30,11 +32,13 @@ public class LoginMB{
 	public String envia() {
          
          usuario = usuarioDAO.findUsuarioLogin(usuario.getNome(), usuario.getSenha());
-         if (usuario == null) {
-        	 mensagem = "Usuario ou senha inválidos!";
-        	 return "loginOk";
+         if (usuario == null) {        	 
+        	 FacesContext.getCurrentInstance().
+        	 addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Usuario ou senha inválidos!"));
+        	 return "loginFail";
          } else {               
-               mensagem = "Login efetuado com sucesso!";
+        	   FacesContext.getCurrentInstance().
+          	   addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info!", "Login efetuado com sucesso!"));
                return "loginOk";
          }   
    }
