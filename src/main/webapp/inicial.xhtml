@@ -11,34 +11,89 @@
   </h:head>
    
    <h:body style="background: #FFFAFA">
-        <h:form>        
+             
 
 	<p:growl id="msgs" showDetail="true" />
  
-    <h3 style="margin-top:0">Basic</h3>
     <p:tabView>
         <p:tab title="Processo">
-            <h:panelGrid columns="2" cellpadding="10">
-				<p:outputLabel for="nomeUsuario" value="Nome Usuário:" /> 
-        		<p:inputText id="nomeUsuario" value="#{LoginMB.usuario.nome}" size="15" />
+        
+        <h:form>   
+            <p:panelGrid columns="2">
+				<p:outputLabel for="numeroOriginalAntaq" value="Nº Original Antaq:" /> 
+        		<p:inputText id="numeroOriginalAntaq" value="#{ProcessoMB.processo.numeroOriginalANTAQ}" size="20" />
         		
-        		<p:outputLabel for="senha" value="Senha:" /> 
-        		<p:password id="senha" value="#{LoginMB.usuario.senha}" size="15" />
-            </h:panelGrid>
+				<p:outputLabel for="numeroApensoAntaq" value="Nº Apenso Antaq:" /> 
+        		<p:inputText id="numeroApensoAntaq" value="#{ProcessoMB.processo.numeroApensoANTAQ}" size="20" />
+        		        	
+        		<p:outputLabel for="localizacao" value="Localização:" /> 
+        		<p:inputText id="localizacao" value="#{ProcessoMB.processo.localizacao}" size="20" />
+        		        		
+        		<p:outputLabel for="numeroProcessoSep" value="Nº Processo SEP:" /> 
+        		<p:inputText id="numeroProcessoSep" value="#{ProcessoMB.processo.numeroProcessoSEP}" size="20" />        	
+        		        		
+        		<p:outputLabel for="dataProtocoloSep" value="Data Protocolo SEP:" />
+        		<p:calendar id="dataProtocoloSep" value="#{ProcessoMB.processo.dataProtocoloSEP}" showOn="button" />
+        		
+            </p:panelGrid>
+        </h:form>
         </p:tab>
         <p:tab title="Projeto">
-            <h:panelGrid columns="2" cellpadding="10">                
-                <h:outputText value="Teste" />
+        	<h:form>
+            <h:panelGrid columns="2" cellpadding="10">
+            
+				<p:outputLabel for="nomeProjeto" value="Nome Projeto:" /> 
+        		<p:inputText id="nomeProjeto" value="#{ProjetoMB.projeto.nome}" size="20" />
+        		
+        		<p:outputLabel for="descricaoProjeto" value="Descrição:" />        		
+        		<p:inputTextarea id="descricaoProjeto" rows="5" cols="50"  />
+
+        		
+        		<p:outputLabel for="localidadeProjeto" value="Localidade:" /> 
+        		<p:inputText id="localidadeProjeto" value="#{ProjetoMB.projeto.localidade}" size="20" />
+        		
+        		<p:outputLabel for="ufProjeto" value="UF" /> 
+        		<p:inputText id="ufProjeto" value="#{ProjetoMB.projeto.uf}" size="20" />
+        		
+        		<p:outputLabel for="numeroContrato" value="Número Contrato:" /> 
+        		<p:inputText id="numeroContrato" value="#{ProjetoMB.projeto.numeroContrato}" size="20" />
+        		
+        		<p:outputLabel for="dataInicioProjeto" value="Data Inicio:" />
+        		<p:calendar id="dataInicioProjeto" value="#{ProjetoMB.projeto.dataInicio}" showOn="button" />
+        		
+        		<p:outputLabel for="dataFimProjeto" value="Data Fim:" />
+        		<p:calendar id="dataFimProjeto" value="#{ProjetoMB.projeto.dataFim}" showOn="button" />
+        		
+        		<p:outputLabel for="valorTotalProjeto" value="Valor Total:" />
+        		<p:inputText id="valorTotalProjeto" value="#{ProjetoMB.projeto.valorTotalProjeto}" size="20" />
+        		
+        		<p:outputLabel for="projecaoImpactoFin" value="Projeção Impacto Financeiro:" />
+        		<p:inputText id="projecaoImpactoFin" value="#{ProjetoMB.projeto.projecaoImpactoFinal}" size="20"  />
+        		
+        		<p:outputLabel for="numeroNT" value="Número NT:" />
+        		<p:inputText id="numeroNT" value="#{ProjetoMB.projeto.numeroNotaTecnica}" size="20"  />
+        		
+        		<p:outputLabel for="numeroPortaria" value="Número Portaria:" />
+        		<p:inputText id="numeroPortaria" value="#{ProjetoMB.projeto.numeoPortaria}" size="20"  />
+        		
+        		<p:outputLabel for="dataAprovRejeicao" value="Data Rejeição:" />
+        		<p:calendar id="dataAprovRejeicao" value="#{ProjetoMB.projeto.dataAprovRejeicao}" showOn="button" />
+        		
             </h:panelGrid>
+            </h:form>
         </p:tab>
         <p:tab title="Pessoa Jurídica">
+        	<h:form>
             <h:panelGrid columns="2" cellpadding="10">                
                 <h:outputText value="Teste" />
             </h:panelGrid>
-        </p:tab>
+            </h:form>
+        </p:tab>        
     </p:tabView>
+    
+   <p:commandButton value="Salvar" action="#{ReidiMB.regra}" />
         
-        </h:form>
+    
 	</h:body>
 	
 </html>

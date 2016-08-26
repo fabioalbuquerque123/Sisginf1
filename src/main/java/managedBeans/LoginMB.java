@@ -1,5 +1,7 @@
 package managedBeans;
 
+import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -10,8 +12,12 @@ import dataAcessObject.UsuarioDAO;
 
 @ManagedBean(name="LoginMB")
 @ViewScoped
-public class LoginMB{
+public class LoginMB implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3892584845488867801L;
 	private Usuario usuario;
 	private UsuarioDAO usuarioDAO;
 	private String mensagem;

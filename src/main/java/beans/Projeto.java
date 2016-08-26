@@ -49,6 +49,8 @@ public class Projeto extends Bean implements Serializable{
 	@Column
 	private String uf;
 	
+	private String localidade;
+	
 	@Column
 	private String numeroContrato;
 	
@@ -144,6 +146,14 @@ public class Projeto extends Bean implements Serializable{
 
 	public void setUf(String uf) {
 		this.uf = uf;
+	}
+
+	public String getLocalidade() {
+		return localidade;
+	}
+
+	public void setLocalidade(String localidade) {
+		this.localidade = localidade;
 	}
 
 	public String getNumeroContrato() {
