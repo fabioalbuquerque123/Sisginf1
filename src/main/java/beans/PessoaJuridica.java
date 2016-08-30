@@ -38,10 +38,10 @@ public class PessoaJuridica extends Bean implements Serializable{
 	private String cnpj;
 	
 	@Column
-	private String Endereco;
+	private String endereco;
 	
 	@Column
-	private String Bairro;
+	private String bairro;
 	
 	@Column
 	private String cep;
@@ -88,19 +88,19 @@ public class PessoaJuridica extends Bean implements Serializable{
 	}
 
 	public String getEndereco() {
-		return Endereco;
+		return endereco;
 	}
 
 	public void setEndereco(String endereco) {
-		Endereco = endereco;
+		this.endereco = endereco;
 	}
 
 	public String getBairro() {
-		return Bairro;
+		return bairro;
 	}
 
 	public void setBairro(String bairro) {
-		Bairro = bairro;
+		this.bairro = bairro;
 	}
 
 	public String getCep() {
