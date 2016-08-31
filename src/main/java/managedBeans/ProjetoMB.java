@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import arquitetura.Bean;
+import beans.PessoaJuridica;
 import beans.Projeto;
 import dataAcessObject.ProjetoDAO;
 
@@ -17,28 +18,40 @@ public class ProjetoMB {
 	private Projeto projeto;
 	private ProjetoDAO projetoDAO;
 	private List<Bean> projetos;
-
+	private Projeto projetoSelecionado;
+	private List<Bean> projetosSelecionados;
 	public ProjetoMB() {
 		super();
 		projetoDAO = new ProjetoDAO();
-		projeto = new Projeto();
+		this.novoProjeto();
 		projetos = new ArrayList<Bean>();
-		this.findAllBean();
 		// TODO Auto-generated constructor stub
 	}
 
-	public void insertBean(){
+	public void addProjeto(){
 		try {
-			projetoDAO.insertBean(projeto);
-			projeto = new Projeto();
+			projetos.add(projeto);
+			this.novoProjeto();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		finally {
-			this.findAllBean();
-		}
 	}
 	
+	public void novoProjeto(){
+		projeto = new Projeto();
+		projeto.setPessoaJuridica(new PessoaJuridica());
+	}
+	
+    public void deleteProjeto() {
+        projetos.remove(projetoSelecionado);
+        projetoSelecionado = null;
+    }
+    
+    public void deleteProjetos() {
+        projetos.removeAll(projetosSelecionados);
+        projetosSelecionados = new ArrayList<Bean>();
+    }
+    
 	public void findAllBean(){
 		projetos = projetoDAO.findAllBean();
 	}
@@ -65,5 +78,21 @@ public class ProjetoMB {
 
 	public void setProjetos(List<Bean> projetos) {
 		this.projetos = projetos;
+	}
+
+	public Projeto getProjetoSelecionado() {
+		return projetoSelecionado;
+	}
+
+	public void setProjetoSelecionado(Projeto projetoSelecionado) {
+		this.projetoSelecionado = projetoSelecionado;
+	}
+
+	public List<Bean> getProjetosSelecionados() {
+		return projetosSelecionados;
+	}
+
+	public void setProjetosSelecionados(List<Bean> projetosSelecionados) {
+		this.projetosSelecionados = projetosSelecionados;
 	}
 }

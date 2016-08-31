@@ -28,7 +28,6 @@ public class PessoaJuridicaMB implements Serializable{
 		pessoaJuridica = new PessoaJuridica();
 		pessoaJuridicaDAO = new PessoaJuridicaDAO();
 		pessoasJuridicas = new ArrayList<Bean>();
-		this.findAllBean();
 		// TODO Auto-generated constructor stub
 	}
 

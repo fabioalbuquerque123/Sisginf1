@@ -39,7 +39,7 @@
         </h:form>
         </p:tab>
         <p:tab title="Projeto">
-        	<h:form>
+        	<h:form id="formProjeto">
             
           	<h:panelGrid columns="6" cellpadding="10">
 				<p:outputLabel for="nomeProjeto" value="Nome Projeto:" /> 
@@ -81,12 +81,18 @@
         		<p:outputLabel for="descricaoProjeto" value="Descrição:" />        		
         		<p:inputTextarea id="descricaoProjeto" rows="4" cols="40" value="#{ProjetoMB.projeto.descricao}"  />      
         		        			
-        		<p:commandButton value="Salvar" action="#{ProjetoMB.insertBean}"/>   
+        		<p:commandButton value="Inserir Projeto" action="#{ProjetoMB.addProjeto}" update="formProjeto"/>   
+        		<p:commandButton value="Limpar Campos" action="#{ProjetoMB.novoProjeto}" update="formProjeto"/>  
         		
             </h:panelGrid> 			    	
             
+
+                 
             <p:fieldset legend="Projetos Inseridos" toggleable="true" toggleSpeed="2000">
-				<p:dataTable var="projeto" value="#{ProjetoMB.projetos}">
+            
+				<p:dataTable id="projetos" var="projeto" value="#{ProjetoMB.projetos}" rowKey="#{projeto.nome}"
+					selection="#{ProjetoMB.projetosSelecionados}" style="margin-bottom:0">
+       				<p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 			    	<p:column headerText="Nome">
 			        	<h:outputText value="#{projeto.nome}" />
 			    	</p:column>
@@ -94,11 +100,13 @@
 			    	<p:column headerText="Descrição">
 			        	<h:outputText value="#{projeto.descricao}" />
 			    	</p:column>
-			
+			    	
+					<f:facet name="footer">
+            			<p:commandButton process="projetos" update="projetos" icon="ui-icon-close" value="Remover Projetos"  action="#{ProjetoMB.deleteProjetos}" />
+        			</f:facet>
 				</p:dataTable>
 				<br/>
-			</p:fieldset>
-			<p:commandButton value="Inserir Projeto" type="button" onclick="PF('dlg2').show();" />					
+			</p:fieldset>			
             
             </h:form>
         </p:tab>
