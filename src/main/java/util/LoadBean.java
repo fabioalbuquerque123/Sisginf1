@@ -36,7 +36,7 @@ public class LoadBean {
 		processo.setNumeroApensoANTAQ("Numero Apenso Antaq");
 		processo.setNumeroOriginalANTAQ("Num Original Antaq");
 		processo.setNumeroProcessoSEP("Numero Processo SEP");
-		processo.setProjeto(new ArrayList<>());
+		processo.setProjeto(new ArrayList<Projeto>());
 		return processo;
 	}
 
