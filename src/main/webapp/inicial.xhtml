@@ -12,9 +12,7 @@
    
    <h:body style="background: #FFFAFA">
              
-
-	<p:growl id="msgs" showDetail="true" />
- 
+ 	
     <p:tabView>
         <p:tab title="Processo">
         
@@ -38,10 +36,16 @@
             </h:panelGrid>
         </h:form>
         </p:tab>
-        <p:tab title="Projeto">
+        
+        
+        
+        
+        
+        
+        <p:tab title="Projeto" id="tabProjeto">
         	<h:form id="formProjeto">
             
-          	<h:panelGrid columns="6" cellpadding="10">
+          	<h:panelGrid id="pgProjetos" columns="6" cellpadding="10">
 				<p:outputLabel for="nomeProjeto" value="Nome Projeto:" /> 
         		<p:inputText id="nomeProjeto" value="#{ProjetoMB.projeto.nome}" size="20" />        	
         		
@@ -76,18 +80,44 @@
         		<p:inputText id="ufProjeto" value="#{ProjetoMB.projeto.uf}" size="20" />        		        		    
         		
         		<p:outputLabel for="pessoaJuridica" value="Pessoa Jurídica:" />
-        		<p:inputText id="pessoaJuridica" value="#{ProjetoMB.projeto.pessoaJuridica.nomeEmpresarial}" size="20"  />  
+        		<h:column>
+        			<p:inputText id="pessoaJuridica" value="#{ProjetoMB.projeto.pessoaJuridica.nomeEmpresarial}" size="20"  />
+        			<p:commandButton update="formProjeto" oncomplete="PF('pjDialog').show()" icon="ui-icon-search" title="View" >
+                		
+            		</p:commandButton>
+        		</h:column>  
         		
         		<p:outputLabel for="descricaoProjeto" value="Descrição:" />        		
         		<p:inputTextarea id="descricaoProjeto" rows="4" cols="40" value="#{ProjetoMB.projeto.descricao}"  />      
         		        			
         		<p:commandButton value="Inserir Projeto" action="#{ProjetoMB.addProjeto}" update="formProjeto"/>   
-        		<p:commandButton value="Limpar Campos" action="#{ProjetoMB.novoProjeto}" update="formProjeto"/>  
-        		
-            </h:panelGrid> 			    	
+        		<p:commandButton value="Limpar Campos" action="#{ProjetoMB.novoProjeto}" update="formProjeto"/>          		        		        		    		
+    		
+            </h:panelGrid> 		
             
+            
+            <p:dialog id="dialogPJ" header="Pessoas" widgetVar="pjDialog" modal="true" showEffect="fade"
+            	 hideEffect="fade" resizable="false">
 
-                 
+        				<p:dataTable id="pessoasJuridicas" var="pessoaJuridica" value="#{ProjetoMB.pessoasJuridicas}" rowKey="#{pessoaJuridica.idPessoaJuridica}"
+							selection="#{ProjetoMB.pessoaJuridicaSelecionada}" selectionMode="single">
+					
+					    	<p:column headerText="Nome">
+					        	<h:outputText value="#{pessoaJuridica.nomeEmpresarial}" />
+			    			</p:column>
+			 
+			    			<p:column headerText="Cnpj">
+			        			<h:outputText value="#{pessoaJuridica.cnpj}" />
+			    			</p:column>			    	
+						</p:dataTable>
+						
+						<p:growl id="growl" showDetail="true" sticky="true" />  
+						<br/>	
+						<p:commandButton actionListener="#{ProjetoMB.salvarPessoaJurica}" value="Selecionar" update="growl"/>
+																																	             	       
+    		</p:dialog>  	             
+                              	           
+			                 
             <p:fieldset legend="Projetos Inseridos" toggleable="true" toggleSpeed="2000">
             
 				<p:dataTable id="projetos" var="projeto" value="#{ProjetoMB.projetos}" rowKey="#{projeto.nome}"
@@ -110,36 +140,131 @@
             
             </h:form>
         </p:tab>
+        
+        
+        
+        
+        
+        
+        
         <p:tab title="Pessoa Jurídica">
-        	<h:form>
-            <h:panelGrid columns="2" cellpadding="10">                
-            
-            	<p:outputLabel for="nomeEmpresarial" value="Nome Empresarial:" /> 
-        		<p:inputText id="nomeEmpresarial" value="#{PessoaJuridicaMB.pessoaJuridica.nomeEmpresarial}" size="20" />
-        		
-        		<p:outputLabel for="cnpj" value="Cnpj:" /> 
-        		<p:inputText id="cnpj" value="#{PessoaJuridicaMB.pessoaJuridica.cnpj}" size="20" />        			
-        		
-        		<p:outputLabel for="endereco" value="Endereço:" /> 
-        		<p:inputText id="endereco" value="#{PessoaJuridicaMB.pessoaJuridica.endereco}" size="20" />
+			<h:form id="formPJ">
+				           	<h:panelGrid id="pgPJ" columns="2" cellpadding="10">                
+				            
+				            	<p:outputLabel for="nomeEmpresarial" value="Nome Empresarial:" /> 
+				        		<p:inputText id="nomeEmpresarial" value="#{PessoaJuridicaMB.pessoaJuridica.nomeEmpresarial}" size="20" />
+				        		
+				        		<p:outputLabel for="cnpj" value="Cnpj:" /> 
+				        		<p:inputText id="cnpj" value="#{PessoaJuridicaMB.pessoaJuridica.cnpj}" size="20" />        			
+				        		
+				        		<p:outputLabel for="endereco" value="Endereço:" /> 
+				        		<p:inputText id="endereco" value="#{PessoaJuridicaMB.pessoaJuridica.endereco}" size="20" />
+				
+								<p:outputLabel for="Bairro" value="Bairro" /> 
+				        		<p:inputText id="Bairro" value="#{PessoaJuridicaMB.pessoaJuridica.bairro}" size="20" />
+				        			        			
+								<p:outputLabel for="cep" value="Cep:" /> 
+				        		<p:inputText id="cep" value="#{PessoaJuridicaMB.pessoaJuridica.cep}" size="20" />        			
+				
+								<p:outputLabel for="municipio" value="Municipio:" /> 
+				        		<p:inputText id="municipio" value="#{PessoaJuridicaMB.pessoaJuridica.municipio}" size="20" />
+				        		
+				        		<p:outputLabel for="uf" value="UF:" /> 
+				        		<p:inputText id="uf" value="#{PessoaJuridicaMB.pessoaJuridica.uf}" size="20" />        			
+				        			
+				        		<p:outputLabel for="telefones" value="Telefones:" /> 
+				        		<p:inputText id="telefones" value="#{PessoaJuridicaMB.pessoaJuridica.telefones}" size="20" />
+				        			
+				        		<p:outputLabel for="responsavel" value="Responsável:" /> 
+				        		<h:column>
+        							<p:inputText id="responsavel" value="#{PessoaJuridicaMB.pessoaJuridica.responsavelLegalPJ.nome}" size="20"  />
+        							<p:commandButton update="formPJ" icon="ui-icon-search" title="View"
+        								oncomplete="PF('pjResp').show()" action="#{PessoaJuridicaMB.findAllResp}" />                		
+        						</h:column>  	
+        						
+        						<p:outputLabel for="contador" value="Contador:" /> 
+				        		<h:column>
+        							<p:inputText id="contador" value="#{PessoaJuridicaMB.pessoaJuridica.contadorPJ.nome}" size="20"  />
+        							<p:commandButton update="formPJ" icon="ui-icon-search" title="View"
+        								oncomplete="PF('pjCont').show()" action="#{PessoaJuridicaMB.findAllCont}" />                		
+        						</h:column>  			
+        						
+				            </h:panelGrid>
+				            
+				             <p:dialog id="dialogResp" header="Responsável" widgetVar="pjResp" modal="true" showEffect="fade"
+            	 				hideEffect="fade" resizable="false">
 
-				<p:outputLabel for="Bairro" value="Bairro" /> 
-        		<p:inputText id="Bairro" value="#{PessoaJuridicaMB.pessoaJuridica.bairro}" size="20" />
-        			        			
-				<p:outputLabel for="cep" value="Cep:" /> 
-        		<p:inputText id="cep" value="#{PessoaJuridicaMB.pessoaJuridica.cep}" size="20" />        			
+		        				<p:dataTable id="responsaveis" var="responsavel" value="#{PessoaJuridicaMB.listResponsavel}" rowKey="#{responsavel.idPessoaFisica}"
+									selection="#{PessoaJuridicaMB.responsavelSelecionado}" selectionMode="single">
+						
+							    	<p:column headerText="Nome">
+					        			<h:outputText value="#{responsavel.nome}" />
+			    					</p:column>
+			 
+					    			<p:column headerText="Cpf">
+					        			<h:outputText value="#{responsavel.cpf}" />
+			    					</p:column>			    	
+								</p:dataTable>		
+								
+								<p:commandButton value="Selecionar" action="#{PessoaJuridicaMB.selecionaResponsavel}" />																																																					             	      
+    						</p:dialog>  	
+    						
+    						<p:dialog id="dialogCont" header="Contador" widgetVar="pjCont" modal="true" showEffect="fade"
+            	 				hideEffect="fade" resizable="false">
 
-				<p:outputLabel for="municipio" value="Municipio:" /> 
-        		<p:inputText id="municipio" value="#{PessoaJuridicaMB.pessoaJuridica.municipio}" size="20" />
+		        				<p:dataTable id="contadores" var="contador" value="#{PessoaJuridicaMB.listContador}" rowKey="#{contador.idPessoaFisica}"
+									selection="#{PessoaJuridicaMB.contadorSelecionado}" selectionMode="single">
+						
+							    	<p:column headerText="Nome">
+					        			<h:outputText value="#{contador.nome}" />
+			    					</p:column>
+			 
+					    			<p:column headerText="Cpf">
+					        			<h:outputText value="#{contador.cpf}" />
+			    					</p:column>			    	
+								</p:dataTable>	
+								
+								<p:commandButton value="Selecionar" action="#{PessoaJuridicaMB.selecionaContador}" />																																																						             	      
+    						</p:dialog>  	             				            
+    						
+           				 </h:form>
+        </p:tab>       
+        
+        
+        
+        <p:tab title="Pessoa Física">
+        	<h:form id="fomrPessoaFisica">
         		
-        		<p:outputLabel for="uf" value="UF:" /> 
-        		<p:inputText id="uf" value="#{PessoaJuridicaMB.pessoaJuridica.uf}" size="20" />        			
-        			
-        		<p:outputLabel for="telefones" value="Telefones:" /> 
-        		<p:inputText id="telefones" value="#{PessoaJuridicaMB.pessoaJuridica.telefones}" size="20" />		
-            </h:panelGrid>
-            </h:form>
-        </p:tab>        
+        		 <p:growl id="growlPF" showDetail="true" sticky="true" />
+        		 	 
+        		 <h:panelGrid columns="2"  cellpadding="10">
+					<p:outputLabel for="cpf" value="Cpf:" /> 
+				    <p:inputText id="cpf" value="#{PessoaFisicaMB.pessoaFisicaTela.cpf}" size="20" /> 
+				            		
+        			<p:outputLabel for="nome" value="Nome:" /> 
+					<p:inputText id="nome" value="#{PessoaFisicaMB.pessoaFisicaTela.nome}" size="20" />				               		
+				        		
+				    <p:outputLabel for="telefone" value="Telefone:" /> 
+					<p:inputText id="telefone" value="#{PessoaFisicaMB.pessoaFisicaTela.telefones}" size="20" />
+				
+					<p:outputLabel for="email" value="Email:" /> 
+					<p:inputText id="email" value="#{PessoaFisicaMB.pessoaFisicaTela.email}" size="20" />										
+				</h:panelGrid>				        
+				
+				<br/>
+				
+				<h:selectOneRadio value="#{PessoaFisicaMB.tipoPessoaFisica}">
+   						<f:selectItem itemValue="responsavel" itemLabel="Responsável" />
+   						<f:selectItem itemValue="contador" itemLabel="Contador" />
+   				</h:selectOneRadio>
+				
+				<br/>
+									       
+				<p:commandButton value="Salvar" action="#{PessoaFisicaMB.saveBean}" update="fomrPessoaFisica"/>			        				
+        	</h:form>	        		        															
+        	
+        </p:tab>
+         
     </p:tabView>
     
    <p:commandButton value="Salvar" action="#{ReidiMB.regra}" />

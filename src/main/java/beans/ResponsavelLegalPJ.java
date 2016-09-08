@@ -1,10 +1,8 @@
 package beans;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue(value="RESP")
 public class ResponsavelLegalPJ extends PessoaFisica{
 
 	/**

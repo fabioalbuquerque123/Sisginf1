@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +18,6 @@ import arquitetura.Bean;
 
 @Entity
 @Inheritance( strategy = InheritanceType.SINGLE_TABLE )
-@DiscriminatorColumn(name = "type")
 @Table(name="tb_pessoaFisica")
 @SequenceGenerator(name="SEQ_PF", sequenceName="SEQ_PF_ID", initialValue=1, allocationSize=1)
 public class PessoaFisica extends Bean implements Serializable {
@@ -47,9 +45,15 @@ public class PessoaFisica extends Bean implements Serializable {
 	@Column
 	protected String telefones;
 	
+	@Column
+	protected String tipo;
+	
 	/*****RELACIONAMENTO*****/
-	@OneToMany(mappedBy="pessoaFisica", targetEntity=PessoaJuridica.class)
-	private List<PessoaJuridica> pessoaJuridicas;	
+	@OneToMany(mappedBy="contadorPJ", targetEntity=PessoaJuridica.class)
+	private List<ContadorPJ> pessoaJuridicasCont;	
+	
+	@OneToMany(mappedBy="responsavelLegalPJ", targetEntity=PessoaJuridica.class)
+	private List<ContadorPJ> pessoaJuridicasResp;	
 
 	public int getIdPessoaFisica() {
 		return idPessoaFisica;
@@ -91,11 +95,27 @@ public class PessoaFisica extends Bean implements Serializable {
 		this.telefones = telefones;
 	}
 
-	public List<PessoaJuridica> getPessoaJuridicas() {
-		return pessoaJuridicas;
+	public List<ContadorPJ> getPessoaJuridicasCont() {
+		return pessoaJuridicasCont;
 	}
 
-	public void setPessoaJuridicas(List<PessoaJuridica> pessoaJuridicas) {
-		this.pessoaJuridicas = pessoaJuridicas;
+	public void setPessoaJuridicasCont(List<ContadorPJ> pessoaJuridicasCont) {
+		this.pessoaJuridicasCont = pessoaJuridicasCont;
+	}
+
+	public List<ContadorPJ> getPessoaJuridicasResp() {
+		return pessoaJuridicasResp;
+	}
+
+	public void setPessoaJuridicasResp(List<ContadorPJ> pessoaJuridicasResp) {
+		this.pessoaJuridicasResp = pessoaJuridicasResp;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 }

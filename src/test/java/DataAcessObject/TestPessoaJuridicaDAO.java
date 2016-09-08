@@ -8,6 +8,7 @@ import arquitetura.DataAcessObject;
 import beans.ContadorPJ;
 import beans.PessoaFisica;
 import beans.PessoaJuridica;
+import beans.ResponsavelLegalPJ;
 import dataAcessObject.PessoaFisicaDAO;
 import dataAcessObject.PessoaJuridicaDAO;
 import junit.framework.TestCase;
@@ -16,20 +17,27 @@ import util.LoadBean;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestPessoaJuridicaDAO extends TestCase{
 
+	private PessoaFisicaDAO pessoaFisicaDAO;
 	private DataAcessObject dao;
 	private PessoaJuridica pessoaJuridica;
-	private PessoaFisica pessoaFisica;
+	private ContadorPJ contadorPJ;
+	private ResponsavelLegalPJ responsavel;
 	
 	@Test
 	public void testAinsertBean(){
 		try{
-			dao = new PessoaFisicaDAO();
-			pessoaFisica = LoadBean.getContadorPJ();
-			dao.insertBean(pessoaFisica);			
-			pessoaFisica = new ContadorPJ();
-			pessoaFisica = (ContadorPJ) dao.findAllBean().get(0);			
+			pessoaFisicaDAO = new PessoaFisicaDAO();
+			contadorPJ = LoadBean.getContadorPJ();
+			responsavel = LoadBean.getResponsavelLegalPJ();
+			dao.insertBean(contadorPJ);
+			dao.insertBean(responsavel);	
+			contadorPJ = new ContadorPJ();
+			contadorPJ = (ContadorPJ) pessoaFisicaDAO.findAllContador().get(0);		
+			responsavel = new ResponsavelLegalPJ();
+			responsavel = (ResponsavelLegalPJ) pessoaFisicaDAO.findAllResp().get(0);	
 			pessoaJuridica = LoadBean.getPessoaJuridica();
-			pessoaJuridica.setPessoaFisica(pessoaFisica);
+			pessoaJuridica.setContadorPJ(contadorPJ);
+			pessoaJuridica.setResponsavelLegalPJ(responsavel);
 			dao = new PessoaJuridicaDAO();
 			dao.insertBean(pessoaJuridica);			
 		}catch(Exception e){
@@ -55,9 +63,11 @@ public class TestPessoaJuridicaDAO extends TestCase{
 			dao = new PessoaJuridicaDAO();
 			pessoaJuridica = (PessoaJuridica) dao.findAllBean().get(0);	
 			dao.deleteBean(pessoaJuridica);
-			dao = new PessoaFisicaDAO();
-			pessoaFisica = (PessoaFisica) dao.findAllBean().get(0);
-			dao.deleteBean(pessoaFisica);
+			pessoaFisicaDAO = new PessoaFisicaDAO();
+			contadorPJ = (ContadorPJ) pessoaFisicaDAO.findAllContador().get(0);
+			dao.deleteBean(contadorPJ);
+			responsavel = (ResponsavelLegalPJ) pessoaFisicaDAO.findAllResp().get(0);
+			dao.deleteBean(responsavel);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

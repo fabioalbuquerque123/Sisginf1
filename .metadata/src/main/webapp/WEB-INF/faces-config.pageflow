@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14714600257920" configfile="/sisginf_versao1/src/main/webapp/WEB-INF/faces-config.xml">
   <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="122" y="178" id="pf14721512878300" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" outlinks="pf14721512878301 pf14721512948384" inlinks="pf14721512948384" path="/login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="inicial.xhtml" x="338" y="178" id="pf14721512878513" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf14721512878301" path="/inicial.xhtml"/>
-  <links id="pf14721512878301" target="pf14721512878513" source="pf14721512878300" outcome="loginOk"/>
+  <nodes xsi:type="pageflow:PFPage" name="inicial.xhtml" x="338" y="178" id="pf14721512878513" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf14721512878301" path="/inicial.xhtml"/>
+  <links id="pf14721512878301" target="pf14721512878513" source="pf14721512878300" outcome="loginOk" redirect="true"/>
   <links id="pf14721512948384" target="pf14721512878300" source="pf14721512878300" outcome="loginFail"/>
 </pageflow:Pageflow>

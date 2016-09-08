@@ -1,33 +1,70 @@
 package managedBeans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import arquitetura.Bean;
+import beans.PessoaFisica;
 import beans.PessoaJuridica;
 import beans.Projeto;
+import dataAcessObject.PessoaFisicaDAO;
+import dataAcessObject.PessoaJuridicaDAO;
 import dataAcessObject.ProjetoDAO;
 
 @ManagedBean(name="ProjetoMB")
 @ViewScoped
-public class ProjetoMB {
+public class ProjetoMB implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4351551810155304204L;
+	
+	//Projeto
 	private Projeto projeto;
 	private ProjetoDAO projetoDAO;
 	private List<Bean> projetos;
 	private Projeto projetoSelecionado;
 	private List<Bean> projetosSelecionados;
+	
+	//Pessoa Jurídica
+	private List<Bean> pessoasJuridicas;
+	private PessoaJuridicaDAO pessoaJuridicaDAO;
+	private PessoaJuridica pessoaJuridicaSelecionada;
+	
+	//Pessoa Física
+	private List<Bean> pessoasFisicas;
+	private PessoaFisicaDAO pessoaFisicaDAO;
+	private PessoaFisica pessoaFisicaSelecionada;
+	
+	private boolean renderedPF;
+	private boolean renderedPJ;
+	
+	
+	//Construtor
 	public ProjetoMB() {
 		super();
 		projetoDAO = new ProjetoDAO();
 		this.novoProjeto();
 		projetos = new ArrayList<Bean>();
+		pessoaJuridicaDAO = new PessoaJuridicaDAO();
+		this.findAllPessoasJuridicas();
+		pessoaJuridicaSelecionada = new PessoaJuridica();
+		pessoaFisicaDAO = new PessoaFisicaDAO();
+		this.findAllPessoasFisicas();
+		pessoaFisicaSelecionada = new PessoaFisica();
+		renderedPF = false;
+		renderedPJ = true;
 		// TODO Auto-generated constructor stub
 	}
 
+	//Métodos Projeto
 	public void addProjeto(){
 		try {
 			projetos.add(projeto);
@@ -54,6 +91,52 @@ public class ProjetoMB {
     
 	public void findAllBean(){
 		projetos = projetoDAO.findAllBean();
+	}
+	
+	
+	//Metodos Pessoa Jurídica
+	private void findAllPessoasJuridicas(){
+		pessoasJuridicas = pessoaJuridicaDAO.findAllBean();
+	}
+	
+	public void selecionarPessoaJuridica(){
+		projeto.setPessoaJuridica(pessoaJuridicaSelecionada);
+	}
+	
+	public void salvarPessoaJurica(){
+		if(pessoaFisicaSelecionada == null){
+			FacesContext.getCurrentInstance().
+       	   	addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info!", "Pessoa Física deve ser selecionada!"));
+			limparPJePF();
+		}else{			
+			if(pessoaJuridicaSelecionada == null){
+				FacesContext.getCurrentInstance().
+	          	   addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info!", "Pessoa Jurídica deve ser selecionada!"));
+				limparPJePF();
+			}else{
+				selecionarPessoaJuridica();
+			}
+		}
+	}
+	
+	private void limparPJePF(){
+		pessoaFisicaSelecionada = new PessoaFisica();
+		pessoaJuridicaSelecionada = new PessoaJuridica();
+	}
+	
+	public void openTabPF(){
+		renderedPF = true;
+		renderedPJ = false;
+	}
+	
+	public void closeTabPF(){
+		renderedPF = false;
+		renderedPJ = true;
+	}
+	
+	//Metodos Pessoa Física
+	private void findAllPessoasFisicas(){
+		pessoasFisicas = pessoaFisicaDAO.findAllBean();
 	}
 	
 	public Projeto getProjeto() {
@@ -95,4 +178,68 @@ public class ProjetoMB {
 	public void setProjetosSelecionados(List<Bean> projetosSelecionados) {
 		this.projetosSelecionados = projetosSelecionados;
 	}
+
+	public List<Bean> getPessoasJuridicas() {
+		return pessoasJuridicas;
+	}
+
+	public void setPessoasJuridicas(List<Bean> pessoasJuridicas) {
+		this.pessoasJuridicas = pessoasJuridicas;
+	}
+
+	public PessoaJuridicaDAO getPessoaJuridicaDAO() {
+		return pessoaJuridicaDAO;
+	}
+
+	public void setPessoaJuridicaDAO(PessoaJuridicaDAO pessoaJuridicaDAO) {
+		this.pessoaJuridicaDAO = pessoaJuridicaDAO;
+	}
+
+	public PessoaJuridica getPessoaJuridicaSelecionada() {
+		return pessoaJuridicaSelecionada;
+	}
+
+	public void setPessoaJuridicaSelecionada(PessoaJuridica pessoaJuridicaSelecionada) {
+		this.pessoaJuridicaSelecionada = pessoaJuridicaSelecionada;
+	}
+
+	public List<Bean> getPessoasFisicas() {
+		return pessoasFisicas;
+	}
+
+	public void setPessoasFisicas(List<Bean> pessoasFisicas) {
+		this.pessoasFisicas = pessoasFisicas;
+	}
+
+	public PessoaFisicaDAO getPessoaFisicaDAO() {
+		return pessoaFisicaDAO;
+	}
+
+	public void setPessoaFisicaDAO(PessoaFisicaDAO pessoaFisicaDAO) {
+		this.pessoaFisicaDAO = pessoaFisicaDAO;
+	}
+
+	public PessoaFisica getPessoaFisicaSelecionada() {
+		return pessoaFisicaSelecionada;
+	}
+
+	public void setPessoaFisicaSelecionada(PessoaFisica pessoaFisicaSelecionada) {
+		this.pessoaFisicaSelecionada = pessoaFisicaSelecionada;
+	}
+
+	public boolean isRenderedPF() {
+		return renderedPF;
+	}
+
+	public void setRenderedPF(boolean renderedPF) {
+		this.renderedPF = renderedPF;
+	}
+
+	public boolean isRenderedPJ() {
+		return renderedPJ;
+	}
+
+	public void setRenderedPJ(boolean renderedPJ) {
+		this.renderedPJ = renderedPJ;
+	}	
 }

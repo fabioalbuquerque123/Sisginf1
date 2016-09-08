@@ -15,6 +15,7 @@
       		<navigation-case>
             	<from-outcome>loginOk</from-outcome>
 	            <to-view-id>/inicial.xhtml</to-view-id>
+	            <redirect />
       		</navigation-case>
       		<navigation-case>
             	<from-outcome>loginFail</from-outcome>

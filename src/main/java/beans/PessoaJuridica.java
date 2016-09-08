@@ -57,8 +57,12 @@ public class PessoaJuridica extends Bean implements Serializable{
 	
 	/*****RELACIONAMENTO*****/
 	@ManyToOne
-	@JoinColumn(name="idPessoaFisica", referencedColumnName="idPessoaFisica")
-	private PessoaFisica pessoaFisica;
+	@JoinColumn(name="idContador", referencedColumnName="idPessoaFisica")
+	private ContadorPJ contadorPJ;
+	
+	@ManyToOne
+	@JoinColumn(name="idResponsavel", referencedColumnName="idPessoaFisica")
+	private ResponsavelLegalPJ responsavelLegalPJ;
 	
 	@OneToMany(mappedBy="pessoaJuridica", targetEntity=Projeto.class)
 	private List<Projeto> projetos;	
@@ -135,19 +139,27 @@ public class PessoaJuridica extends Bean implements Serializable{
 		this.telefones = telefones;
 	}
 
-	public PessoaFisica getPessoaFisica() {
-		return pessoaFisica;
-	}
-
-	public void setPessoaFisica(PessoaFisica pessoaFisica) {
-		this.pessoaFisica = pessoaFisica;
-	}
-
 	public List<Projeto> getProjetos() {
 		return projetos;
 	}
 
 	public void setProjetos(List<Projeto> projetos) {
 		this.projetos = projetos;
+	}
+
+	public ContadorPJ getContadorPJ() {
+		return contadorPJ;
+	}
+
+	public void setContadorPJ(ContadorPJ contadorPJ) {
+		this.contadorPJ = contadorPJ;
+	}
+
+	public ResponsavelLegalPJ getResponsavelLegalPJ() {
+		return responsavelLegalPJ;
+	}
+
+	public void setResponsavelLegalPJ(ResponsavelLegalPJ responsavelLegalPJ) {
+		this.responsavelLegalPJ = responsavelLegalPJ;
 	}
 }

@@ -52,6 +52,7 @@ public class LoadBean {
 		responsavelLegalPJ.setEmail("teste@teste");
 		responsavelLegalPJ.setNome("Responsavel Teste");
 		responsavelLegalPJ.setTelefones("123456");
+		responsavelLegalPJ.setTipo("RESP");
 		return responsavelLegalPJ;		
 	}
 	
@@ -61,6 +62,7 @@ public class LoadBean {
 		contadorPJ.setEmail("teste@teste");
 		contadorPJ.setNome("Contador Teste");
 		contadorPJ.setTelefones("123456");
+		contadorPJ.setTipo("CONT");
 		return contadorPJ;		
 	}
 	

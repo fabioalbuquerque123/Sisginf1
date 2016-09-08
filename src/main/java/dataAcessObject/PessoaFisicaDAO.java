@@ -27,4 +27,25 @@ public class PessoaFisicaDAO extends DataAcessObject implements Serializable{
 		return list;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Bean> findAllContador(){
+		try{
+			super.em = Conn.getEntityManager();
+			list = super.em.createQuery("select c from PessoaFisica c where c.tipo like 'C%' ").getResultList();					
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return list;	
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Bean> findAllResp(){
+		try{
+			super.em = Conn.getEntityManager();
+			list = super.em.createQuery("select c from PessoaFisica c where c.tipo like 'R%' ").getResultList();			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return list;	
+	}
 }
