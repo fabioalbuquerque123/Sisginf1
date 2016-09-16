@@ -3,31 +3,53 @@
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:p="http://primefaces.org/ui">
-   
-   
+      
   <h:head>
-
+  
   </h:head>
    
-   <h:body style="background: #FFFAFA">
-        <h:form>        
-        <br/><br/><br/><br/><br/><br/>
-        <p:panel  header="Login" style="width: 500px; min-width: 500px; min-height: 200px; margin: 0 auto;">
-        	<p:panelGrid columns="2"  style="width:100%; height:10%;" >
-        		<p:outputLabel for="nomeUsuario" value="Nome Usuário:" /> 
-        		<p:inputText id="nomeUsuario" value="#{LoginMB.usuario.nome}" size="15" />
+   
+   <h:body >
+   	
+  	 <center>
+  	 	<br/><br/><br/><br/>
+  	 	<p:graphicImage url="images/brasao-da-republica.jpg" width="80px" height="80px"/><br/><br/>  	 	
+
+  	 	<p:outputLabel value="Coordenação Geral de Tecnologia da Informação Portuária" style="font-size: 120%;  font: arial, sans-serif;"/><br/>
+  	 	<br/><br/><br/>
+  	 	
+  	 	<p:outputLabel value="Sistema de Gerenciamento de Incentivos Fiscais - SISGINF" style="font-size: 250%; font: arial, sans-serif;" />
+  	 	
+        <h:form id="formLogin">       
+        <br/><br/>
+        
+        
+        
+        <br/><br/>  <br/><br/>
+        <p:outputLabel value="Fazer login para acessar o sistema" style="font-size: 120%; color: #696969; font: arial, sans-serif;"/>
+        
+        <p:panel   style="width: 300px; min-width: 300px; min-height: 200px; margin: 0 auto; background: #F5F5F5" >
+        	<center>
+        	
         		
-        		<p:outputLabel for="senha" value="Senha:" /> 
-        		<p:password id="senha" value="#{LoginMB.usuario.senha}" size="15" />
+        		<br/>
+        		<p:inputText value="#{LoginMB.usuario.nome}" size="15" placeholder="Insira seu login" /> <br/><br/>
+        		
+        		 
+        		<p:password value="#{LoginMB.usuario.senha}" size="15" placeholder="Senha"/>
         		
         		     
-        	</p:panelGrid>
-        	<br/>
-        	<p:messages id="Login"></p:messages>
-        	<br/>
-        	<p:commandButton value="Enviar" action="#{LoginMB.envia}" />
         	
+        	<br/>        	
+        	<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" style=" font: 12px arial, sans-serif; " />
+        	<br/>
+        	<p:commandButton value="Fazer login" action="#{LoginMB.envia}" update="formLogin" size="15"        			
+	     			style="background: #1874CD; font-weight: 10; color: #FFFFFF; font: 15px arial, sans-serif;"  />
+        	</center>
         </p:panel>
+        
         </h:form>
+   	  </center>
 	</h:body>
+	
 </html>

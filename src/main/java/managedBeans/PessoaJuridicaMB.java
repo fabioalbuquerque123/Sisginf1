@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import arquitetura.Bean;
 import arquitetura.DataAcessObject;
@@ -89,6 +91,22 @@ public class PessoaJuridicaMB implements Serializable{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	
+	public void insertBean(){
+		try{
+			pessoaJuridicaDAO = new PessoaJuridicaDAO();
+			pessoaJuridicaDAO.insertBean(pessoaJuridica);
+			clearFields();
+			FacesContext context = FacesContext.getCurrentInstance();	         
+	        context.addMessage(null, new FacesMessage("",  "Cadastro realizado com sucesso!") );
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	private void clearFields(){
+		pessoaJuridica = new PessoaJuridica();		
 	}
 
 	public PessoaJuridica getPessoaJuridica() {

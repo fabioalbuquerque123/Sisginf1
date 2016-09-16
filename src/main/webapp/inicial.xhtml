@@ -10,14 +10,14 @@
    
   </h:head>
    
-   <h:body style="background: #FFFAFA">
-             
+   <h:body style="background: #FFFAFA">          
  	
     <p:tabView>
         <p:tab title="Processo">
         
-        <h:form>   
-            <h:panelGrid columns="2" cellpadding="10">
+        <h:form id="formProcesso">   
+            <h:panelGrid id="pgProcessos" columns="2" cellpadding="10">
+            
 				<p:outputLabel for="numeroOriginalAntaq" value="Nº Original Antaq:" /> 
         		<p:inputText id="numeroOriginalAntaq" value="#{ProcessoMB.processo.numeroOriginalANTAQ}" size="20" />
         		
@@ -82,7 +82,8 @@
         		<p:outputLabel for="pessoaJuridica" value="Pessoa Jurídica:" />
         		<h:column>
         			<p:inputText id="pessoaJuridica" value="#{ProjetoMB.projeto.pessoaJuridica.nomeEmpresarial}" size="20"  />
-        			<p:commandButton update="formProjeto" oncomplete="PF('pjDialog').show()" icon="ui-icon-search" title="View" >
+        			<p:commandButton update="formProjeto" oncomplete="PF('pjDialog').show()" icon="ui-icon-search" title="View"
+        				action="#{ProjetoMB.findAllPessoasJuridicas}" > 
                 		
             		</p:commandButton>
         		</h:column>  
@@ -113,7 +114,8 @@
 						
 						<p:growl id="growl" showDetail="true" sticky="true" />  
 						<br/>	
-						<p:commandButton actionListener="#{ProjetoMB.salvarPessoaJurica}" value="Selecionar" update="growl"/>
+						<p:commandButton actionListener="#{ProjetoMB.selecionarPessoaJuridica}" value="Selecionar" update="pgProjetos"
+							oncomplete="PF('pjDialog').hide()" />
 																																	             	       
     		</p:dialog>  	             
                               	           
@@ -129,6 +131,10 @@
 			 
 			    	<p:column headerText="Descrição">
 			        	<h:outputText value="#{projeto.descricao}" />
+			    	</p:column>
+			    	
+			    	<p:column headerText="Pessoa Jurídica">
+			        	<h:outputText value="#{projeto.pessoaJuridica.nomeEmpresarial}" />
 			    	</p:column>
 			    	
 					<f:facet name="footer">
@@ -206,7 +212,8 @@
 			    					</p:column>			    	
 								</p:dataTable>		
 								
-								<p:commandButton value="Selecionar" action="#{PessoaJuridicaMB.selecionaResponsavel}" />																																																					             	      
+								<p:commandButton value="Selecionar" action="#{PessoaJuridicaMB.selecionaResponsavel}"
+									oncomplete="PF('pjResp').hide()" update="pgPJ"/>																																																					             	      
     						</p:dialog>  	
     						
     						<p:dialog id="dialogCont" header="Contador" widgetVar="pjCont" modal="true" showEffect="fade"
@@ -224,9 +231,11 @@
 			    					</p:column>			    	
 								</p:dataTable>	
 								
-								<p:commandButton value="Selecionar" action="#{PessoaJuridicaMB.selecionaContador}" />																																																						             	      
+								<p:commandButton value="Selecionar" action="#{PessoaJuridicaMB.selecionaContador}" 
+									oncomplete="PF('pjCont').hide()" update="pgPJ"/>																																																						             	      
     						</p:dialog>  	             				            
     						
+    						<p:commandButton value="Salvar" action="#{PessoaJuridicaMB.insertBean}" update="formPJ"/>	
            				 </h:form>
         </p:tab>       
         
@@ -237,7 +246,7 @@
         		
         		 <p:growl id="growlPF" showDetail="true" sticky="true" />
         		 	 
-        		 <h:panelGrid columns="2"  cellpadding="10">
+        		 <h:panelGrid id="pgPessoaFisica" columns="2"  cellpadding="10">
 					<p:outputLabel for="cpf" value="Cpf:" /> 
 				    <p:inputText id="cpf" value="#{PessoaFisicaMB.pessoaFisicaTela.cpf}" size="20" /> 
 				            		
@@ -267,9 +276,8 @@
          
     </p:tabView>
     
-   <p:commandButton value="Salvar" action="#{ReidiMB.regra}" />
+   <p:commandButton value="Salvar" action="#{ProcessoMB.inserirProcesso}"   />
         
-    
 	</h:body>
 	
 </html>

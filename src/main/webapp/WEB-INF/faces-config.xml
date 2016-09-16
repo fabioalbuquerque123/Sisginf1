@@ -22,4 +22,18 @@
 	            <to-view-id>/login.xhtml</to-view-id>
       		</navigation-case>
 	</navigation-rule>
+	
+	<navigation-rule>
+    	<from-view-id>/inicial.xhtml</from-view-id>
+      		<navigation-case>
+            	<from-outcome>insertReidOK</from-outcome>
+	            <to-view-id>/reidi.xhtml</to-view-id>
+	            <redirect />
+      		</navigation-case>
+      		<navigation-case>
+            	<from-outcome>insertReidFail</from-outcome>
+	            <to-view-id>/inicial.xhtml</to-view-id>
+	            <redirect />
+      		</navigation-case>      		
+	</navigation-rule>
 </faces-config>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import arquitetura.Bean;
 import arquitetura.DataAcessObject;
+import beans.Processo;
 import util.Conn;
 
 public class ProcessoDAO extends DataAcessObject implements Serializable{
@@ -14,6 +15,7 @@ public class ProcessoDAO extends DataAcessObject implements Serializable{
 	 */
 	private static final long serialVersionUID = -5021541415576158479L;
 	private List<Bean> list;
+	private Processo processo;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -27,4 +29,13 @@ public class ProcessoDAO extends DataAcessObject implements Serializable{
 		return list;
 	}
 
+	public Processo findByNumeroProcessoSEP(String numeroProcessoSEP){
+		try{
+			super.em = Conn.getEntityManager();
+			processo = (Processo) super.em.createQuery("select c from Processo c where c.numeroProcessoSEP = :numeroProcesso").setParameter("numeroProcesso", numeroProcessoSEP).getSingleResult();			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return processo;		
+	}
 }

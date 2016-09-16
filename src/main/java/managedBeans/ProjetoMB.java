@@ -25,11 +25,13 @@ public class ProjetoMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -4351551810155304204L;
+	private static ProjetoMB projetoMB = new ProjetoMB();
 	
 	//Projeto
 	private Projeto projeto;
 	private ProjetoDAO projetoDAO;
 	private List<Bean> projetos;
+	private static List<Bean> projetosParaReidiMB;
 	private Projeto projetoSelecionado;
 	private List<Bean> projetosSelecionados;
 	
@@ -53,8 +55,9 @@ public class ProjetoMB implements Serializable{
 		projetoDAO = new ProjetoDAO();
 		this.novoProjeto();
 		projetos = new ArrayList<Bean>();
+		projetosParaReidiMB = new ArrayList<Bean>();
 		pessoaJuridicaDAO = new PessoaJuridicaDAO();
-		this.findAllPessoasJuridicas();
+		//this.findAllPessoasJuridicas();
 		pessoaJuridicaSelecionada = new PessoaJuridica();
 		pessoaFisicaDAO = new PessoaFisicaDAO();
 		this.findAllPessoasFisicas();
@@ -68,7 +71,9 @@ public class ProjetoMB implements Serializable{
 	public void addProjeto(){
 		try {
 			projetos.add(projeto);
+			projetosParaReidiMB.add(projeto);
 			this.novoProjeto();
+			pessoaJuridicaSelecionada = new PessoaJuridica();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -77,25 +82,30 @@ public class ProjetoMB implements Serializable{
 	public void novoProjeto(){
 		projeto = new Projeto();
 		projeto.setPessoaJuridica(new PessoaJuridica());
+		projetoSelecionado = new Projeto();
 	}
 	
     public void deleteProjeto() {
         projetos.remove(projetoSelecionado);
+        projetosParaReidiMB.remove(projetoSelecionado);
         projetoSelecionado = null;
     }
     
     public void deleteProjetos() {
         projetos.removeAll(projetosSelecionados);
+        projetosParaReidiMB.removeAll(projetosSelecionados);
         projetosSelecionados = new ArrayList<Bean>();
     }
     
 	public void findAllBean(){
 		projetos = projetoDAO.findAllBean();
+		projetosParaReidiMB = projetos;
 	}
 	
 	
 	//Metodos Pessoa Jurídica
-	private void findAllPessoasJuridicas(){
+	public void findAllPessoasJuridicas(){
+		pessoaJuridicaDAO = new PessoaJuridicaDAO();
 		pessoasJuridicas = pessoaJuridicaDAO.findAllBean();
 	}
 	
@@ -117,6 +127,13 @@ public class ProjetoMB implements Serializable{
 				selecionarPessoaJuridica();
 			}
 		}
+	}
+	
+	public void clearFields(){
+		projetos = new ArrayList<Bean>();
+		projetosParaReidiMB = projetos;
+		projetosSelecionados = new ArrayList<Bean>();
+		projetoSelecionado = new Projeto();
 	}
 	
 	private void limparPJePF(){
@@ -242,4 +259,16 @@ public class ProjetoMB implements Serializable{
 	public void setRenderedPJ(boolean renderedPJ) {
 		this.renderedPJ = renderedPJ;
 	}	
+	
+	public static ProjetoMB getInstance() {
+		return projetoMB;
+	}
+
+	public static List<Bean> getProjetosParaReidiMB() {
+		return projetosParaReidiMB;
+	}
+
+	public static void setProjetosParaReidiMB(List<Bean> projetosParaReidiMB) {
+		ProjetoMB.projetosParaReidiMB = projetosParaReidiMB;
+	}
 }
