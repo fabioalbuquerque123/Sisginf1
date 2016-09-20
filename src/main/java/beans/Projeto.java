@@ -14,8 +14,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import arquitetura.Bean;
-import util.StatusProjeto;
-import util.StatusRelatorio;
 
 @Entity
 @Table(name="tb_projeto")
@@ -49,6 +47,7 @@ public class Projeto extends Bean implements Serializable{
 	@Column
 	private String uf;
 	
+	@Column
 	private String localidade;
 	
 	@Column
@@ -76,7 +75,7 @@ public class Projeto extends Bean implements Serializable{
 	private Date dataAprovRejeicao;
 	
 	@Column
-	private StatusProjeto statusProjeto;
+	private String statusProjeto;
 	
 	@Column
 	private double estimativaValBensCom;
@@ -97,9 +96,6 @@ public class Projeto extends Bean implements Serializable{
 	private double estimativaValOutrosSem;
 	
 	@Column
-	private StatusRelatorio statusRelatorio;
-	
-	@Column
 	private Date dataLimiteRelatorio;
 	
 	@Column
@@ -107,6 +103,9 @@ public class Projeto extends Bean implements Serializable{
 	
 	@Column
 	private Date dataCienciaOficioPJ;
+	
+	@Column
+	private String pathPortaria;
 
 	public int getIdProjeto() {
 		return idProjeto;
@@ -220,11 +219,11 @@ public class Projeto extends Bean implements Serializable{
 		this.dataAprovRejeicao = dataAprovRejeicao;
 	}
 
-	public StatusProjeto getStatusProjeto() {
+	public String getStatusProjeto() {
 		return statusProjeto;
 	}
 
-	public void setStatusProjeto(StatusProjeto statusProjeto) {
+	public void setStatusProjeto(String statusProjeto) {
 		this.statusProjeto = statusProjeto;
 	}
 
@@ -276,14 +275,6 @@ public class Projeto extends Bean implements Serializable{
 		this.estimativaValOutrosSem = estimativaValOutrosSem;
 	}
 
-	public StatusRelatorio getStatusRelatorio() {
-		return statusRelatorio;
-	}
-
-	public void setStatusRelatorio(StatusRelatorio statusRelatorio) {
-		this.statusRelatorio = statusRelatorio;
-	}
-
 	public Date getDataLimiteRelatorio() {
 		return dataLimiteRelatorio;
 	}
@@ -314,5 +305,13 @@ public class Projeto extends Bean implements Serializable{
 
 	public void setPessoaJuridica(PessoaJuridica pessoaJuridica) {
 		this.pessoaJuridica = pessoaJuridica;
+	}
+
+	public String getPathPortaria() {
+		return pathPortaria;
+	}
+
+	public void setPathPortaria(String pathPortaria) {
+		this.pathPortaria = pathPortaria;
 	}
 }

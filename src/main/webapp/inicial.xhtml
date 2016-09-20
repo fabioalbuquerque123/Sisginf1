@@ -10,30 +10,35 @@
    
   </h:head>
    
-   <h:body style="background: #FFFAFA">          
+   <h:body style="background: #FFFFFF">          
  	
-    <p:tabView>
-        <p:tab title="Processo">
+    <p:tabView id="tabViewReidi" style="font-weight: 10; font: 15px arial, sans-serif;">
+        <p:tab id="tabProcesso" title="Processo" >
         
         <h:form id="formProcesso">   
             <h:panelGrid id="pgProcessos" columns="2" cellpadding="10">
             
-				<p:outputLabel for="numeroOriginalAntaq" value="Nº Original Antaq:" /> 
-        		<p:inputText id="numeroOriginalAntaq" value="#{ProcessoMB.processo.numeroOriginalANTAQ}" size="20" />
+				<p:outputLabel for="numeroOriginalAntaq" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nº Original Antaq:" /> 
+        		<p:inputText id="numeroOriginalAntaq" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProcessoMB.processo.numeroOriginalANTAQ}" size="20" />
         		
-				<p:outputLabel for="numeroApensoAntaq" value="Nº Apenso Antaq:" /> 
-        		<p:inputText id="numeroApensoAntaq" value="#{ProcessoMB.processo.numeroApensoANTAQ}" size="20" />
-        		        	
-        		<p:outputLabel for="localizacao" value="Localização:" /> 
-        		<p:inputText id="localizacao" value="#{ProcessoMB.processo.localizacao}" size="20" />
+				<p:outputLabel for="numeroApensoAntaq" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nº Apenso Antaq:" /> 
+        		<p:inputText id="numeroApensoAntaq"  style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProcessoMB.processo.numeroApensoANTAQ}" size="20" />        		        
         		        		
-        		<p:outputLabel for="numeroProcessoSep" value="Nº Processo SEP:" /> 
-        		<p:inputText id="numeroProcessoSep" value="#{ProcessoMB.processo.numeroProcessoSEP}" size="20" />        	
+        		<p:outputLabel for="numeroProcessoSep" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nº Processo SEP:" /> 
+        		<p:inputText id="numeroProcessoSep"  style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProcessoMB.processo.numeroProcessoSEP}" size="20" />        	
         		        		
-        		<p:outputLabel for="dataProtocoloSep" value="Data Protocolo SEP:" />
-        		<p:calendar id="dataProtocoloSep" value="#{ProcessoMB.processo.dataProtocoloSEP}" showOn="button" />
+        		<p:outputLabel for="dataProtocoloSep" style="font-weight: 10; font: 15px arial, sans-serif;" value="Data Protocolo SEP:" />
+        		<p:calendar id="dataProtocoloSep" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProcessoMB.processo.dataProtocoloSEP}" showOn="button"  />
+        		
+        		<p:outputLabel for="localizacao" style="font-weight: 10; font: 15px arial, sans-serif;" value="Localização:" />         		        		
+       			<p:selectOneMenu id="localizacao" value="#{ProcessoMB.processo.localizacao}" style="width:10px" >
+            		<f:selectItems  value="#{ProcessoMB.localizaoSituacaoProcesso}" style="font-weight: 10; font: 15px arial, sans-serif;"  />            
+        		</p:selectOneMenu>
         		
             </h:panelGrid>
+            <br/><br/>
+           	<p:commandButton value="Salvar" action="#{ProcessoMB.inserirProcesso}"  
+           		style="font-weight: 10; font: 15px arial, sans-serif;" />
         </h:form>
         </p:tab>
         
@@ -42,103 +47,155 @@
         
         
         
-        <p:tab title="Projeto" id="tabProjeto">
+        <p:tab title="Projeto" id="tabProjeto" >
         	<h:form id="formProjeto">
             
-          	<h:panelGrid id="pgProjetos" columns="6" cellpadding="10">
-				<p:outputLabel for="nomeProjeto" value="Nome Projeto:" /> 
-        		<p:inputText id="nomeProjeto" value="#{ProjetoMB.projeto.nome}" size="20" />        	
+          	<h:panelGrid id="pgProjetos" columns="8" cellpadding="10">
+				<p:outputLabel for="nomeProjeto" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nome Projeto:" /> 
+        		<p:inputText id="nomeProjeto" style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProjetoMB.projeto.nome}" size="20" />        	
         		
-        		<p:outputLabel for="localidadeProjeto" value="Localidade:" /> 
-        		<p:inputText id="localidadeProjeto" value="#{ProjetoMB.projeto.localidade}" size="20" />
+        		<p:outputLabel for="ufProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="UF:" />         		
+        		<p:selectOneMenu id="ufProjeto" value="#{ProjetoMB.projeto.uf}" style="width:10px" >
+            		<f:selectItems  value="#{ProjetoMB.estados}"  style="font-weight: 10; font: 15px arial, sans-serif;"  />            
+        		</p:selectOneMenu>   
+        		
+        		<p:outputLabel for="localidadeProjeto" style="font-weight: 10; font: 15px arial, sans-serif;" value="Localidade (Cidade/Município):" /> 
+        		<p:inputText id="localidadeProjeto"  style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProjetoMB.projeto.localidade}" size="20" />        		
         		        		
-        		<p:outputLabel for="dataAprovRejeicao" value="Data Rejeição:" />
-        		<p:calendar id="dataAprovRejeicao" value="#{ProjetoMB.projeto.dataAprovRejeicao}" showOn="button" />
+				<p:outputLabel for="numeroContrato" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Número Contrato:" /> 
+        		<p:inputText id="numeroContrato" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProjetoMB.projeto.numeroContrato}" size="20" />  
+        		          		  
+        		<p:outputLabel for="dataInicioProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Data Inicio:" />
+        		<p:calendar id="dataInicioProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProjetoMB.projeto.dataInicio}" showOn="button" />
         		
-        		<p:outputLabel for="numeroContrato" value="Número Contrato:" /> 
-        		<p:inputText id="numeroContrato" value="#{ProjetoMB.projeto.numeroContrato}" size="20" />        		        		
+        		<p:outputLabel for="dataFimProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Data Fim:" />
+        		<p:calendar id="dataFimProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProjetoMB.projeto.dataFim}" showOn="button" />
         		
-        		<p:outputLabel for="valorTotalProjeto" value="Valor Total:" />
-        		<p:inputText id="valorTotalProjeto" value="#{ProjetoMB.projeto.valorTotalProjeto}" size="20" />
+        		<p:outputLabel for="valorTotalProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Valor Total:" />
+        		<p:inputText id="valorTotalProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProjetoMB.projeto.valorTotalProjeto}" size="20" />
         		
-        		<p:outputLabel for="dataInicioProjeto" value="Data Inicio:" />
-        		<p:calendar id="dataInicioProjeto" value="#{ProjetoMB.projeto.dataInicio}" showOn="button" />
+        		<p:outputLabel for="projecaoImpactoFin" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Projeção Impacto Financeiro:" />
+        		<p:inputText id="projecaoImpactoFin" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProjetoMB.projeto.projecaoImpactoFinal}" size="20"  />       		        		      		        		        		        		
         		
-        		<p:outputLabel for="projecaoImpactoFin" value="Projeção Impacto Financeiro:" />
-        		<p:inputText id="projecaoImpactoFin" value="#{ProjetoMB.projeto.projecaoImpactoFinal}" size="20"  />
+        		<p:outputLabel for="numeroNT" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Número NT:" />
+        		<p:inputText id="numeroNT" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProjetoMB.projeto.numeroNotaTecnica}" size="20"  />        		        		        		
         		
-        		<p:outputLabel for="numeroNT" value="Número NT:" />
-        		<p:inputText id="numeroNT" value="#{ProjetoMB.projeto.numeroNotaTecnica}" size="20"  />        		
+        		<p:outputLabel for="numeroPortaria" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Número Portaria:" />
+        		<p:inputText id="numeroPortaria" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProjetoMB.projeto.numeoPortaria}" size="20"  />        	
+        		        		        		        		        		
+        		<p:outputLabel for="dataAprovRejeicao" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Data Aprovação/Rejeição:" />
+        		<p:calendar id="dataAprovRejeicao" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProjetoMB.projeto.dataAprovRejeicao}" showOn="button" /> 	     		        		   
         		
-        		<p:outputLabel for="dataFimProjeto" value="Data Fim:" />
-        		<p:calendar id="dataFimProjeto" value="#{ProjetoMB.projeto.dataFim}" showOn="button" />
+        		<p:outputLabel for="statusProjeto"  style="font-weight: 10; font: 15px arial, sans-serif;" value="StatusProjeto" />
+        		<p:selectOneMenu id="statusProjeto" value="#{ProjetoMB.projeto.statusProjeto}" style="width:10px" >
+            		<f:selectItems  value="#{ProjetoMB.statusProjeto}" style="font-weight: 10; font: 15px arial, sans-serif;"  />            
+        		</p:selectOneMenu>  
         		
-        		<p:outputLabel for="numeroPortaria" value="Número Portaria:" />
-        		<p:inputText id="numeroPortaria" value="#{ProjetoMB.projeto.numeoPortaria}" size="20"  />
-        		
-        		<p:outputLabel for="ufProjeto" value="UF" /> 
-        		<p:inputText id="ufProjeto" value="#{ProjetoMB.projeto.uf}" size="20" />        		        		    
-        		
-        		<p:outputLabel for="pessoaJuridica" value="Pessoa Jurídica:" />
+        		<p:outputLabel for="pessoaJuridica"  style="font-weight: 10; font: 15px arial, sans-serif;" value="Pessoa Jurídica:" />
         		<h:column>
-        			<p:inputText id="pessoaJuridica" value="#{ProjetoMB.projeto.pessoaJuridica.nomeEmpresarial}" size="20"  />
+        			<p:inputText id="pessoaJuridica"  style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProjetoMB.projeto.pessoaJuridica.nomeEmpresarial}" size="20"  />
         			<p:commandButton update="formProjeto" oncomplete="PF('pjDialog').show()" icon="ui-icon-search" title="View"
-        				action="#{ProjetoMB.findAllPessoasJuridicas}" > 
+        				action="#{ProjetoMB.findAllPessoasJuridicas}"  > 
                 		
             		</p:commandButton>
-        		</h:column>  
+        		</h:column>          		
         		
-        		<p:outputLabel for="descricaoProjeto" value="Descrição:" />        		
-        		<p:inputTextarea id="descricaoProjeto" rows="4" cols="40" value="#{ProjetoMB.projeto.descricao}"  />      
-        		        			
-        		<p:commandButton value="Inserir Projeto" action="#{ProjetoMB.addProjeto}" update="formProjeto"/>   
-        		<p:commandButton value="Limpar Campos" action="#{ProjetoMB.novoProjeto}" update="formProjeto"/>          		        		        		    		
+        		<p:outputLabel for="descricaoProjeto"  style="font-weight: 10; font: 15px arial, sans-serif;" value="Descrição:" />        		
+        		<p:inputTextarea id="descricaoProjeto"  style="font-weight: 10; font: 15px arial, sans-serif;" rows="4" cols="40" value="#{ProjetoMB.projeto.descricao}"  />        		        	             		        			         		        		        		    		
     		
             </h:panelGrid> 		
+            <br/><br/>
+	        <center>            
+	            <h:panelGrid id="pgEstimativas" columns="2">
+		            <p:panel id="panelBensCom" header="Estimativa de valores do projeto COM incidência de PIS e COFINS (R$)" style="font-weight: 10; font: 15px arial, sans-serif;">
+		            	<h:panelGrid id="pgCom" columns="4" cellpadding="10">
+			            	<p:outputLabel for="estimativaValBensCom" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Bens:" />
+	        				<p:inputText id="estimativaValBensCom" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProjetoMB.projeto.estimativaValBensCom}" size="20"  />
+	        				
+	        				<p:outputLabel for="estimativaValServicosCom" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Serviços:" />
+	        				<p:inputText id="estimativaValServicosCom" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProjetoMB.projeto.estimativaValServicosCom}" size="20"  />
+	        				
+	        				<p:outputLabel for="estimativaValOutrosCom" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Outros:" />
+	        				<p:inputText id="estimativaValOutrosCom" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProjetoMB.projeto.estimativaValOutrosCom}" size="20"  />
+	        			</h:panelGrid>
+		            </p:panel>	            	            
+		            
+		            <p:panel id="panelBensSem" header="Estimativa de valores do projeto SEM incidência de PIS e COFINS (R$)" style="font-weight: 10; font: 15px arial, sans-serif;">
+		            	<h:panelGrid id="pgSem" columns="4" cellpadding="10">
+			            	<p:outputLabel for="estimativaValBensSem" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Bens:" />
+	        				<p:inputText id="estimativaValBensSem" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProjetoMB.projeto.estimativaValBensSem}" size="20"  />
+	        				
+	        				<p:outputLabel for="estimativaValServicosSem" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Serviços:" />
+	        				<p:inputText id="estimativaValServicosSem" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProjetoMB.projeto.estimativaValServicosSem}" size="20"  />
+	        				
+	        				<p:outputLabel for="estimativaValOutrosSem" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Outros:" />
+	        				<p:inputText id="estimativaValOutrosSem" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProjetoMB.projeto.estimativaValOutrosSem}" size="20"  />
+	        			</h:panelGrid>
+		            </p:panel>	            
+	            </h:panelGrid>
+            </center>
+            <br/><br/>
             
+            <center>  
+            
+            </center>
+      
+            
+
+			
+            <br/><br/>
+            
+            <center>
+	            <p:commandButton value="Inserir Projeto" action="#{ProjetoMB.addProjeto}" update="formProjeto"
+	        			style="font-weight: 10; font: 15px arial, sans-serif;"/>   
+	        		<p:commandButton value="Limpar Campos" action="#{ProjetoMB.novoProjeto}" update="formProjeto"
+	        			style="font-weight: 10; font: 15px arial, sans-serif;"/>
+	        </center>  
+            <br/><br/>
             
             <p:dialog id="dialogPJ" header="Pessoas" widgetVar="pjDialog" modal="true" showEffect="fade"
-            	 hideEffect="fade" resizable="false">
+            	 hideEffect="fade" resizable="false"  style="font-weight: 10; font: 15px arial, sans-serif;" >
 
         				<p:dataTable id="pessoasJuridicas" var="pessoaJuridica" value="#{ProjetoMB.pessoasJuridicas}" rowKey="#{pessoaJuridica.idPessoaJuridica}"
 							selection="#{ProjetoMB.pessoaJuridicaSelecionada}" selectionMode="single">
 					
-					    	<p:column headerText="Nome">
-					        	<h:outputText value="#{pessoaJuridica.nomeEmpresarial}" />
+					    	<p:column headerText="Nome"  style="font-weight: 10; font: 15px arial, sans-serif;" >
+					        	<h:outputText value="#{pessoaJuridica.nomeEmpresarial}"  style="font-weight: 10; font: 15px arial, sans-serif;" />
 			    			</p:column>
 			 
-			    			<p:column headerText="Cnpj">
-			        			<h:outputText value="#{pessoaJuridica.cnpj}" />
+			    			<p:column headerText="Cnpj"  style="font-weight: 10; font: 15px arial, sans-serif;" >
+			        			<h:outputText value="#{pessoaJuridica.cnpj}"  style="font-weight: 10; font: 15px arial, sans-serif;" />
 			    			</p:column>			    	
 						</p:dataTable>
 						
 						<p:growl id="growl" showDetail="true" sticky="true" />  
 						<br/>	
 						<p:commandButton actionListener="#{ProjetoMB.selecionarPessoaJuridica}" value="Selecionar" update="pgProjetos"
-							oncomplete="PF('pjDialog').hide()" />
+							oncomplete="PF('pjDialog').hide()"  style="font-weight: 10; font: 15px arial, sans-serif;" />
 																																	             	       
     		</p:dialog>  	             
                               	           
 			                 
-            <p:fieldset legend="Projetos Inseridos" toggleable="true" toggleSpeed="2000">
+            <p:fieldset legend="Projetos Inseridos" toggleable="true" toggleSpeed="2000" style="font-weight: 10; font: 15px arial, sans-serif;">
             
 				<p:dataTable id="projetos" var="projeto" value="#{ProjetoMB.projetos}" rowKey="#{projeto.nome}"
 					selection="#{ProjetoMB.projetosSelecionados}" style="margin-bottom:0">
        				<p:column selectionMode="multiple" style="width:16px;text-align:center"/>
-			    	<p:column headerText="Nome">
-			        	<h:outputText value="#{projeto.nome}" />
+			    	<p:column headerText="Nome" style="font-weight: 10; font: 15px arial, sans-serif;">
+			        	<h:outputText value="#{projeto.nome}"  style="font-weight: 10; font: 15px arial, sans-serif;" />
 			    	</p:column>
 			 
-			    	<p:column headerText="Descrição">
-			        	<h:outputText value="#{projeto.descricao}" />
+			    	<p:column headerText="Descrição" style="font-weight: 10; font: 15px arial, sans-serif;" >
+			        	<h:outputText value="#{projeto.descricao}"  style="font-weight: 10; font: 15px arial, sans-serif;" />
 			    	</p:column>
 			    	
-			    	<p:column headerText="Pessoa Jurídica">
-			        	<h:outputText value="#{projeto.pessoaJuridica.nomeEmpresarial}" />
+			    	<p:column headerText="Pessoa Jurídica" style="font-weight: 10; font: 15px arial, sans-serif;" >
+			        	<h:outputText value="#{projeto.pessoaJuridica.nomeEmpresarial}"  style="font-weight: 10; font: 15px arial, sans-serif;" />
 			    	</p:column>
 			    	
 					<f:facet name="footer">
-            			<p:commandButton process="projetos" update="projetos" icon="ui-icon-close" value="Remover Projetos"  action="#{ProjetoMB.deleteProjetos}" />
+            			<p:commandButton process="projetos" update="projetos" icon="ui-icon-close" value="Remover Projetos"  action="#{ProjetoMB.deleteProjetos}" 
+            				style="font-weight: 10; font: 15px arial, sans-serif;"/>
         			</f:facet>
 				</p:dataTable>
 				<br/>
@@ -276,7 +333,7 @@
          
     </p:tabView>
     
-   <p:commandButton value="Salvar" action="#{ProcessoMB.inserirProcesso}"   />
+
         
 	</h:body>
 	

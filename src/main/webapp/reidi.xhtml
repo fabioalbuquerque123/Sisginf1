@@ -1,11 +1,41 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>REIDI</title>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui">
+<h:head>
 
-</body>
+</h:head>
+<h:body>
+
+	<h:form id="formReidi">
+		<p:panel id="panelReidi" header="Reidi">
+	    <p:dataTable var="processo" value="#{ProcessoMB.processos}">
+        <f:facet name="header">
+           	Processos
+        </f:facet>
+        <p:column style="width:16px">
+            <p:rowToggler />
+        </p:column>
+        <p:column headerText="Nº Processo SEP">
+            <h:outputText value="#{processo.numeroProcessoSEP}" />
+        </p:column>
+        <p:column headerText="Data Protocolo SEP">
+            <h:outputText value="#{processo.dataProtocoloSEP}" />
+        </p:column>
+        <p:column headerText="Localização">
+            <h:outputText value="#{processo.localizacao}" />
+        </p:column>
+ 
+        <p:rowExpansion>
+			<p:dataTable var="projeto" value="#{processo.projeto}">
+		        <p:column headerText="Nome">
+		            <h:outputText value="#{projeto.nome}" />
+		        </p:column>
+			</p:dataTable>
+        </p:rowExpansion>
+    </p:dataTable>
+    </p:panel>
+	</h:form>	
+
+</h:body>
 </html>

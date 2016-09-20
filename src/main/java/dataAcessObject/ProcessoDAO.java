@@ -15,7 +15,7 @@ public class ProcessoDAO extends DataAcessObject implements Serializable{
 	 */
 	private static final long serialVersionUID = -5021541415576158479L;
 	private List<Bean> list;
-	private Processo processo;
+	private Processo processo;	
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -37,5 +37,20 @@ public class ProcessoDAO extends DataAcessObject implements Serializable{
 			e.printStackTrace();
 		}
 		return processo;		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Processo> findAllReidi(){
+		try{
+			super.em = Conn.getEntityManager();
+			//Já retorna a lista de processos
+			return super.em.createQuery("select processo from Processo processo "
+											+ "inner join fetch processo.projeto as projeto").getResultList();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}		
+
 	}
 }

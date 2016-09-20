@@ -9,6 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.model.UploadedFile;
+
 import arquitetura.Bean;
 import beans.PessoaFisica;
 import beans.PessoaJuridica;
@@ -16,6 +18,7 @@ import beans.Projeto;
 import dataAcessObject.PessoaFisicaDAO;
 import dataAcessObject.PessoaJuridicaDAO;
 import dataAcessObject.ProjetoDAO;
+import util.EstadosBrasileiros;
 
 @ManagedBean(name="ProjetoMB")
 @ViewScoped
@@ -34,6 +37,10 @@ public class ProjetoMB implements Serializable{
 	private static List<Bean> projetosParaReidiMB;
 	private Projeto projetoSelecionado;
 	private List<Bean> projetosSelecionados;
+	private List<String> statusProjeto;
+	
+	//File
+	private UploadedFile uploadedFile;
 	
 	//Pessoa Jurídica
 	private List<Bean> pessoasJuridicas;
@@ -47,6 +54,9 @@ public class ProjetoMB implements Serializable{
 	
 	private boolean renderedPF;
 	private boolean renderedPJ;
+	
+	//Estados
+	private List<String> estados;
 	
 	
 	//Construtor
@@ -64,7 +74,13 @@ public class ProjetoMB implements Serializable{
 		pessoaFisicaSelecionada = new PessoaFisica();
 		renderedPF = false;
 		renderedPJ = true;
-		// TODO Auto-generated constructor stub
+		
+		
+		//Carregar array selectOneMenu de status do projeto
+		this.loadStatusProjeto();
+		
+		//Carregar array para selectOneMenu de estados
+		estados = EstadosBrasileiros.getEstados();
 	}
 
 	//Métodos Projeto
@@ -74,6 +90,7 @@ public class ProjetoMB implements Serializable{
 			projetosParaReidiMB.add(projeto);
 			this.novoProjeto();
 			pessoaJuridicaSelecionada = new PessoaJuridica();
+			this.upload();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -102,6 +119,14 @@ public class ProjetoMB implements Serializable{
 		projetosParaReidiMB = projetos;
 	}
 	
+	//Metodo Upload Portaria
+	public void upload() {
+        if(this.uploadedFile != null) {
+            FacesMessage message = new FacesMessage("Upload realizado com sucesso!", "");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            this.getProjeto().setPathPortaria(this.uploadedFile.getFileName());
+        }
+    }	
 	
 	//Metodos Pessoa Jurídica
 	public void findAllPessoasJuridicas(){
@@ -136,11 +161,6 @@ public class ProjetoMB implements Serializable{
 		projetoSelecionado = new Projeto();
 	}
 	
-	private void limparPJePF(){
-		pessoaFisicaSelecionada = new PessoaFisica();
-		pessoaJuridicaSelecionada = new PessoaJuridica();
-	}
-	
 	public void openTabPF(){
 		renderedPF = true;
 		renderedPJ = false;
@@ -149,6 +169,19 @@ public class ProjetoMB implements Serializable{
 	public void closeTabPF(){
 		renderedPF = false;
 		renderedPJ = true;
+	}
+	
+	private void limparPJePF(){
+		pessoaFisicaSelecionada = new PessoaFisica();
+		pessoaJuridicaSelecionada = new PessoaJuridica();
+	}
+	
+	private void loadStatusProjeto(){
+		statusProjeto = new ArrayList<String>();
+		statusProjeto.add("");
+		statusProjeto.add("Aprovado");
+		statusProjeto.add("Em análise");
+		statusProjeto.add("Rejeitado");
 	}
 	
 	//Metodos Pessoa Física
@@ -270,5 +303,29 @@ public class ProjetoMB implements Serializable{
 
 	public static void setProjetosParaReidiMB(List<Bean> projetosParaReidiMB) {
 		ProjetoMB.projetosParaReidiMB = projetosParaReidiMB;
+	}
+
+	public List<String> getStatusProjeto() {
+		return statusProjeto;
+	}
+
+	public void setStatusProjeto(List<String> statusProjeto) {
+		this.statusProjeto = statusProjeto;
+	}
+
+	public List<String> getEstados() {
+		return estados;
+	}
+
+	public void setEstados(List<String> estados) {
+		this.estados = estados;
+	}
+
+	public UploadedFile getUploadedFile() {
+		return uploadedFile;
+	}
+
+	public void setUploadedFile(UploadedFile uploadedFile) {
+		this.uploadedFile = uploadedFile;
 	}
 }
