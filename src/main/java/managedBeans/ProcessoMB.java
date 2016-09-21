@@ -100,6 +100,18 @@ public class ProcessoMB implements Serializable{
 		}
 	}
 	
+	public String novoReidi(){
+		return "novoReidi";
+	}
+	
+	public String logout(){
+		return "logout";
+	}
+	
+	public String homePage(){
+		return "homePage";
+	}
+	
 	private void clearFields(){
 		processo = new Processo();
 	}

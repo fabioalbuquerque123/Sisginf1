@@ -44,7 +44,7 @@ public class ProcessoDAO extends DataAcessObject implements Serializable{
 		try{
 			super.em = Conn.getEntityManager();
 			//Já retorna a lista de processos
-			return super.em.createQuery("select processo from Processo processo "
+			return super.em.createQuery("select distinct processo from Processo processo "
 											+ "inner join fetch processo.projeto as projeto").getResultList();
 			
 		}catch(Exception e){

@@ -17,6 +17,7 @@ import beans.PessoaJuridica;
 import beans.ResponsavelLegalPJ;
 import dataAcessObject.PessoaFisicaDAO;
 import dataAcessObject.PessoaJuridicaDAO;
+import util.EstadosBrasileiros;
 
 @ManagedBean(name="PessoaJuridicaMB")
 @ViewScoped
@@ -42,6 +43,9 @@ public class PessoaJuridicaMB implements Serializable{
 	private ContadorPJ contadorSelecionado;
 	private ResponsavelLegalPJ responsavelSelecionado;
 	
+	//Estados
+	private List<String> estados;
+	
 	
 	public PessoaJuridicaMB() {
 		super();
@@ -55,6 +59,9 @@ public class PessoaJuridicaMB implements Serializable{
 		pessoaFisica = new PessoaFisica();
 		pessoaFisicaDAO = new PessoaFisicaDAO();
 		pessoasFisicas = new ArrayList<Bean>();
+		
+		//Carregar array para selectOneMenu de estados
+		estados = EstadosBrasileiros.getEstados();
 		
 		// TODO Auto-generated constructor stub
 	}
@@ -106,7 +113,11 @@ public class PessoaJuridicaMB implements Serializable{
 	}
 	
 	private void clearFields(){
-		pessoaJuridica = new PessoaJuridica();		
+		pessoaJuridica = new PessoaJuridica();	
+		pessoaJuridica.setResponsavelLegalPJ(new ResponsavelLegalPJ());
+		pessoaJuridica.setContadorPJ(new ContadorPJ());
+		responsavelSelecionado = new ResponsavelLegalPJ();
+		contadorSelecionado = new ContadorPJ();
 	}
 
 	public PessoaJuridica getPessoaJuridica() {
@@ -187,5 +198,13 @@ public class PessoaJuridicaMB implements Serializable{
 
 	public void setResponsavelSelecionado(ResponsavelLegalPJ responsavelSelecionado) {
 		this.responsavelSelecionado = responsavelSelecionado;
+	}
+
+	public List<String> getEstados() {
+		return estados;
+	}
+
+	public void setEstados(List<String> estados) {
+		this.estados = estados;
 	}
 }

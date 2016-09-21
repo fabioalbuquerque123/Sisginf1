@@ -13,9 +13,11 @@
    <h:body style="background: #FFFFFF">          
  	
     <p:tabView id="tabViewReidi" style="font-weight: 10; font: 15px arial, sans-serif;">
+    
+    
         <p:tab id="tabProcesso" title="Processo" >
         
-        <h:form id="formProcesso">   
+        <h:form id="formProcesso">
             <h:panelGrid id="pgProcessos" columns="2" cellpadding="10">
             
 				<p:outputLabel for="numeroOriginalAntaq" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nº Original Antaq:" /> 
@@ -176,7 +178,7 @@
     		</p:dialog>  	             
                               	           
 			                 
-            <p:fieldset legend="Projetos Inseridos" toggleable="true" toggleSpeed="2000" style="font-weight: 10; font: 15px arial, sans-serif;">
+            <p:fieldset id="fsProjetosInseridos" legend="Projetos Inseridos" toggleable="true" toggleSpeed="2000" style="font-weight: 10; font: 15px arial, sans-serif;">
             
 				<p:dataTable id="projetos" var="projeto" value="#{ProjetoMB.projetos}" rowKey="#{projeto.nome}"
 					selection="#{ProjetoMB.projetosSelecionados}" style="margin-bottom:0">
@@ -210,7 +212,7 @@
         
         
         
-        <p:tab title="Pessoa Jurídica">
+        <p:tab title="Pessoa Jurídica" id="tabPJ">
 			<h:form id="formPJ">
 				           	<h:panelGrid id="pgPJ" columns="2" cellpadding="10">                
 				            
@@ -231,9 +233,11 @@
 				
 								<p:outputLabel for="municipio" value="Municipio:" /> 
 				        		<p:inputText id="municipio" value="#{PessoaJuridicaMB.pessoaJuridica.municipio}" size="20" />
-				        		
-				        		<p:outputLabel for="uf" value="UF:" /> 
-				        		<p:inputText id="uf" value="#{PessoaJuridicaMB.pessoaJuridica.uf}" size="20" />        			
+				        		    
+				        		<p:outputLabel for="ufPJ" style="font-weight: 10; font: 15px arial, sans-serif;"  value="UF:" />         		
+        						<p:selectOneMenu id="ufPJ" value="#{PessoaJuridicaMB.pessoaJuridica.uf}" style="width:10px" >
+            						<f:selectItems  value="#{PessoaJuridicaMB.estados}" style="font-weight: 10; font: 15px arial, sans-serif;"  />            
+        						</p:selectOneMenu>      			
 				        			
 				        		<p:outputLabel for="telefones" value="Telefones:" /> 
 				        		<p:inputText id="telefones" value="#{PessoaJuridicaMB.pessoaJuridica.telefones}" size="20" />
@@ -241,14 +245,14 @@
 				        		<p:outputLabel for="responsavel" value="Responsável:" /> 
 				        		<h:column>
         							<p:inputText id="responsavel" value="#{PessoaJuridicaMB.pessoaJuridica.responsavelLegalPJ.nome}" size="20"  />
-        							<p:commandButton update="formPJ" icon="ui-icon-search" title="View"
+        							<p:commandButton id="btFindResp" update="formPJ" icon="ui-icon-search" title="View"
         								oncomplete="PF('pjResp').show()" action="#{PessoaJuridicaMB.findAllResp}" />                		
         						</h:column>  	
         						
         						<p:outputLabel for="contador" value="Contador:" /> 
 				        		<h:column>
         							<p:inputText id="contador" value="#{PessoaJuridicaMB.pessoaJuridica.contadorPJ.nome}" size="20"  />
-        							<p:commandButton update="formPJ" icon="ui-icon-search" title="View"
+        							<p:commandButton id="btFindCont" update="formPJ" icon="ui-icon-search" title="View"
         								oncomplete="PF('pjCont').show()" action="#{PessoaJuridicaMB.findAllCont}" />                		
         						</h:column>  			
         						
@@ -298,7 +302,7 @@
         
         
         
-        <p:tab title="Pessoa Física">
+        <p:tab title="Pessoa Física" id="tabPF">
         	<h:form id="fomrPessoaFisica">
         		
         		 <p:growl id="growlPF" showDetail="true" sticky="true" />
@@ -331,8 +335,8 @@
         	
         </p:tab>
          
+        
     </p:tabView>
-    
 
         
 	</h:body>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14714600257920" configfile="/sisginf_versao1/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="122" y="178" id="pf14721512878300" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14721512948384 pf14744043423240" inlinks="pf14721512948384" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="122" y="178" id="pf14721512878300" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" outlinks="pf14721512948384 pf14744043423240" inlinks="pf14721512948384" path="/login.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="inicial.xhtml" x="338" y="178" id="pf14721512878513" referenceLink="//@navigationRule.1/@navigationCase.1/@toViewId|" outlinks="pf14739546819551 pf14739554900093" inlinks="pf14739554900093" path="/inicial.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="reidi.xhtml" id="pf14739546819552" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf14739546819551 pf14744043423240" path="/reidi.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="reidi.xhtml" id="pf14739546819552" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf14739546819551 pf14744043423240" path="/reidi.xhtml"/>
   <links id="pf14721512948384" target="pf14721512878300" source="pf14721512878300" outcome="loginFail"/>
   <links id="pf14739546819551" target="pf14739546819552" source="pf14721512878513" outcome="insertReidOK" redirect="true"/>
   <links id="pf14739554900093" target="pf14721512878513" source="pf14721512878513" outcome="insertReidFail" redirect="true"/>
