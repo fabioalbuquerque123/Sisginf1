@@ -4,6 +4,7 @@ package util;
 import java.util.ArrayList;
 import java.util.Date;
 
+import arquitetura.Bean;
 import beans.ContadorPJ;
 import beans.PessoaJuridica;
 import beans.Processo;
@@ -36,7 +37,7 @@ public class LoadBean {
 		processo.setNumeroApensoANTAQ("Numero Apenso Antaq");
 		processo.setNumeroOriginalANTAQ("Num Original Antaq");
 		processo.setNumeroProcessoSEP("Numero Processo SEP");
-		processo.setProjeto(new ArrayList<Projeto>());
+		processo.setProjeto(new ArrayList<Bean>());
 		return processo;
 	}
 

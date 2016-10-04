@@ -39,14 +39,24 @@ public class ProcessoDAO extends DataAcessObject implements Serializable{
 		return processo;		
 	}
 	
+	
+	public Processo findById(int idProcesso){
+		try{
+			super.em = Conn.getEntityManager();
+			processo = (Processo) super.em.createQuery("select c from Processo c where c.idProcesso = :idProcesso").setParameter("idProcesso", idProcesso).getSingleResult();			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return processo;		
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Processo> findAllReidi(){
 		try{
 			super.em = Conn.getEntityManager();
 			//Já retorna a lista de processos
 			return super.em.createQuery("select distinct processo from Processo processo "
-											+ "inner join fetch processo.projeto as projeto").getResultList();
-			
+											+ "inner join fetch processo.projeto as projeto").getResultList();			
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;

@@ -45,7 +45,7 @@ public class Processo extends Bean implements Serializable{
 	private String localizacao;
 		
 	@OneToMany(mappedBy="processo", targetEntity=Projeto.class)
-	private List<Projeto> projeto;	
+	private List<Bean> projeto;	
 
 	public int getIdProcesso() {
 		return idProcesso;
@@ -95,11 +95,11 @@ public class Processo extends Bean implements Serializable{
 		this.localizacao = localizacao;
 	}
 
-	public List<Projeto> getProjeto() {
+	public List<Bean> getProjeto() {
 		return projeto;
 	}
 
-	public void setProjeto(List<Projeto> projeto) {
+	public void setProjeto(List<Bean> projeto) {
 		this.projeto = projeto;
 	}
 }

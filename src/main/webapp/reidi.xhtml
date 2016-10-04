@@ -9,103 +9,132 @@
 
 	<h:form id="formReidi">
 		<p:panel id="panelReidi" header="SISGINF" >
-		<f:facet name="actions">            
-			 <h:commandLink id="logout" styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
-            	style="height:25px; width:25px;" action="#{ProcessoMB.logout}" title="Logout">
-            	<center>
-            		<h:outputText styleClass="ui-icon ui-icon-closethick"  />
-            	</center>
-            </h:commandLink>	
-            <h:commandLink id="new" styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
-            	style="height:25px; width:25px;" action="#{ProcessoMB.novoReidi}" title="Novo">
-            	<center>
-            		<h:outputText styleClass="ui-icon ui-icon-plusthick"  />
-            	</center>
-            </h:commandLink>
-        </f:facet>
-		
-	    <p:dataTable var="processo" value="#{ProcessoMB.processos}">
-        <f:facet name="header">
-           	Processos
-        </f:facet>
-        <p:column style="width:16px">
-            <p:rowToggler />
-        </p:column>
-        <p:column headerText="Nº Processo SEP">
-        	<center>
-            	<h:outputText value="#{processo.numeroProcessoSEP}" />
-            </center>
-        </p:column>
-        <p:column headerText="Data Protocolo SEP">
-        	<center>
-            	<h:outputText value="#{processo.dataProtocoloSEP}" >
-            		<f:convertDateTime pattern="dd/MM/yyyy"/>
-		    	</h:outputText>
-		    </center>
-        </p:column>
-        <p:column headerText="Localização">
-        	<center>
-            	<h:outputText value="#{processo.localizacao}" />
-            </center>
-        </p:column>
- 
-        <p:rowExpansion>
-			<p:dataTable var="projeto" value="#{processo.projeto}">
-		        <p:column headerText="Nome Projeto">
+				<f:facet name="actions">            
+					 <h:commandLink id="logout" styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
+		            	style="height:25px; width:25px;" action="#{ProcessoMB.logout}" title="Logout">
+		            	<center>
+		            		<h:outputText styleClass="ui-icon ui-icon-closethick"  />
+		            	</center>
+		            </h:commandLink>	
+		            <h:commandLink id="new" styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
+		            	style="height:25px; width:25px;" action="#{ProcessoMB.novoReidi}" title="Novo">
+		            	<center>
+		            		<h:outputText styleClass="ui-icon ui-icon-plusthick"  />
+		            	</center>
+		            </h:commandLink>
+		        </f:facet>
+				
+			    <p:dataTable var="processo" value="#{ProcessoMB.processos}">
+		        <f:facet name="header">
+		           	Processos
+		        </f:facet>
+		        <p:column style="width:16px">
+		            <p:rowToggler />
+		        </p:column>
+		        <p:column headerText="Nº Processo SEP">
 		        	<center>
-		            	<h:outputText value="#{projeto.nome}" />
+		            	<h:outputText value="#{processo.numeroProcessoSEP}" />
 		            </center>
 		        </p:column>
-		        <p:column headerText="Localidade">
+		        <p:column headerText="Data Protocolo SEP">
 		        	<center>
-		            	<h:outputText value="#{projeto.localidade}"/>
-		            </center>
-		        </p:column>
-		        <p:column headerText="UF">
-		        	<center>
-		            	<h:outputText value="#{projeto.uf}" />
-		            </center>
-		        </p:column>
-		      	<p:column headerText="Nº contrato">
-		      		<center>
-		            	<h:outputText value="#{projeto.numeroContrato}" />
-		            </center>
-		        </p:column>
-		        <p:column headerText="Data início">
-		        	<center>
-		            	<h:outputText value="#{projeto.dataInicio}" >
+		            	<h:outputText value="#{processo.dataProtocoloSEP}" >
 		            		<f:convertDateTime pattern="dd/MM/yyyy"/>
-		            	</h:outputText>
-		            </center>
+				    	</h:outputText>
+				    </center>
 		        </p:column>
-		        <p:column headerText="Data Fim">
+		        <p:column headerText="Localização">
 		        	<center>
-		            	<h:outputText value="#{projeto.dataFim}" >
-		            		<f:convertDateTime pattern="dd/MM/yyyy"/>
-		            	</h:outputText>
+		            	<h:outputText value="#{processo.localizacao}" />
 		            </center>
 		        </p:column>
-		        <p:column headerText="Valor Total">
+		 
+		        <p:rowExpansion>
+					<p:dataTable var="projeto" value="#{processo.projeto}">
+				        <p:column headerText="Nome Projeto">
+				        	<center>
+				            	<h:outputText value="#{projeto.nome}" />
+				            </center>
+				        </p:column>
+				        <p:column headerText="Localidade">
+				        	<center>
+				            	<h:outputText value="#{projeto.localidade}"/>
+				            </center>
+				        </p:column>
+				        <p:column headerText="UF">
+				        	<center>
+				            	<h:outputText value="#{projeto.uf}" />
+				            </center>
+				        </p:column>
+				      	<p:column headerText="Nº contrato">
+				      		<center>
+				            	<h:outputText value="#{projeto.numeroContrato}" />
+				            </center>
+				        </p:column>
+				        <p:column headerText="Data início">
+				        	<center>
+				            	<h:outputText value="#{projeto.dataInicio}" >
+				            		<f:convertDateTime pattern="dd/MM/yyyy"/>
+				            	</h:outputText>
+				            </center>
+				        </p:column>
+				        <p:column headerText="Data Fim">
+				        	<center>
+				            	<h:outputText value="#{projeto.dataFim}" >
+				            		<f:convertDateTime pattern="dd/MM/yyyy"/>
+				            	</h:outputText>
+				            </center>
+				        </p:column>
+				        <p:column headerText="Valor Total">
+				        	<center>
+				            	<h:outputText value="#{projeto.valorTotalProjeto}" />
+				            </center>
+				        </p:column>
+				        <p:column headerText="Data Aprov/Rejeicao">
+				        	<center>
+				            	<h:outputText value="#{projeto.dataAprovRejeicao}" >
+				            		<f:convertDateTime pattern="dd/MM/yyyy"/>
+				            	</h:outputText>
+				            </center>
+				        </p:column>
+				        <p:column headerText="Status">
+				        	<center>
+				            	<h:outputText value="#{projeto.statusProjeto}" />
+				            </center>
+				        </p:column>
+						<p:column style="width:32px;text-align: center">
+		             		<p:commandButton icon="ui-icon-pencil" title="Editar" action="#{ProcessoMB.alterarProjeto}">
+		                		<f:setPropertyActionListener value="#{projeto}" target="#{ProcessoMB.projetoSelecionado}" />
+		            		</p:commandButton>
+		        		</p:column>
+		        		<p:column style="width:32px;text-align: center">
+		             		<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="PF('projetoDialog').show()" >
+		                		<f:setPropertyActionListener value="#{projeto}" target="#{ProcessoMB.projetoSelecionado}" />
+		            		</p:commandButton>
+		        		</p:column>
+					</p:dataTable>
+					<br/>
+					<br/>
+		        </p:rowExpansion>
+		        
+		        
+		    </p:dataTable>
+		    
+		    <p:dialog id="dialogProjeto" header="Excluir" widgetVar="projetoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+		        <p:outputPanel id="projetoDetail" style="text-align:center;">
+		        	<h:outputText value="Deseja realmente excluir esse projeto?" />
+		        	<br/><br/>
 		        	<center>
-		            	<h:outputText value="#{projeto.valorTotalProjeto}" />
+		            	<h:panelGrid  columns="2"> 
+		            		<p:commandButton value="Sim" update="formReidi" action="#{ProcessoMB.deleteProjeto}" />
+		                	<p:commandButton value="Não" oncomplete="PF('projetoDialog').hide()" />		                
+		            	</h:panelGrid>
 		            </center>
-		        </p:column>
-		        <p:column headerText="Data Aprov/Rejeicao">
-		        	<center>
-		            	<h:outputText value="#{projeto.dataAprovRejeicao}" >
-		            		<f:convertDateTime pattern="dd/MM/yyyy"/>
-		            	</h:outputText>
-		            </center>
-		        </p:column>
-		        <p:column headerText="Status">
-		        	<center>
-		            	<h:outputText value="#{projeto.statusProjeto}" />
-		            </center>
-		        </p:column>
-			</p:dataTable>
-        </p:rowExpansion>
-    </p:dataTable>
-    </p:panel>
+		        </p:outputPanel>
+		    </p:dialog>
+    
+    
+    	</p:panel>    
 	</h:form>	
 
 </h:body>

@@ -14,11 +14,14 @@ import org.primefaces.model.UploadedFile;
 import arquitetura.Bean;
 import beans.PessoaFisica;
 import beans.PessoaJuridica;
+import beans.Processo;
 import beans.Projeto;
 import dataAcessObject.PessoaFisicaDAO;
 import dataAcessObject.PessoaJuridicaDAO;
 import dataAcessObject.ProjetoDAO;
 import util.EstadosBrasileiros;
+import util.LocalizacaoProcesso;
+import util.StatusProjeto;
 
 @ManagedBean(name="ProjetoMB")
 @ViewScoped
@@ -57,30 +60,50 @@ public class ProjetoMB implements Serializable{
 	
 	//Estados
 	private List<String> estados;
+	private List<String> localizaoSituacaoProcesso;
+	
+	//ProcessoMB
+	private ProcessoMB processoMB;
 	
 	
 	//Construtor
 	public ProjetoMB() {
 		super();
+		
+		//Projeto
 		projetoDAO = new ProjetoDAO();
 		this.novoProjeto();
 		projetos = new ArrayList<Bean>();
 		projetosParaReidiMB = new ArrayList<Bean>();
+		
+		//Pessoa Juridica
 		pessoaJuridicaDAO = new PessoaJuridicaDAO();
 		//this.findAllPessoasJuridicas();
 		pessoaJuridicaSelecionada = new PessoaJuridica();
+		
+		//Pessoa Fisica
 		pessoaFisicaDAO = new PessoaFisicaDAO();
 		this.findAllPessoasFisicas();
 		pessoaFisicaSelecionada = new PessoaFisica();
 		renderedPF = false;
 		renderedPJ = true;
 		
-		
-		//Carregar array selectOneMenu de status do projeto
-		this.loadStatusProjeto();
-		
 		//Carregar array para selectOneMenu de estados
 		estados = EstadosBrasileiros.getEstados();
+		
+		//Carregar array para selectOneMenu de status do Projeto
+		statusProjeto = StatusProjeto.getListStatusProjeto();
+		
+		//Carregar array para selectOneMenu de localizacao do processo
+		localizaoSituacaoProcesso = LocalizacaoProcesso.getLocalizaoSituacaoProcesso();
+		
+		//ProcessoMB
+		processoMB = ProcessoMB.getInstance();
+		
+		projeto = new Projeto();
+		projeto.setProcesso(new Processo());
+		projeto.setPessoaJuridica(new PessoaJuridica());
+		//projeto = processoMB.getProjetoSelecionado();
 	}
 
 	//Métodos Projeto
@@ -113,6 +136,17 @@ public class ProjetoMB implements Serializable{
         projetosParaReidiMB.removeAll(projetosSelecionados);
         projetosSelecionados = new ArrayList<Bean>();
     }
+    
+	public String updateProjeto(){
+		try{
+			this.selecionarPessoaJuridica();
+			projetoDAO = new ProjetoDAO();
+			projetoDAO.updateBean(this.projeto);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return "updateOK";
+	}
     
 	public void findAllBean(){
 		projetos = projetoDAO.findAllBean();
@@ -175,14 +209,7 @@ public class ProjetoMB implements Serializable{
 		pessoaFisicaSelecionada = new PessoaFisica();
 		pessoaJuridicaSelecionada = new PessoaJuridica();
 	}
-	
-	private void loadStatusProjeto(){
-		statusProjeto = new ArrayList<String>();
-		statusProjeto.add("");
-		statusProjeto.add("Aprovado");
-		statusProjeto.add("Em análise");
-		statusProjeto.add("Rejeitado");
-	}
+
 	
 	//Metodos Pessoa Física
 	private void findAllPessoasFisicas(){
@@ -328,4 +355,24 @@ public class ProjetoMB implements Serializable{
 	public void setUploadedFile(UploadedFile uploadedFile) {
 		this.uploadedFile = uploadedFile;
 	}
+
+	//Novos metodos
+	public List<String> getLocalizaoSituacaoProcesso() {
+		return localizaoSituacaoProcesso;
+	}
+
+	public void setLocalizaoSituacaoProcesso(List<String> localizaoSituacaoProcesso) {
+		this.localizaoSituacaoProcesso = localizaoSituacaoProcesso;
+	}
+
+	public ProcessoMB getProcessoMB() {
+		return processoMB;
+	}
+
+	public void setProcessoMB(ProcessoMB processoMB) {
+		this.processoMB = processoMB;
+	}
+	
+	
+
 }
