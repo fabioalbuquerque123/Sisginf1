@@ -7,35 +7,9 @@
 </h:head>
 
 <h:body>	
-	<p:tabView id="tabViewReidi" style="font-weight: 10; font: 15px arial, sans-serif;">        
-        <p:tab id="tabProcesso" title="Processo" >        
-	        <h:form id="formProcesso">
-	            <h:panelGrid id="pgProcessos" columns="2" cellpadding="10">
-	            
-					<p:outputLabel for="numeroOriginalAntaq" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nº Original Antaq:" /> 
-	        		<p:inputText id="numeroOriginalAntaq" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProcessoMB.processoUpdate.numeroOriginalANTAQ}" size="20" />
-	        		
-					<p:outputLabel for="numeroApensoAntaq" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nº Apenso Antaq:" /> 
-	        		<p:inputText id="numeroApensoAntaq"  style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProcessoMB.processoUpdate.numeroApensoANTAQ}" size="20" />        		        
-	        		        		
-	        		<p:outputLabel for="numeroProcessoSep" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nº Processo SEP:" /> 
-	        		<p:inputText id="numeroProcessoSep"  style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProcessoMB.processoUpdate.numeroProcessoSEP}" size="20" />        	
-	        		        		
-	        		<p:outputLabel for="dataProtocoloSep" style="font-weight: 10; font: 15px arial, sans-serif;" value="Data Protocolo SEP:" />
-	        		<p:calendar id="dataProtocoloSep" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProcessoMB.processoUpdate.dataProtocoloSEP}" showOn="button"  />
-	        		
-	        		<p:outputLabel for="localizacao" style="font-weight: 10; font: 15px arial, sans-serif;" value="Localização:" />         		        		
-	       			<p:selectOneMenu id="localizacao" value="#{ProcessoMB.processoUpdate.localizacao}" style="width:10px" >
-	            		<f:selectItems  value="#{ProcessoMB.localizaoSituacaoProcesso}" style="font-weight: 10; font: 15px arial, sans-serif;"  />            
-	        		</p:selectOneMenu>
-	        		
-	            </h:panelGrid>
-	        </h:form>
-  		</p:tab>
-        
-        
-		<p:tab id="tabProjeto" title="Projeto" >    
-        	<h:form id="formProjeto"> 
+                     
+       	<h:form id="formProjeto">
+        	<p:panel id="panelReidi" header="SISGINF" > 
             
 	          	<h:panelGrid id="pgProjetos" columns="8" cellpadding="10">
 					<p:outputLabel for="nomeProjeto" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nome Projeto:" /> 
@@ -150,20 +124,13 @@
 								oncomplete="PF('pjDialog').hide()"  style="font-weight: 10; font: 15px arial, sans-serif;" />
 																																		             	       
 	    		</p:dialog>
-	    		
-	    		         <p:commandButton id="cbUpdate" value="Salvar" action="#{ProcessoMB.updateProjeto}" 
-		        			style="font-weight: 10; font: 15px arial, sans-serif;"/>   	             	                              	           				                 		            
-            </h:form>
-        </p:tab>
-        
-  
-        
-	</p:tabView>
-	
-		            <br/><br/>
-	            
-	           
-		           
+	    				
+	    		<center>
+	    			<p:commandButton id="cbUpdate" value="Salvar" action="#{ProcessoMB.updateProjeto}" 
+		        		style="font-weight: 10; font: 15px arial, sans-serif;"/>
+		        </center>
+			</p:panel>   	             	                              	           				                 		            
+     	</h:form>	            	        		          
 		         
 </h:body>
 

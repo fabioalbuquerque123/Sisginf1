@@ -6,6 +6,7 @@ import java.util.Date;
 
 import arquitetura.Bean;
 import beans.ContadorPJ;
+import beans.Municipio;
 import beans.PessoaJuridica;
 import beans.Processo;
 import beans.Projeto;
@@ -20,6 +21,7 @@ public class LoadBean {
 	private static ResponsavelLegalPJ responsavelLegalPJ;
 	private static ContadorPJ contadorPJ;
 	private static PessoaJuridica pessoaJuridica;
+	private static Municipio municipio;
 
 	public static Usuario getUsuario() {
 		usuario = new Usuario();
@@ -71,5 +73,13 @@ public class LoadBean {
 		pessoaJuridica = new PessoaJuridica();
 		pessoaJuridica.setNomeEmpresarial("Empresa Teste");
 		return pessoaJuridica;		
+	}
+	
+	public static Municipio getMunicipio(){
+		municipio = new Municipio();
+		municipio.setCodigo(10001);
+		municipio.setMunicipio("Municipio Teste");
+		municipio.setUf("UF");
+		return municipio;
 	}
 }

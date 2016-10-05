@@ -6,7 +6,6 @@ import org.junit.runners.MethodSorters;
 
 import arquitetura.DataAcessObject;
 import beans.ContadorPJ;
-import beans.PessoaFisica;
 import beans.PessoaJuridica;
 import beans.ResponsavelLegalPJ;
 import dataAcessObject.PessoaFisicaDAO;

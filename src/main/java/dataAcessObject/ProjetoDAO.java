@@ -5,7 +5,6 @@ import java.util.List;
 
 import arquitetura.Bean;
 import arquitetura.DataAcessObject;
-import beans.Processo;
 import beans.Projeto;
 import util.Conn;
 

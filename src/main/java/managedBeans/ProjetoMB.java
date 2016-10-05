@@ -8,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import org.primefaces.model.UploadedFile;
 
@@ -214,6 +215,11 @@ public class ProjetoMB implements Serializable{
 	//Metodos Pessoa Física
 	private void findAllPessoasFisicas(){
 		pessoasFisicas = pessoaFisicaDAO.findAllBean();
+	}
+	
+	//Metodos para estados e municipios
+	public void carregarMunicipios(AjaxBehaviorEvent event){
+		
 	}
 	
 	public Projeto getProjeto() {

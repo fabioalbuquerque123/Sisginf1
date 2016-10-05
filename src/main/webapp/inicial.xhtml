@@ -58,7 +58,8 @@
         		
         		<p:outputLabel for="ufProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="UF:" />         		
         		<p:selectOneMenu id="ufProjeto" value="#{ProjetoMB.projeto.uf}" style="width:10px" >
-            		<f:selectItems  value="#{ProjetoMB.estados}"  style="font-weight: 10; font: 15px arial, sans-serif;"  />            
+            		<f:selectItems  value="#{ProjetoMB.estados}"  style="font-weight: 10; font: 15px arial, sans-serif;" />
+            		<p:ajax event="itemSelect"	listener="#{ProjetoMB.carregarMunicipios}" />            			            		         
         		</p:selectOneMenu>   
         		
         		<p:outputLabel for="localidadeProjeto" style="font-weight: 10; font: 15px arial, sans-serif;" value="Localidade (Cidade/Município):" /> 

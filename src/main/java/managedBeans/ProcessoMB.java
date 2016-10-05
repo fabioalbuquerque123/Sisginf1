@@ -1,9 +1,7 @@
 package managedBeans;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -40,7 +38,7 @@ public class ProcessoMB implements Serializable{
 	private ProcessoDAO processoDAO;
 	private List<String> localizaoSituacaoProcesso;
 	private List<Processo> processos;
-	private Processo processoUpdate;
+	private Processo processoSelecionado;
 	
 	//Projeto
 	private ProjetoMB projetoMB;
@@ -114,6 +112,19 @@ public class ProcessoMB implements Serializable{
 	       	 addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Processo não inserido!"));
 			return "insertReidFail";
 		}
+	}
+	
+	public String updateProcesso(){
+		try{
+			processoDAO = new ProcessoDAO();
+			processoDAO.updateBean(processoSelecionado);
+			findAllReid();
+			processoSelecionado = new Processo();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return "updateProcessoOK";		
 	}
 	
 	public void findAllReid(){
@@ -211,25 +222,12 @@ public class ProcessoMB implements Serializable{
 		return "homePage";
 	}
 	
-	private void loadProjeto(){
-		if(projetoSelecionado.getProcesso().getProjeto().size() == 1){
-			projeto = (Projeto) projetoSelecionado.getProcesso().getProjeto().get(0);
-		}
-		else{
-			for(Bean projeto : projetoSelecionado.getProcesso().getProjeto()){				
-				if(projetoSelecionado.equals((Projeto)projeto)){
-					projeto = ((Projeto)projeto);
-				}
-			}
-		}
-			
-		//projeto = projetoSelecionado;
-	}
-	public String alterarProjeto(){		
-		//loadProjeto();
-		processoUpdate = new Processo();
-		processoUpdate = projetoSelecionado.getProcesso();
+	public String alterarProjeto(){			
 		return "updateProjeto";
+	}
+	
+	public String alterarProcesso(){				
+		return "updateProcesso";
 	}
 	
 	private void clearFields(){
@@ -355,11 +353,11 @@ public class ProcessoMB implements Serializable{
 		this.estados = estados;
 	}
 
-	public Processo getProcessoUpdate() {
-		return processoUpdate;
+	public Processo getProcessoSelecionado() {
+		return processoSelecionado;
 	}
 
-	public void setProcessoUpdate(Processo processoUpdate) {
-		this.processoUpdate = processoUpdate;
+	public void setProcessoSelecionado(Processo processoSelecionado) {
+		this.processoSelecionado = processoSelecionado;
 	}
 }

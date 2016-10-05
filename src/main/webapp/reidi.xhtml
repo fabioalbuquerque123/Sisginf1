@@ -48,6 +48,11 @@
 		            	<h:outputText value="#{processo.localizacao}" />
 		            </center>
 		        </p:column>
+		        <p:column style="width:32px;text-align: center">
+		            	<p:commandButton icon="ui-icon-pencil" title="Editar" action="#{ProcessoMB.alterarProcesso}">
+		               		<f:setPropertyActionListener value="#{processo}" target="#{ProcessoMB.processoSelecionado}" />
+		            	</p:commandButton>
+		        </p:column>
 		 
 		        <p:rowExpansion>
 					<p:dataTable var="projeto" value="#{processo.projeto}">
