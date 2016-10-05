@@ -1,5 +1,7 @@
 package DataAcessObject;
 
+import java.util.List;
+
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -15,9 +17,10 @@ public class TestMunicipioDAO extends TestCase{
 	
 	private DataAcessObject dao;
 	private Municipio municipio;
+	private List<String> list;
 	
-	@Test
-	public void testAinsertBean(){
+	
+	/*public void testAinsertBean(){
 		try{
 			dao = new MunicipioDAO();
 			municipio = LoadBean.getMunicipio();
@@ -25,20 +28,21 @@ public class TestMunicipioDAO extends TestCase{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
+	@Test
 	public void testBFindByUF(){
 		try{
 			dao = new MunicipioDAO();
 			municipio = LoadBean.getMunicipio();
-			municipio = ((MunicipioDAO)dao).findByUF(municipio.getUf());
+			list = ((MunicipioDAO)dao).findByUF("DF");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 	
-	@Test
-	public void testCdeleteBean(){
+	
+/*	public void testCdeleteBean(){
 		try{
 			dao = new MunicipioDAO();
 			municipio = LoadBean.getMunicipio();
@@ -47,7 +51,7 @@ public class TestMunicipioDAO extends TestCase{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	
 }

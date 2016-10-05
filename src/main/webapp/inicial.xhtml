@@ -57,13 +57,15 @@
         		<p:inputText id="nomeProjeto" style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProjetoMB.projeto.nome}" size="20" />        	
         		
         		<p:outputLabel for="ufProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="UF:" />         		
-        		<p:selectOneMenu id="ufProjeto" value="#{ProjetoMB.projeto.uf}" style="width:10px" >
+        		<p:selectOneMenu id="ufProjeto" value="#{ProjetoMB.projeto.uf}" style="width:10px">
             		<f:selectItems  value="#{ProjetoMB.estados}"  style="font-weight: 10; font: 15px arial, sans-serif;" />
-            		<p:ajax event="itemSelect"	listener="#{ProjetoMB.carregarMunicipios}" />            			            		         
+            		<p:ajax event="itemSelect"	listener="#{ProjetoMB.carregarMunicipios}" update="localidadeProjeto" />            			            		         
         		</p:selectOneMenu>   
         		
-        		<p:outputLabel for="localidadeProjeto" style="font-weight: 10; font: 15px arial, sans-serif;" value="Localidade (Cidade/Município):" /> 
-        		<p:inputText id="localidadeProjeto"  style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProjetoMB.projeto.localidade}" size="20" />        		
+        		<p:outputLabel for="localidadeProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Localidade (Cidade/Município):" />         		
+        		<p:selectOneMenu id="localidadeProjeto" value="#{ProjetoMB.projeto.localidade}" style="width:10px" >
+            		<f:selectItems  value="#{ProjetoMB.listMunicipios}"  style="font-weight: 10; font: 15px arial, sans-serif;" />           			            		         
+        		</p:selectOneMenu>     		
         		        		
 				<p:outputLabel for="numeroContrato" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Número Contrato:" /> 
         		<p:inputText id="numeroContrato" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProjetoMB.projeto.numeroContrato}" size="20" />  

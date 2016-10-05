@@ -10,13 +10,16 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 
+import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.model.UploadedFile;
 
 import arquitetura.Bean;
+import beans.Municipio;
 import beans.PessoaFisica;
 import beans.PessoaJuridica;
 import beans.Processo;
 import beans.Projeto;
+import dataAcessObject.MunicipioDAO;
 import dataAcessObject.PessoaFisicaDAO;
 import dataAcessObject.PessoaJuridicaDAO;
 import dataAcessObject.ProjetoDAO;
@@ -63,6 +66,11 @@ public class ProjetoMB implements Serializable{
 	private List<String> estados;
 	private List<String> localizaoSituacaoProcesso;
 	
+	//Municipio
+	private MunicipioDAO municipioDAO;
+	private Municipio municipio;
+	private List<String> listMunicipios;
+	
 	//ProcessoMB
 	private ProcessoMB processoMB;
 	
@@ -105,6 +113,8 @@ public class ProjetoMB implements Serializable{
 		projeto.setProcesso(new Processo());
 		projeto.setPessoaJuridica(new PessoaJuridica());
 		//projeto = processoMB.getProjetoSelecionado();
+		
+		listMunicipios = new ArrayList<String>();
 	}
 
 	//Métodos Projeto
@@ -219,7 +229,14 @@ public class ProjetoMB implements Serializable{
 	
 	//Metodos para estados e municipios
 	public void carregarMunicipios(AjaxBehaviorEvent event){
-		
+		try{
+			SelectOneMenu selectOneMenu = (SelectOneMenu) event.getSource();	
+			String ufTela = (String) selectOneMenu.getValue();
+			municipioDAO = new MunicipioDAO();
+			listMunicipios =  municipioDAO.findByUF(ufTela);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	public Projeto getProjeto() {
@@ -378,7 +395,29 @@ public class ProjetoMB implements Serializable{
 	public void setProcessoMB(ProcessoMB processoMB) {
 		this.processoMB = processoMB;
 	}
-	
-	
+
+	public MunicipioDAO getMunicipioDAO() {
+		return municipioDAO;
+	}
+
+	public void setMunicipioDAO(MunicipioDAO municipioDAO) {
+		this.municipioDAO = municipioDAO;
+	}
+
+	public Municipio getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(Municipio municipio) {
+		this.municipio = municipio;
+	}
+
+	public List<String> getListMunicipios() {
+		return listMunicipios;
+	}
+
+	public void setListMunicipios(List<String> listMunicipios) {
+		this.listMunicipios = listMunicipios;
+	}
 
 }

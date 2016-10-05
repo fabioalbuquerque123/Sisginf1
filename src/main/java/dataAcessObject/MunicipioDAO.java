@@ -10,6 +10,7 @@ import util.Conn;
 public class MunicipioDAO extends DataAcessObject{
 
 	private List<Bean> list;
+	private List<String> listMunicipios;
 	private Municipio municipio;
 	
 	@SuppressWarnings("unchecked")
@@ -24,14 +25,15 @@ public class MunicipioDAO extends DataAcessObject{
 		return list;
 	}
 	
-	public Municipio findByUF(String uf){
+	@SuppressWarnings("unchecked")
+	public List<String> findByUF(String uf){
 		try{
 			super.em = Conn.getEntityManager();
-			municipio = (Municipio) super.em.createQuery("select m from Municipio m where m.uf = :uf").setParameter("uf", uf).getSingleResult();			
+			listMunicipios = super.em.createQuery("select m.municipio from Municipio m where m.uf = :uf").setParameter("uf", uf).getResultList();			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return municipio;
+		return listMunicipios;
 	}
 
 }
