@@ -1,5 +1,6 @@
 package managedBeans;
 
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -7,8 +8,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped; 
 import javax.faces.context.FacesContext;
-
-
 
 import arquitetura.Bean;
 import arquitetura.DataAcessObject;
@@ -50,11 +49,11 @@ public class ProcessoMB implements Serializable{
 	//Pessoa Jurídica
 	private List<Bean> pessoasJuridicas;
 	private PessoaJuridicaDAO pessoaJuridicaDAO;
-	private PessoaJuridica pessoaJuridicaSelecionada;
+	private PessoaJuridica pessoaJuridicaSelecionada;	
 	
 	//Estados
 	private List<String> estados;
-
+		
 	public ProcessoMB() {
 		super();
 		try{						
@@ -113,6 +112,7 @@ public class ProcessoMB implements Serializable{
 			return "insertReidFail";
 		}
 	}
+	
 	
 	public String updateProcesso(){
 		try{
@@ -232,6 +232,7 @@ public class ProcessoMB implements Serializable{
 	
 	private void clearFields(){
 		processo = new Processo();
+		
 	}
 	
 	public void teste(){
@@ -360,4 +361,5 @@ public class ProcessoMB implements Serializable{
 	public void setProcessoSelecionado(Processo processoSelecionado) {
 		this.processoSelecionado = processoSelecionado;
 	}
+
 }

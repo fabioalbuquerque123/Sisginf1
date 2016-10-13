@@ -4,14 +4,12 @@ import java.util.List;
 
 import arquitetura.Bean;
 import arquitetura.DataAcessObject;
-import beans.Municipio;
 import util.Conn;
 
 public class MunicipioDAO extends DataAcessObject{
 
 	private List<Bean> list;
 	private List<String> listMunicipios;
-	private Municipio municipio;
 	
 	@SuppressWarnings("unchecked")
 	@Override

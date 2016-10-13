@@ -16,7 +16,9 @@ import util.LoadBean;
 public class TestMunicipioDAO extends TestCase{
 	
 	private DataAcessObject dao;
+	@SuppressWarnings("unused")
 	private Municipio municipio;
+	@SuppressWarnings("unused")
 	private List<String> list;
 	
 	

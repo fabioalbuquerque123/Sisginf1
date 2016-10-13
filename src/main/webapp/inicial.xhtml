@@ -230,17 +230,20 @@
 				
 								<p:outputLabel for="Bairro" value="Bairro" /> 
 				        		<p:inputText id="Bairro" value="#{PessoaJuridicaMB.pessoaJuridica.bairro}" size="20" />
-				        			        			
-								<p:outputLabel for="cep" value="Cep:" /> 
-				        		<p:inputText id="cep" value="#{PessoaJuridicaMB.pessoaJuridica.cep}" size="20" />        			
-				
-								<p:outputLabel for="municipio" value="Municipio:" /> 
-				        		<p:inputText id="municipio" value="#{PessoaJuridicaMB.pessoaJuridica.municipio}" size="20" />
-				        		    
-				        		<p:outputLabel for="ufPJ" style="font-weight: 10; font: 15px arial, sans-serif;"  value="UF:" />         		
+				        			        		
+								<p:outputLabel for="ufPJ" style="font-weight: 10; font: 15px arial, sans-serif;"  value="UF:" />         		
         						<p:selectOneMenu id="ufPJ" value="#{PessoaJuridicaMB.pessoaJuridica.uf}" style="width:10px" >
-            						<f:selectItems  value="#{PessoaJuridicaMB.estados}" style="font-weight: 10; font: 15px arial, sans-serif;"  />            
-        						</p:selectOneMenu>      			
+            						<f:selectItems  value="#{PessoaJuridicaMB.estados}" style="font-weight: 10; font: 15px arial, sans-serif;"  />       
+            						<p:ajax event="itemSelect"	listener="#{PessoaJuridicaMB.carregarMunicipios}" update="municipio" />       
+        						</p:selectOneMenu>   
+        										        			        			
+								<p:outputLabel for="cep" value="Cep:" /> 
+				        		<p:inputText id="cep" value="#{PessoaJuridicaMB.pessoaJuridica.cep}" size="20" />        						
+				        		
+				        		<p:outputLabel for="municipio" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Municipio:" />         		
+        						<p:selectOneMenu id="municipio" value="#{PessoaJuridicaMB.pessoaJuridica.municipio}" style="width:10px" >
+            							<f:selectItems  value="#{PessoaJuridicaMB.listMunicipios}"  style="font-weight: 10; font: 15px arial, sans-serif;" />           			            		         
+        						</p:selectOneMenu>  				        		       			
 				        			
 				        		<p:outputLabel for="telefones" value="Telefones:" /> 
 				        		<p:inputText id="telefones" value="#{PessoaJuridicaMB.pessoaJuridica.telefones}" size="20" />

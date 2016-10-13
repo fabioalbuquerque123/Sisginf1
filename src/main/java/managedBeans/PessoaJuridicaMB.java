@@ -8,13 +8,18 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+
+import org.primefaces.component.selectonemenu.SelectOneMenu;
 
 import arquitetura.Bean;
 import arquitetura.DataAcessObject;
 import beans.ContadorPJ;
+import beans.Municipio;
 import beans.PessoaFisica;
 import beans.PessoaJuridica;
 import beans.ResponsavelLegalPJ;
+import dataAcessObject.MunicipioDAO;
 import dataAcessObject.PessoaFisicaDAO;
 import dataAcessObject.PessoaJuridicaDAO;
 import util.EstadosBrasileiros;
@@ -46,6 +51,11 @@ public class PessoaJuridicaMB implements Serializable{
 	//Estados
 	private List<String> estados;
 	
+	//Municipio
+	private MunicipioDAO municipioDAO;
+	private Municipio municipio;
+	private List<String> listMunicipios;
+	
 	
 	public PessoaJuridicaMB() {
 		super();
@@ -62,8 +72,21 @@ public class PessoaJuridicaMB implements Serializable{
 		
 		//Carregar array para selectOneMenu de estados
 		estados = EstadosBrasileiros.getEstados();
+		listMunicipios = new ArrayList<String>();
 		
 		// TODO Auto-generated constructor stub
+	}
+	
+	//Metodos para estados e municipios
+	public void carregarMunicipios(AjaxBehaviorEvent event){
+		try{
+			SelectOneMenu selectOneMenu = (SelectOneMenu) event.getSource();	
+			String ufTela = (String) selectOneMenu.getValue();
+			municipioDAO = new MunicipioDAO();
+			listMunicipios =  municipioDAO.findByUF(ufTela);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	public void selecionaResponsavel(){
@@ -118,6 +141,7 @@ public class PessoaJuridicaMB implements Serializable{
 		pessoaJuridica.setContadorPJ(new ContadorPJ());
 		responsavelSelecionado = new ResponsavelLegalPJ();
 		contadorSelecionado = new ContadorPJ();
+		listMunicipios = new ArrayList<String>();
 	}
 
 	public PessoaJuridica getPessoaJuridica() {
@@ -206,5 +230,29 @@ public class PessoaJuridicaMB implements Serializable{
 
 	public void setEstados(List<String> estados) {
 		this.estados = estados;
+	}
+
+	public MunicipioDAO getMunicipioDAO() {
+		return municipioDAO;
+	}
+
+	public void setMunicipioDAO(MunicipioDAO municipioDAO) {
+		this.municipioDAO = municipioDAO;
+	}
+
+	public Municipio getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(Municipio municipio) {
+		this.municipio = municipio;
+	}
+
+	public List<String> getListMunicipios() {
+		return listMunicipios;
+	}
+
+	public void setListMunicipios(List<String> listMunicipios) {
+		this.listMunicipios = listMunicipios;
 	}
 }

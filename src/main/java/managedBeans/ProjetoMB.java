@@ -134,6 +134,7 @@ public class ProjetoMB implements Serializable{
 		projeto = new Projeto();
 		projeto.setPessoaJuridica(new PessoaJuridica());
 		projetoSelecionado = new Projeto();
+		listMunicipios = new ArrayList<String>();
 	}
 	
     public void deleteProjeto() {
@@ -153,6 +154,7 @@ public class ProjetoMB implements Serializable{
 			this.selecionarPessoaJuridica();
 			projetoDAO = new ProjetoDAO();
 			projetoDAO.updateBean(this.projeto);
+			this.clearFields();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -204,6 +206,7 @@ public class ProjetoMB implements Serializable{
 		projetosParaReidiMB = projetos;
 		projetosSelecionados = new ArrayList<Bean>();
 		projetoSelecionado = new Projeto();
+		listMunicipios = new ArrayList<String>();
 	}
 	
 	public void openTabPF(){
