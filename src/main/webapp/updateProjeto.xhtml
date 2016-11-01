@@ -13,15 +13,18 @@
             
 	          	<h:panelGrid id="pgProjetos" columns="8" cellpadding="10">
 					<p:outputLabel for="nomeProjeto" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nome Projeto:" /> 
-	        		<p:inputText id="nomeProjeto" style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProcessoMB.projetoSelecionado.nome}" size="20" />        	
-	        		 
-	        		<p:outputLabel for="ufProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="UF:" />         		
-	        		<p:selectOneMenu id="ufProjeto" value="#{ProcessoMB.projetoSelecionado.uf}" style="width:10px" >
-	            		<f:selectItems  value="#{ProcessoMB.estados}"  style="font-weight: 10; font: 15px arial, sans-serif;"  />     
+	        		<p:inputText id="nomeProjeto" style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProcessoMB.projetoSelecionado.nome}" size="20" />    
+	        		
+		        	<p:outputLabel for="ufProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="UF:" />         		
+	        		<p:selectOneMenu id="ufProjeto" value="#{ProcessoMB.projetoSelecionado.uf}" style="width:10px">
+	            		<f:selectItems  value="#{ProcessoMB.estados}"  style="font-weight: 10; font: 15px arial, sans-serif;" />
+	            		<p:ajax event="itemSelect"	listener="#{ProcessoMB.carregarMunicipios}" update="localidadeProjeto" />            			            		         
 	        		</p:selectOneMenu>   
 	        		
-	        		<p:outputLabel for="localidadeProjeto" style="font-weight: 10; font: 15px arial, sans-serif;" value="Localidade (Cidade/Município):" /> 
-	        		<p:inputText id="localidadeProjeto"  style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProcessoMB.projetoSelecionado.localidade}" size="20" immediate="true" />        		
+	        		<p:outputLabel for="localidadeProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Localidade (Cidade/Município):" />         		
+	        		<p:selectOneMenu id="localidadeProjeto" value="#{ProcessoMB.projetoSelecionado.localidade}"  style="width:10px" >
+	            		<f:selectItems  value="#{ProcessoMB.listMunicipios}" style="font-weight: 10; font: 15px arial, sans-serif;" />           			            		         
+	        		</p:selectOneMenu>      	       		
 	        		        		
 					<p:outputLabel for="numeroContrato" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Número Contrato:" /> 
 	        		<p:inputText id="numeroContrato" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProcessoMB.projetoSelecionado.numeroContrato}" size="20" />  
@@ -52,7 +55,7 @@
 	            		<f:selectItems  value="#{ProcessoMB.statusProjeto}" style="font-weight: 10; font: 15px arial, sans-serif;"  />            
 	        		</p:selectOneMenu>  
 	        		
-	        		<p:outputLabel for="pessoaJuridica"  style="font-weight: 10; font: 15px arial, sans-serif;" value="Pessoa Jurídica:" />
+	        		<p:outputLabel for="pessoaJuridica"  style="font-weight: 10; font: 15px arial, sans-serif;" value="Requerente:" />
 	        		<h:column>
 	        			<p:inputText id="pessoaJuridica"  style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProcessoMB.projetoSelecionado.pessoaJuridica.nomeEmpresarial}" size="20"  />
 	        			<p:commandButton update="formProjeto" oncomplete="PF('pjDialog').show()" icon="ui-icon-search" title="View"
@@ -128,8 +131,12 @@
 	    		<center>
 	    			<p:commandButton id="cbUpdate" value="Salvar" action="#{ProcessoMB.updateProjeto}" 
 		        		style="font-weight: 10; font: 15px arial, sans-serif;"/>
-		        </center>
-			</p:panel>   	             	                              	           				                 		            
+
+					<p:commandButton value="Voltar" action="#{ProcessoMB.homePage}"
+						style="font-weight: 10; font: 15px arial, sans-serif;"/>
+				</center> 		        
+			</p:panel>   	 
+           	                              	           				                 		            
      	</h:form>	            	        		          
 		         
 </h:body>

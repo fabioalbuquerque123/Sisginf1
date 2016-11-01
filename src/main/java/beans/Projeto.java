@@ -26,7 +26,7 @@ public class Projeto extends Bean implements Serializable{
 	private static final long serialVersionUID = -3958471613065624127L;
 	
 	@Id
-	@Column(name="id",nullable=false)
+	@Column(name="idProjeto",nullable=false)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="SEQ_PROJETO")
 	private int idProjeto;
 	

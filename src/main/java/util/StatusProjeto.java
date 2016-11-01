@@ -17,6 +17,7 @@ public class StatusProjeto {
 		listStatusProjeto = new ArrayList<String>();
 		listStatusProjeto.add("");
 		listStatusProjeto.add("Aprovado");
+		listStatusProjeto.add("Arquivado");
 		listStatusProjeto.add("Em análise");
 		listStatusProjeto.add("Rejeitado");
 		return listStatusProjeto;

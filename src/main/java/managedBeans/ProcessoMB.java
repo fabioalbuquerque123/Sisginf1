@@ -8,22 +8,31 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped; 
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
+
+import org.primefaces.component.selectonemenu.SelectOneMenu;
 
 import arquitetura.Bean;
 import arquitetura.DataAcessObject;
+import beans.Municipio;
 import beans.PessoaJuridica;
 import beans.Processo;
 import beans.Projeto;
+import dataAcessObject.MunicipioDAO;
 import dataAcessObject.PessoaJuridicaDAO;
 import dataAcessObject.ProcessoDAO;
 import dataAcessObject.ProjetoDAO;
 import util.EstadosBrasileiros;
 import util.LocalizacaoProcesso;
+import util.Portaria;
 import util.StatusProjeto;
 
 @ManagedBean(name="ProcessoMB")
 @SessionScoped
-public class ProcessoMB implements Serializable{
+public class ProcessoMB extends HttpServlet implements Serializable{
 	
 	/**
 	 * 
@@ -53,6 +62,11 @@ public class ProcessoMB implements Serializable{
 	
 	//Estados
 	private List<String> estados;
+	
+	//Municipio
+	private MunicipioDAO municipioDAO;
+	private Municipio municipio;
+	private List<String> listMunicipios;
 		
 	public ProcessoMB() {
 		super();
@@ -90,21 +104,38 @@ public class ProcessoMB implements Serializable{
 		return processoMB;
 	}
 	
+	//Metodos para estados e municipios
+	public void carregarMunicipios(AjaxBehaviorEvent event){
+		try{
+			SelectOneMenu selectOneMenu = (SelectOneMenu) event.getSource();	
+			String ufTela = (String) selectOneMenu.getValue();
+			municipioDAO = new MunicipioDAO();
+			listMunicipios =  municipioDAO.findByUF(ufTela);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 	//Metodos para processos
-	@SuppressWarnings("static-access")
 	public String inserirProcesso(){
 		try{
-			projetoMB = ProjetoMB.getInstance();			
-			processoDAO = new ProcessoDAO();
-			processo.setProjeto(projetoMB.getProjetosParaReidiMB());
-			processoDAO.insertBean(processo);
-			this.inserirProjetos();
-			this.clearFields();
-			projetoMB.clearFields();
-			this.findAllReid();
-			FacesContext.getCurrentInstance().
-	       	 addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Processo inserido com sucesso!"));
-			return "insertReidOK";
+			if(processo.getNumeroOriginalANTAQ().length()==0 || processo.getNumeroOriginalANTAQ() == null){
+				FacesContext.getCurrentInstance().
+	        	 addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Campos!", ""));
+				return "insertReidFail";
+			}else{
+				projetoMB = ProjetoMB.getInstance();			
+				processoDAO = new ProcessoDAO();
+				processo.setProjeto(projetoMB.getProjetosParaReidiMB());
+				processoDAO.insertBean(processo);
+				this.inserirProjetos();
+				this.clearFields();
+				projetoMB.clearFields();
+				this.findAllReid();
+				FacesContext.getCurrentInstance().
+		       	 addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Processo inserido com sucesso!"));
+				return "insertReidOK";
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().
@@ -210,6 +241,33 @@ public class ProcessoMB implements Serializable{
 		projetoSelecionado.setPessoaJuridica(pessoaJuridicaSelecionada);
 	}
 	
+	//Metodo para gerar o relatorio
+	public void gerarPortaria(){
+		try{
+			FacesContext context = FacesContext.getCurrentInstance(); 
+			HttpServletResponse response = (HttpServletResponse)context.getExternalContext().getResponse();			
+			String path = context.getExternalContext().getRealPath("/");
+			ServletOutputStream saida = response.getOutputStream();		
+			response.sendRedirect("portaria.pdf");
+			String str = Portaria.gerarPortaria(
+					projetoSelecionado.getIdProjeto(),
+					"ID_PROJETO","C:\\Users\\luizhoa\\apache-tomcat-7.0.70\\webapps\\relatorios\\minuta_portaria_last.jrxml",
+					saida,
+					path);					
+/*			String str = Portaria.gerarPortaria(
+					projetoSelecionado.getIdProjeto(),
+					"ID_PROJETO","C:\\apache-tomcat-7.0.72\\webapps\\relatorios\\minuta_portaria_last.jrxml",
+					saida,
+					path);					
+*/			
+			context.responseComplete();					
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public String novoReidi(){
 		return "novoReidi";
 	}
@@ -219,14 +277,17 @@ public class ProcessoMB implements Serializable{
 	}
 	
 	public String homePage(){
+		clearFields();
 		return "homePage";
-	}
+	}	
 	
-	public String alterarProjeto(){			
+	public String alterarProjeto(){
+		municipioDAO = new MunicipioDAO();
+		listMunicipios =  municipioDAO.findByUF(projetoSelecionado.getUf());
 		return "updateProjeto";
 	}
 	
-	public String alterarProcesso(){				
+	public String alterarProcesso(){	
 		return "updateProcesso";
 	}
 	
@@ -361,5 +422,29 @@ public class ProcessoMB implements Serializable{
 	public void setProcessoSelecionado(Processo processoSelecionado) {
 		this.processoSelecionado = processoSelecionado;
 	}
+
+	public MunicipioDAO getMunicipioDAO() {
+		return municipioDAO;
+	}
+
+	public void setMunicipioDAO(MunicipioDAO municipioDAO) {
+		this.municipioDAO = municipioDAO;
+	}
+
+	public Municipio getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(Municipio municipio) {
+		this.municipio = municipio;
+	}
+
+	public List<String> getListMunicipios() {
+		return listMunicipios;
+	}
+
+	public void setListMunicipios(List<String> listMunicipios) {
+		this.listMunicipios = listMunicipios;
+	}		
 
 }

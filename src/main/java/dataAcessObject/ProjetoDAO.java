@@ -38,4 +38,19 @@ public class ProjetoDAO extends DataAcessObject implements Serializable{
 		}
 		return projeto;		
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Bean> findToReport(int idProjeto){
+		try{
+			super.em = Conn.getEntityManager();
+			list = super.em.createQuery(
+							"select projeto "+
+							"from Projeto projeto "+
+							"inner join fetch projeto.processo as processo "+
+							"inner join fetch projeto.pessoaJuridica as pessoaJuridica where projeto.idProjeto = :idProjeto").setParameter("idProjeto", idProjeto).getResultList();					
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return list;
+	}
 }

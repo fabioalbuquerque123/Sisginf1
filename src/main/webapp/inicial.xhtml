@@ -15,46 +15,49 @@
     <p:tabView id="tabViewReidi" style="font-weight: 10; font: 15px arial, sans-serif;">
     
     
-        <p:tab id="tabProcesso" title="Processo" >
+		<p:tab id="tabProcesso" title="Processo" >
         
         <h:form id="formProcesso">
-            <h:panelGrid id="pgProcessos" columns="2" cellpadding="10">
+            <h:panelGrid id="pgProcessos" columns="3" cellpadding="10">
             
 				<p:outputLabel for="numeroOriginalAntaq" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nº Original Antaq:" /> 
         		<p:inputText id="numeroOriginalAntaq" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProcessoMB.processo.numeroOriginalANTAQ}" size="20" />
+        		<p:outputLabel   />     
         		
 				<p:outputLabel for="numeroApensoAntaq" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nº Apenso Antaq:" /> 
         		<p:inputText id="numeroApensoAntaq"  style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProcessoMB.processo.numeroApensoANTAQ}" size="20" />        		        
+				<p:outputLabel   />        		        		
         		        		
         		<p:outputLabel for="numeroProcessoSep" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nº Processo SEP:" /> 
         		<p:inputText id="numeroProcessoSep"  style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProcessoMB.processo.numeroProcessoSEP}" size="20" />        	
+				<p:outputLabel   />         		        		
         		        		
         		<p:outputLabel for="dataProtocoloSep" style="font-weight: 10; font: 15px arial, sans-serif;" value="Data Protocolo SEP:" />
         		<p:calendar id="dataProtocoloSep" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProcessoMB.processo.dataProtocoloSEP}" showOn="button"  />
+        		<p:outputLabel   /> 
         		
         		<p:outputLabel for="localizacao" style="font-weight: 10; font: 15px arial, sans-serif;" value="Localização:" />         		        		
        			<p:selectOneMenu id="localizacao" value="#{ProcessoMB.processo.localizacao}" style="width:10px" >
             		<f:selectItems  value="#{ProcessoMB.localizaoSituacaoProcesso}" style="font-weight: 10; font: 15px arial, sans-serif;"  />            
         		</p:selectOneMenu>
+        		<p:outputLabel   /> 
         		
             </h:panelGrid>
-            <br/><br/>
-           	<p:commandButton value="Salvar" action="#{ProcessoMB.inserirProcesso}"  
-           		style="font-weight: 10; font: 15px arial, sans-serif;" />
+            <p:messages id="messagesTest" showDetail="true" autoUpdate="true" closable="true" style=" font: 12px arial, sans-serif; " />
+        	<br/>
+            <br/><br/>            
+           	
         </h:form>
         </p:tab>
-        
-        
-        
-        
-        
+    
+    
         
         <p:tab title="Projeto" id="tabProjeto" >
         	<h:form id="formProjeto">
             
           	<h:panelGrid id="pgProjetos" columns="8" cellpadding="10">
 				<p:outputLabel for="nomeProjeto" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nome Projeto:" /> 
-        		<p:inputText id="nomeProjeto" style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProjetoMB.projeto.nome}" size="20" />        	
+        		<p:inputText id="nomeProjeto" style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProjetoMB.projeto.nome}" size="20"/>        	
         		
         		<p:outputLabel for="ufProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="UF:" />         		
         		<p:selectOneMenu id="ufProjeto" value="#{ProjetoMB.projeto.uf}" style="width:10px">
@@ -77,7 +80,9 @@
         		<p:calendar id="dataFimProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProjetoMB.projeto.dataFim}" showOn="button" />
         		
         		<p:outputLabel for="valorTotalProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Valor Total:" />
-        		<p:inputText id="valorTotalProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProjetoMB.projeto.valorTotalProjeto}" size="20" />
+        		<p:inputText id="valorTotalProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProjetoMB.projeto.valorTotalProjeto}" size="20" >
+        			<f:convertNumber groupingUsed="true" minFractionDigits="2" maxFractionDigits="2"/>
+        		</p:inputText>
         		
         		<p:outputLabel for="projecaoImpactoFin" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Projeção Impacto Financeiro:" />
         		<p:inputText id="projecaoImpactoFin" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProjetoMB.projeto.projecaoImpactoFinal}" size="20"  />       		        		      		        		        		        		
@@ -96,9 +101,9 @@
             		<f:selectItems  value="#{ProjetoMB.statusProjeto}" style="font-weight: 10; font: 15px arial, sans-serif;"  />            
         		</p:selectOneMenu>  
         		
-        		<p:outputLabel for="pessoaJuridica"  style="font-weight: 10; font: 15px arial, sans-serif;" value="Pessoa Jurídica:" />
+        		<p:outputLabel for="pessoaJuridica"  style="font-weight: 10; font: 15px arial, sans-serif;" value="Requerente:" />
         		<h:column>
-        			<p:inputText id="pessoaJuridica"  style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProjetoMB.projeto.pessoaJuridica.nomeEmpresarial}" size="20"  />
+        			<p:inputText id="pessoaJuridica"  style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProjetoMB.projeto.pessoaJuridica.nomeEmpresarial}" size="20" />
         			<p:commandButton update="formProjeto" oncomplete="PF('pjDialog').show()" icon="ui-icon-search" title="View"
         				action="#{ProjetoMB.findAllPessoasJuridicas}"  > 
                 		
@@ -194,7 +199,7 @@
 			        	<h:outputText value="#{projeto.descricao}"  style="font-weight: 10; font: 15px arial, sans-serif;" />
 			    	</p:column>
 			    	
-			    	<p:column headerText="Pessoa Jurídica" style="font-weight: 10; font: 15px arial, sans-serif;" >
+			    	<p:column headerText="Requerente" style="font-weight: 10; font: 15px arial, sans-serif;" >
 			        	<h:outputText value="#{projeto.pessoaJuridica.nomeEmpresarial}"  style="font-weight: 10; font: 15px arial, sans-serif;" />
 			    	</p:column>
 			    	
@@ -210,20 +215,20 @@
         </p:tab>
         
         
-        
-        
-        
+  
         
         
         <p:tab title="Pessoa Jurídica" id="tabPJ">
+        
+        
 			<h:form id="formPJ">
-				           	<h:panelGrid id="pgPJ" columns="2" cellpadding="10">                
+				           	<h:panelGrid id="pgPJ" columns="4" cellpadding="10">                
 				            
 				            	<p:outputLabel for="nomeEmpresarial" value="Nome Empresarial:" /> 
-				        		<p:inputText id="nomeEmpresarial" value="#{PessoaJuridicaMB.pessoaJuridica.nomeEmpresarial}" size="20" />
+				        		<p:inputText id="nomeEmpresarial" value="#{PessoaJuridicaMB.pessoaJuridica.nomeEmpresarial}" size="20"/>
 				        		
 				        		<p:outputLabel for="cnpj" value="Cnpj:" /> 
-				        		<p:inputText id="cnpj" value="#{PessoaJuridicaMB.pessoaJuridica.cnpj}" size="20" />        			
+				        		<p:inputMask id="cnpj" value="#{PessoaJuridicaMB.pessoaJuridica.cnpj}" size="20" mask="99.999.999/9999-99" />        			
 				        		
 				        		<p:outputLabel for="endereco" value="Endereço:" /> 
 				        		<p:inputText id="endereco" value="#{PessoaJuridicaMB.pessoaJuridica.endereco}" size="20" />
@@ -236,28 +241,28 @@
             						<f:selectItems  value="#{PessoaJuridicaMB.estados}" style="font-weight: 10; font: 15px arial, sans-serif;"  />       
             						<p:ajax event="itemSelect"	listener="#{PessoaJuridicaMB.carregarMunicipios}" update="municipio" />       
         						</p:selectOneMenu>   
-        										        			        			
-								<p:outputLabel for="cep" value="Cep:" /> 
-				        		<p:inputText id="cep" value="#{PessoaJuridicaMB.pessoaJuridica.cep}" size="20" />        						
-				        		
-				        		<p:outputLabel for="municipio" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Municipio:" />         		
+        						
+        						<p:outputLabel for="municipio" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Municipio:" />         		
         						<p:selectOneMenu id="municipio" value="#{PessoaJuridicaMB.pessoaJuridica.municipio}" style="width:10px" >
             							<f:selectItems  value="#{PessoaJuridicaMB.listMunicipios}"  style="font-weight: 10; font: 15px arial, sans-serif;" />           			            		         
-        						</p:selectOneMenu>  				        		       			
+        						</p:selectOneMenu>  
+        										        			        			
+								<p:outputLabel for="cep" value="Cep:" /> 
+				        		<p:inputMask id="cep" value="#{PessoaJuridicaMB.pessoaJuridica.cep}" size="20" mask="99999-999"/>        										        						        		       		
 				        			
 				        		<p:outputLabel for="telefones" value="Telefones:" /> 
 				        		<p:inputText id="telefones" value="#{PessoaJuridicaMB.pessoaJuridica.telefones}" size="20" />
 				        			
 				        		<p:outputLabel for="responsavel" value="Responsável:" /> 
 				        		<h:column>
-        							<p:inputText id="responsavel" value="#{PessoaJuridicaMB.pessoaJuridica.responsavelLegalPJ.nome}" size="20"  />
+        							<p:inputText id="responsavel" value="#{PessoaJuridicaMB.pessoaJuridica.responsavelLegalPJ.nome}" size="20" />
         							<p:commandButton id="btFindResp" update="formPJ" icon="ui-icon-search" title="View"
         								oncomplete="PF('pjResp').show()" action="#{PessoaJuridicaMB.findAllResp}" />                		
         						</h:column>  	
         						
         						<p:outputLabel for="contador" value="Contador:" /> 
 				        		<h:column>
-        							<p:inputText id="contador" value="#{PessoaJuridicaMB.pessoaJuridica.contadorPJ.nome}" size="20"  />
+        							<p:inputText id="contador" value="#{PessoaJuridicaMB.pessoaJuridica.contadorPJ.nome}" size="20" />
         							<p:commandButton id="btFindCont" update="formPJ" icon="ui-icon-search" title="View"
         								oncomplete="PF('pjCont').show()" action="#{PessoaJuridicaMB.findAllCont}" />                		
         						</h:column>  			
@@ -302,7 +307,9 @@
 									oncomplete="PF('pjCont').hide()" update="pgPJ"/>																																																						             	      
     						</p:dialog>  	             				            
     						
-    						<p:commandButton value="Salvar" action="#{PessoaJuridicaMB.insertBean}" update="formPJ"/>	
+    						<br/><br/>
+    						<p:commandButton value="Inserir Pessoa Jurídica" action="#{PessoaJuridicaMB.insertBean}" update="formPJ"
+    						style="font-weight: 10; font: 15px arial, sans-serif;"/>	
            				 </h:form>
         </p:tab>       
         
@@ -315,10 +322,10 @@
         		 	 
         		 <h:panelGrid id="pgPessoaFisica" columns="2"  cellpadding="10">
 					<p:outputLabel for="cpf" value="Cpf:" /> 
-				    <p:inputText id="cpf" value="#{PessoaFisicaMB.pessoaFisicaTela.cpf}" size="20" /> 
+				    <p:inputMask id="cpf" value="#{PessoaFisicaMB.pessoaFisicaTela.cpf}" size="20" mask="999.999.999-99" /> 
 				            		
         			<p:outputLabel for="nome" value="Nome:" /> 
-					<p:inputText id="nome" value="#{PessoaFisicaMB.pessoaFisicaTela.nome}" size="20" />				               		
+					<p:inputText id="nome" value="#{PessoaFisicaMB.pessoaFisicaTela.nome}" size="20"  />				               		
 				        		
 				    <p:outputLabel for="telefone" value="Telefone:" /> 
 					<p:inputText id="telefone" value="#{PessoaFisicaMB.pessoaFisicaTela.telefones}" size="20" />
@@ -335,15 +342,25 @@
    				</h:selectOneRadio>
 				
 				<br/>
-									       
-				<p:commandButton value="Salvar" action="#{PessoaFisicaMB.saveBean}" update="fomrPessoaFisica"/>			        				
+								
+				<br/><br/>									       
+				<p:commandButton value="Inserir Pessoa Física" action="#{PessoaFisicaMB.saveBean}" update="fomrPessoaFisica"
+				style="font-weight: 10; font: 15px arial, sans-serif;"/>			        				
         	</h:form>	        		        															
         	
         </p:tab>
          
         
     </p:tabView>
-
+    
+    <br/>
+    <br/>
+	<center>
+		<p:commandButton value="Inserir REIDI" action="#{ProcessoMB.inserirProcesso}"  
+           		style="font-weight: 10; font: 15px arial, sans-serif;" />
+		<p:commandButton value="Voltar" action="#{ProcessoMB.homePage}"
+		style="font-weight: 10; font: 15px arial, sans-serif;"/>
+	</center>
         
 	</h:body>
 	

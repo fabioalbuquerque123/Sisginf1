@@ -1,9 +1,12 @@
 package DataAcessObject;
 
+import java.util.List;
+
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import arquitetura.Bean;
 import arquitetura.DataAcessObject;
 import beans.ContadorPJ;
 import beans.PessoaJuridica;
@@ -27,8 +30,11 @@ public class TestProjetoDAO extends TestCase{
 	private PessoaJuridica pessoaJuridica;
 	private ContadorPJ contadorPJ;
 	private ResponsavelLegalPJ responsavel;
+	@SuppressWarnings("unused")
+	private List<Bean> list;
 	
-	@Test
+	
+/*	@Test
 	public void testAinsertBean(){
 		try{
 			//Contador
@@ -82,10 +88,16 @@ public class TestProjetoDAO extends TestCase{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	@Test
-	public void testCdeleteBean(){
+	public void testCselectFindToReport(){
+		dao = new ProjetoDAO();
+		list = ((ProjetoDAO)dao).findToReport(57);
+	}
+	
+/*	@Test
+	public void testDdeleteBean(){
 		try{
 			
 			//Delete Projeto
@@ -115,5 +127,5 @@ public class TestProjetoDAO extends TestCase{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-	}
+	}*/
 }

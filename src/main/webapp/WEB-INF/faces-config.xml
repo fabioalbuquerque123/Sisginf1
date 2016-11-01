@@ -79,12 +79,22 @@
 	            <to-view-id>/reidi.xhtml</to-view-id>
 	            <redirect/> 
       		</navigation-case>
+      		<navigation-case>
+            	<from-outcome>homePage</from-outcome>
+	            <to-view-id>/reidi.xhtml</to-view-id>
+	            <redirect/> 
+      		</navigation-case>
 	</navigation-rule>
 	
 	<navigation-rule>
     	<from-view-id>/updateProcesso.xhtml</from-view-id>
       		<navigation-case>
             	<from-outcome>updateProcessoOK</from-outcome>
+	            <to-view-id>/reidi.xhtml</to-view-id>
+	            <redirect/> 
+      		</navigation-case>
+      		<navigation-case>
+            	<from-outcome>homePage</from-outcome>
 	            <to-view-id>/reidi.xhtml</to-view-id>
 	            <redirect/> 
       		</navigation-case>

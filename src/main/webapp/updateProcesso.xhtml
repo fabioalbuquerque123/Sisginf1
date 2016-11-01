@@ -9,6 +9,7 @@
 <h:body>
 		<h:form id="formProcesso">
 			<p:panel id="panelReidi" header="SISGINF" >
+			
 	            <h:panelGrid id="pgProcessos" columns="2" cellpadding="10">
 	            
 					<p:outputLabel for="numeroOriginalAntaq" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nº Original Antaq:" /> 
@@ -33,6 +34,8 @@
 	           	<center>
 	    			<p:commandButton id="cbUpdate" value="Salvar" action="#{ProcessoMB.updateProcesso}" 
 		        		style="font-weight: 10; font: 15px arial, sans-serif;"/>
+		        	<p:commandButton value="Voltar" action="#{ProcessoMB.homePage}"
+						style="font-weight: 10; font: 15px arial, sans-serif;"/>
 		        </center>
 	        </p:panel>
 	 	</h:form>
