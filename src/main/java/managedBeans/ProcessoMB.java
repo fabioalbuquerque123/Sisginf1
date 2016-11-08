@@ -441,16 +441,16 @@ public class ProcessoMB extends HttpServlet implements Serializable{
 			String path = context.getExternalContext().getRealPath("/");
 			ServletOutputStream saida = response.getOutputStream();		
 			response.sendRedirect("portaria.pdf");
-/*			String str = Portaria.gerarPortaria(
+			String str = Portaria.gerarPortaria(
 					projetoSelecionado.getIdProjeto(),
 					"ID_PROJETO","C:\\Users\\luizhoa\\apache-tomcat-7.0.70\\webapps\\relatorios\\minuta_portaria_last.jrxml",
 					saida,
-					path);*/					
-			String str = Portaria.gerarPortaria(
+					path);					
+/*			String str = Portaria.gerarPortaria(
 					projetoSelecionado.getIdProjeto(),
 					"ID_PROJETO","C:\\apache-tomcat-7.0.72\\webapps\\relatorios\\minuta_portaria_last.jrxml",
 					saida,
-					path);					
+					path);*/					
 			
 			context.responseComplete();					
 

@@ -40,11 +40,11 @@
 	        		<p:outputLabel for="numeroNT" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Número NT:" />
 	        		<p:inputText id="numeroNT" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProcessoMB.projetoSelecionado.numeroNotaTecnica}" size="20"  />  
 	        			        		
-	        		<p:outputLabel for="valorTotalProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Valor Total:" />
+	        		<p:outputLabel for="valorTotalProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Valor Total: (R$)" />
 	        		<p:inputNumber  id="valorTotalProjeto" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProcessoMB.projetoSelecionado.valorTotalProjeto}" size="20" 
 		        			decimalSeparator="," thousandSeparator="."/>
 	        		
-	        		<p:outputLabel for="projecaoImpactoFin" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Projeção Impacto Financeiro:" />   
+	        		<p:outputLabel for="projecaoImpactoFin" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Projeção Impacto Financeiro: (R$)" />   
 	        		<p:inputNumber id="projecaoImpactoFin" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProcessoMB.projetoSelecionado.projecaoImpactoFinal}" size="20"  
 		        			decimalSeparator="," thousandSeparator="."/>   		        		      		        		        		        		      		        		        		
 	        		
@@ -74,33 +74,33 @@
 	            <br/><br/>
 		        <center>            
 		            <h:panelGrid id="pgEstimativas" columns="2">
-			            <p:panel id="panelBensCom" header="Estimativa de valores do projeto COM incidência de PIS e COFINS (R$)" style="font-weight: 10; font: 15px arial, sans-serif;">
+			            <p:panel id="panelBensCom" header="Estimativa de valores do projeto COM incidência de PIS e COFINS" style="font-weight: 10; font: 15px arial, sans-serif;">
 			            	<h:panelGrid id="pgCom" columns="4" cellpadding="10">
-				            	<p:outputLabel for="estimativaValBensCom" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Bens:" />
+				            	<p:outputLabel for="estimativaValBensCom" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Bens: (R$)" />
 		        				<p:inputNumber id="estimativaValBensCom" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProcessoMB.projetoSelecionado.estimativaValBensCom}" size="20" 
 			        					decimalSeparator="," thousandSeparator="."/>  
 		        				
-		        				<p:outputLabel for="estimativaValServicosCom" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Serviços:" />
+		        				<p:outputLabel for="estimativaValServicosCom" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Serviços: (R$)" />
 		        				<p:inputNumber id="estimativaValServicosCom" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProcessoMB.projetoSelecionado.estimativaValServicosCom}" size="20"  
 			        					decimalSeparator="," thousandSeparator="."/>
 		        				
-		        				<p:outputLabel for="estimativaValOutrosCom" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Outros:" />		        				
+		        				<p:outputLabel for="estimativaValOutrosCom" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Outros: (R$)" />		        				
 		        				<p:inputNumber id="estimativaValOutrosCom" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProcessoMB.projetoSelecionado.estimativaValOutrosCom}" size="20"  
 			        					decimalSeparator="," thousandSeparator="."/>  
 		        			</h:panelGrid>
 			            </p:panel>	            	            
 			            
-			            <p:panel id="panelBensSem" header="Estimativa de valores do projeto SEM incidência de PIS e COFINS (R$)" style="font-weight: 10; font: 15px arial, sans-serif;">
+			            <p:panel id="panelBensSem" header="Estimativa de valores do projeto SEM incidência de PIS e COFINS" style="font-weight: 10; font: 15px arial, sans-serif;">
 			            	<h:panelGrid id="pgSem" columns="4" cellpadding="10">
-				            	<p:outputLabel for="estimativaValBensSem" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Bens:" />
+				            	<p:outputLabel for="estimativaValBensSem" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Bens: (R$)" />
 		        				<p:inputNumber id="estimativaValBensSem" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProcessoMB.projetoSelecionado.estimativaValBensSem}" size="20"  
 			        					decimalSeparator="," thousandSeparator="."/>
 		        				
-		        				<p:outputLabel for="estimativaValServicosSem" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Serviços:" />
+		        				<p:outputLabel for="estimativaValServicosSem" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Serviços: (R$)" />
 		        				<p:inputNumber id="estimativaValServicosSem" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProcessoMB.projetoSelecionado.estimativaValServicosSem}" size="20"  
 			        					decimalSeparator="," thousandSeparator="."/>		        				
 			        					
-		        				<p:outputLabel for="estimativaValOutrosSem" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Outros:" />
+		        				<p:outputLabel for="estimativaValOutrosSem" style="font-weight: 10; font: 15px arial, sans-serif;"  value="Outros: (R$)" />
 		        				<p:inputNumber id="estimativaValOutrosSem" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProcessoMB.projetoSelecionado.estimativaValOutrosSem}" size="20"  
 			        					decimalSeparator="," thousandSeparator="."/> 
 		        			</h:panelGrid>

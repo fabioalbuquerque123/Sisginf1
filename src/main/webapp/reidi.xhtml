@@ -36,17 +36,10 @@
 		        <p:column style="width:16px">
 		            <p:rowToggler />
 		        </p:column>
-		        <p:column headerText="Nº Processo SEP" filterBy="#{processo.numeroProcessoSEP}">
+		        <p:column headerText="Nº Processo ANTAQ" filterBy="#{processo.numeroOriginalANTAQ}">
 		        	<center>
-		            	<h:outputText value="#{processo.numeroProcessoSEP}" />
+		            	<h:outputText value="#{processo.numeroOriginalANTAQ}" />
 		            </center>
-		        </p:column>
-		        <p:column headerText="Data Protocolo SEP" filterBy="#{processo.dataProtocoloSEP}" filterMatchMode="contains" >
-		        	<center>
-		            	<h:outputText value="#{processo.dataProtocoloSEP}">
-		            		<f:convertDateTime pattern="dd/MM/yyyy"/>
-				    	</h:outputText>
-				    </center>
 		        </p:column>
 		        <p:column headerText="Localização" filterBy="#{processo.localizacao}" filterMatchMode="exact">
 		        	<center>
