@@ -80,11 +80,18 @@ public class PessoaFisicaMB implements Serializable{
 	
 	private void insertBean(){
 		try{
-			pessoaFisicaDAO = new PessoaFisicaDAO();
-			pessoaFisicaDAO.insertBean(pessoaFisica);
-			clearFields();
-			FacesContext context = FacesContext.getCurrentInstance();	         
-	        context.addMessage(null, new FacesMessage("",  "Cadastro realizado com sucesso!") );
+			if(pessoaFisica.getNome() == null || pessoaFisica.getNome().length() < 1 ||
+					pessoaFisica.getTipo() == null || pessoaFisica.getTipo().length() < 1 ||
+					pessoaFisica.getCpf() == null || pessoaFisica.getCpf().length() < 1){				
+		        FacesContext context = FacesContext.getCurrentInstance();		         
+		        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Favor inserir um nome, um cpf e selecionar um tipo (Responsável/Contador)!","") );
+			}else{
+				pessoaFisicaDAO = new PessoaFisicaDAO();
+				pessoaFisicaDAO.insertBean(pessoaFisica);
+				clearFields();
+				FacesContext context = FacesContext.getCurrentInstance();	         
+		        context.addMessage(null, new FacesMessage("",  "Cadastro realizado com sucesso!") );
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}

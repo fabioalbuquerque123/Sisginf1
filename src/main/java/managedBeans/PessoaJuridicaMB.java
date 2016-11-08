@@ -56,6 +56,8 @@ public class PessoaJuridicaMB implements Serializable{
 	private Municipio municipio;
 	private List<String> listMunicipios;
 	
+	private boolean showMessage;
+	
 	
 	public PessoaJuridicaMB() {
 		super();
@@ -125,11 +127,19 @@ public class PessoaJuridicaMB implements Serializable{
 	
 	public void insertBean(){
 		try{
-			pessoaJuridicaDAO = new PessoaJuridicaDAO();
-			pessoaJuridicaDAO.insertBean(pessoaJuridica);
-			clearFields();
-			FacesContext context = FacesContext.getCurrentInstance();	         
-	        context.addMessage(null, new FacesMessage("",  "Cadastro realizado com sucesso!") );
+			if(pessoaJuridica.getNomeEmpresarial() == null || pessoaJuridica.getNomeEmpresarial().length() < 1 ||
+					pessoaJuridica.getCnpj() == null || pessoaJuridica.getCnpj().length() < 1 ||
+					pessoaJuridica.getContadorPJ() == null || pessoaJuridica.getContadorPJ().getNome() == null || pessoaJuridica.getContadorPJ().getNome().length() < 1 ||
+					pessoaJuridica.getResponsavelLegalPJ() == null || pessoaJuridica.getResponsavelLegalPJ().getNome() == null || pessoaJuridica.getResponsavelLegalPJ().getNome().length() < 1){				
+		        FacesContext context = FacesContext.getCurrentInstance();		         
+		        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Favor inserir nome empresarial, cnpj e selecionar um responsável e um contador!","") );
+			}else{
+				pessoaJuridicaDAO = new PessoaJuridicaDAO();
+				pessoaJuridicaDAO.insertBean(pessoaJuridica);
+				clearFields();
+				FacesContext context = FacesContext.getCurrentInstance();	         
+		        context.addMessage(null, new FacesMessage("Cadastro realizado com sucesso!",  "") );
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -254,5 +264,13 @@ public class PessoaJuridicaMB implements Serializable{
 
 	public void setListMunicipios(List<String> listMunicipios) {
 		this.listMunicipios = listMunicipios;
+	}
+
+	public boolean isShowMessage() {
+		return showMessage;
+	}
+
+	public void setShowMessage(boolean showMessage) {
+		this.showMessage = showMessage;
 	}
 }

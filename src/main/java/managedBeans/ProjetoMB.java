@@ -74,14 +74,13 @@ public class ProjetoMB implements Serializable{
 	//ProcessoMB
 	private ProcessoMB processoMB;
 	
-	
 	//Construtor
 	public ProjetoMB() {
 		super();
 		
 		//Projeto
 		projetoDAO = new ProjetoDAO();
-		this.novoProjeto();
+		//this.novoProjeto();
 		projetos = new ArrayList<Bean>();
 		projetosParaReidiMB = new ArrayList<Bean>();
 		
@@ -92,7 +91,7 @@ public class ProjetoMB implements Serializable{
 		
 		//Pessoa Fisica
 		pessoaFisicaDAO = new PessoaFisicaDAO();
-		this.findAllPessoasFisicas();
+		//this.findAllPessoasFisicas();
 		pessoaFisicaSelecionada = new PessoaFisica();
 		renderedPF = false;
 		renderedPJ = true;
@@ -117,54 +116,7 @@ public class ProjetoMB implements Serializable{
 		listMunicipios = new ArrayList<String>();
 	}
 
-	//Métodos Projeto
-	public void addProjeto(){
-		try {
-			projetos.add(projeto);
-			projetosParaReidiMB.add(projeto);
-			this.novoProjeto();
-			pessoaJuridicaSelecionada = new PessoaJuridica();
-			this.upload();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
-	public void novoProjeto(){
-		projeto = new Projeto();
-		projeto.setPessoaJuridica(new PessoaJuridica());
-		projetoSelecionado = new Projeto();
-		listMunicipios = new ArrayList<String>();
-	}
-	
-    public void deleteProjeto() {
-        projetos.remove(projetoSelecionado);
-        projetosParaReidiMB.remove(projetoSelecionado);
-        projetoSelecionado = null;
-    }
-    
-    public void deleteProjetos() {
-        projetos.removeAll(projetosSelecionados);
-        projetosParaReidiMB.removeAll(projetosSelecionados);
-        projetosSelecionados = new ArrayList<Bean>();
-    }
-    
-	public String updateProjeto(){
-		try{
-			this.selecionarPessoaJuridica();
-			projetoDAO = new ProjetoDAO();
-			projetoDAO.updateBean(this.projeto);
-			this.clearFields();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return "updateOK";
-	}
-    
-	public void findAllBean(){
-		projetos = projetoDAO.findAllBean();
-		projetosParaReidiMB = projetos;
-	}
 	
 	//Metodo Upload Portaria
 	public void upload() {
@@ -175,72 +127,10 @@ public class ProjetoMB implements Serializable{
         }
     }	
 	
-	//Metodos Pessoa Jurídica
-	public void findAllPessoasJuridicas(){
-		pessoaJuridicaDAO = new PessoaJuridicaDAO();
-		pessoasJuridicas = pessoaJuridicaDAO.findAllBean();
-	}
 	
-	public void selecionarPessoaJuridica(){
-		projeto.setPessoaJuridica(pessoaJuridicaSelecionada);
-	}
-	
-	public void salvarPessoaJurica(){
-		if(pessoaFisicaSelecionada == null){
-			FacesContext.getCurrentInstance().
-       	   	addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info!", "Pessoa Física deve ser selecionada!"));
-			limparPJePF();
-		}else{			
-			if(pessoaJuridicaSelecionada == null){
-				FacesContext.getCurrentInstance().
-	          	   addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info!", "Pessoa Jurídica deve ser selecionada!"));
-				limparPJePF();
-			}else{
-				selecionarPessoaJuridica();
-			}
-		}
-	}
-	
-	public void clearFields(){
-		projetos = new ArrayList<Bean>();
-		projetosParaReidiMB = projetos;
-		projetosSelecionados = new ArrayList<Bean>();
-		projetoSelecionado = new Projeto();
-		listMunicipios = new ArrayList<String>();
-	}
-	
-	public void openTabPF(){
-		renderedPF = true;
-		renderedPJ = false;
-	}
-	
-	public void closeTabPF(){
-		renderedPF = false;
-		renderedPJ = true;
-	}
-	
-	private void limparPJePF(){
-		pessoaFisicaSelecionada = new PessoaFisica();
-		pessoaJuridicaSelecionada = new PessoaJuridica();
-	}
 
 	
-	//Metodos Pessoa Física
-	private void findAllPessoasFisicas(){
-		pessoasFisicas = pessoaFisicaDAO.findAllBean();
-	}
 	
-	//Metodos para estados e municipios
-	public void carregarMunicipios(AjaxBehaviorEvent event){
-		try{
-			SelectOneMenu selectOneMenu = (SelectOneMenu) event.getSource();	
-			String ufTela = (String) selectOneMenu.getValue();
-			municipioDAO = new MunicipioDAO();
-			listMunicipios =  municipioDAO.findByUF(ufTela);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
 	
 	public Projeto getProjeto() {
 		return projeto;

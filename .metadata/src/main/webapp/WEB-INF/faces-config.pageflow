@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14714600257920" configfile="/sisginf_versao1/src/main/webapp/WEB-INF/faces-config.xml">
   <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="554" y="279" id="pf14721512878300" referenceLink="//@navigationRule.2/@navigationCase.3/@toViewId|" outlinks="pf14721512948384 pf14744043423240" inlinks="pf14721512948384 pf14749847558330 pf14749847558431" path="/login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="inicial.xhtml" x="122" y="178" id="pf14721512878513" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf14739546819551 pf14739554900093 pf14749847558432 pf14749847558431" inlinks="pf14739554900093 pf14749847558433" path="/inicial.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="inicial.xhtml" x="122" y="178" id="pf14721512878513" referenceLink="//@navigationRule.2/@navigationCase.4/@toViewId|" outlinks="pf14739546819551 pf14739554900093 pf14749847558432 pf14749847558431 pf14782836550950" inlinks="pf14739554900093 pf14749847558433 pf14782836550950" path="/inicial.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="reidi.xhtml" x="338" y="178" id="pf14739546819552" referenceLink="//@navigationRule.4/@navigationCase.1/@toViewId|" outlinks="pf14749847558433 pf14749847558330 pf14749847558434 pf14756166719730" inlinks="pf14739546819551 pf14744043423240 pf14749847558432 pf14750039559148 pf14756171410522 pf14775965458061 pf14779144526150" path="/reidi.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="updateProjeto.xhtml" id="pf14749847558435" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf14750039559148 pf14775965458061" inlinks="pf14749847558434" path="/updateProjeto.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="updateProcesso.xhtml" id="pf14756166719741" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf14756171410522 pf14779144526150" inlinks="pf14756166719730" path="/updateProcesso.xhtml"/>
@@ -27,4 +27,5 @@
   <links id="pf14756171410522" target="pf14739546819552" source="pf14756166719741" outcome="updateProcessoOK" redirect="true"/>
   <links id="pf14775965458061" target="pf14739546819552" source="pf14749847558435" outcome="homePage" redirect="true"/>
   <links id="pf14779144526150" target="pf14739546819552" source="pf14756166719741" outcome="homePage" redirect="true"/>
+  <links id="pf14782836550950" target="pf14721512878513" source="pf14721512878513" outcome="error"/>
 </pageflow:Pageflow>

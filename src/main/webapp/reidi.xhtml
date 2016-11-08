@@ -24,28 +24,39 @@
 		            </h:commandLink>
 		        </f:facet>
 				
-			    <p:dataTable var="processo" value="#{ProcessoMB.processos}">
-		        <f:facet name="header">
-		           	Processos
-		        </f:facet>
+			    <p:dataTable var="processo" value="#{ProcessoMB.processos}" rows="5"
+			    		paginator="true"
+                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+			    		rowsPerPageTemplate="5,10,15"  widgetVar="processosTable" >
+                 		
+				<f:facet name="header">
+					Processos
+        		</f:facet>
+        		                 		
 		        <p:column style="width:16px">
 		            <p:rowToggler />
 		        </p:column>
-		        <p:column headerText="Nº Processo SEP">
+		        <p:column headerText="Nº Processo SEP" filterBy="#{processo.numeroProcessoSEP}">
 		        	<center>
 		            	<h:outputText value="#{processo.numeroProcessoSEP}" />
 		            </center>
 		        </p:column>
-		        <p:column headerText="Data Protocolo SEP">
+		        <p:column headerText="Data Protocolo SEP" filterBy="#{processo.dataProtocoloSEP}" filterMatchMode="contains" >
 		        	<center>
-		            	<h:outputText value="#{processo.dataProtocoloSEP}" >
+		            	<h:outputText value="#{processo.dataProtocoloSEP}">
 		            		<f:convertDateTime pattern="dd/MM/yyyy"/>
 				    	</h:outputText>
 				    </center>
 		        </p:column>
-		        <p:column headerText="Localização">
+		        <p:column headerText="Localização" filterBy="#{processo.localizacao}" filterMatchMode="exact">
 		        	<center>
-		            	<h:outputText value="#{processo.localizacao}" />
+		            	<f:facet name="filter">
+	                		<p:selectOneMenu onchange="PF('processosTable').filter()">
+	                    		<f:selectItem itemLabel="Selecione a localização" itemValue="#{processo.localizacao}" noSelectionOption="true" />
+	                    		<f:selectItems value="#{ProcessoMB.localizaoSituacaoProcesso}" />
+	                		</p:selectOneMenu>
+            			</f:facet>
+         				<h:outputText value="#{processo.localizacao}" />
 		            </center>
 		        </p:column>
 		        <p:column style="width:32px;text-align: center">
@@ -54,7 +65,7 @@
 		            	</p:commandButton>
 		        </p:column>
 		 
-		        <p:rowExpansion>
+		        <p:rowExpansion >
 					<p:dataTable var="projeto" value="#{processo.projeto}">
 				        <p:column headerText="Nome Projeto">
 				        	<center>
@@ -90,9 +101,11 @@
 				            	</h:outputText>
 				            </center>
 				        </p:column>
-				        <p:column headerText="Valor Total">
+				        <p:column headerText="Valor Total" >
 				        	<center>
-				            	<h:outputText value="#{projeto.valorTotalProjeto}" />
+				            	<h:outputText value="#{projeto.valorTotalProjeto}" >
+				            		<f:convertNumber currencyCode="BRL" type="currency" />
+				            	</h:outputText>
 				            </center>
 				        </p:column>
 				        <p:column headerText="Data Aprov/Rejeicao">
@@ -111,12 +124,7 @@
 		             		<p:commandButton icon="ui-icon-pencil" title="Editar" action="#{ProcessoMB.alterarProjeto}">
 		                		<f:setPropertyActionListener value="#{projeto}" target="#{ProcessoMB.projetoSelecionado}" />
 		            		</p:commandButton>
-		        		</p:column>
-		        		<p:column style="width:32px;text-align: center">
-		             		<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="PF('projetoDialog').show()" >
-		                		<f:setPropertyActionListener value="#{projeto}" target="#{ProcessoMB.projetoSelecionado}" />
-		            		</p:commandButton>
-		        		</p:column>
+		        		</p:column>		        	
 		        		<p:column style="width:32px;text-align: center">
 		             		<p:commandButton icon="ui-icon-document" title="gerar portaria" action="#{ProcessoMB.gerarPortaria}" ajax="false" 
 		             			onclick="this.form.target='_blank'" >
@@ -130,19 +138,6 @@
 		        
 		        
 		    </p:dataTable>
-		    
-		    <p:dialog id="dialogProjeto" header="Excluir" widgetVar="projetoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-		        <p:outputPanel id="projetoDetail" style="text-align:center;">
-		        	<h:outputText value="Deseja realmente excluir esse projeto?" />
-		        	<br/><br/>
-		        	<center>
-		            	<h:panelGrid  columns="2"> 
-		            		<p:commandButton value="Sim" update="formReidi" action="#{ProcessoMB.deleteProjeto}" />
-		                	<p:commandButton value="Não" oncomplete="PF('projetoDialog').hide()" />		                
-		            	</h:panelGrid>
-		            </center>
-		        </p:outputPanel>
-		    </p:dialog>
     
     
     	</p:panel>    

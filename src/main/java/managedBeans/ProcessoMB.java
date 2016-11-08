@@ -2,6 +2,7 @@ package managedBeans;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -14,14 +15,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 
 import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.event.TabChangeEvent;
 
 import arquitetura.Bean;
 import arquitetura.DataAcessObject;
 import beans.Municipio;
+import beans.PessoaFisica;
 import beans.PessoaJuridica;
 import beans.Processo;
 import beans.Projeto;
 import dataAcessObject.MunicipioDAO;
+import dataAcessObject.PessoaFisicaDAO;
 import dataAcessObject.PessoaJuridicaDAO;
 import dataAcessObject.ProcessoDAO;
 import dataAcessObject.ProjetoDAO;
@@ -49,16 +53,26 @@ public class ProcessoMB extends HttpServlet implements Serializable{
 	private Processo processoSelecionado;
 	
 	//Projeto
-	private ProjetoMB projetoMB;
+	/*private ProjetoMB projetoMB;*/
 	private ProjetoDAO projetoDAO;
 	private Projeto projetoSelecionado;
 	private Projeto projeto;
-	private List<String> statusProjeto;
+	private List<String> statusProjeto;	
+	//Projeto ProjetoMB
+	private List<Bean> projetos;
+	private static List<Bean> projetosParaReidiMB;	
+	private List<Bean> projetosSelecionados;
 	
 	//Pessoa Jurídica
 	private List<Bean> pessoasJuridicas;
 	private PessoaJuridicaDAO pessoaJuridicaDAO;
 	private PessoaJuridica pessoaJuridicaSelecionada;	
+	
+	//Pessoa Física
+	private List<Bean> pessoasFisicas;
+	private PessoaFisicaDAO pessoaFisicaDAO;
+	private PessoaFisica pessoaFisicaSelecionada;
+
 	
 	//Estados
 	private List<String> estados;
@@ -67,19 +81,37 @@ public class ProcessoMB extends HttpServlet implements Serializable{
 	private MunicipioDAO municipioDAO;
 	private Municipio municipio;
 	private List<String> listMunicipios;
+	
+	private boolean renderedPF;
+	private boolean renderedPJ;
+	private boolean messageProcesso;
+	
+	private List<Processo> filterProcessos;
+	private List<Projeto> filterProjeto;
 		
 	public ProcessoMB() {
 		super();
 		try{						
-			//Processo
+			//Processo			
 			processo = new Processo();
 			
 			//Projeto
 			projetoSelecionado = new Projeto();
+			projetoDAO = new ProjetoDAO();
+			this.novoProjeto();
+			projetos = new ArrayList<Bean>();
+			projetosParaReidiMB = new ArrayList<Bean>();
 			
 			//Pessoa Juridica
 			pessoaJuridicaDAO = new PessoaJuridicaDAO();
 			pessoaJuridicaSelecionada = new PessoaJuridica();
+			
+			//Pessoa Fisica
+			pessoaFisicaDAO = new PessoaFisicaDAO();
+			this.findAllPessoasFisicas();
+			pessoaFisicaSelecionada = new PessoaFisica();
+			renderedPF = false;
+			renderedPJ = true;
 			
 			this.findAllReid();
 			
@@ -92,9 +124,14 @@ public class ProcessoMB extends HttpServlet implements Serializable{
 			//Carregar Estados
 			estados = EstadosBrasileiros.getEstados();
 			
-			projetoMB = ProjetoMB.getInstance();
+			//projetoMB = ProjetoMB.getInstance();
 			
-			projeto = new Projeto();
+			projeto = new Projeto();							
+			projeto.setProcesso(new Processo());
+			projeto.setPessoaJuridica(new PessoaJuridica());
+			
+			listMunicipios = new ArrayList<String>();
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -116,24 +153,36 @@ public class ProcessoMB extends HttpServlet implements Serializable{
 		}
 	}
 	
+/*	public String saveProcesso(){
+		if(processo.getNumeroOriginalANTAQ().length()==0 || processo.getNumeroOriginalANTAQ() == null || projetosParaReidiMB.size() == 0){
+			FacesContext context = FacesContext.getCurrentInstance();		         
+	        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Favor preencher campo Nº original Antaq e verificar se há projeto inserido!","") );	
+	        messageProcesso = true;
+	        return "";
+		}else{
+			inserirProcesso();
+		}
+	}*/
+	
 	//Metodos para processos
 	public String inserirProcesso(){
-		try{
-			if(processo.getNumeroOriginalANTAQ().length()==0 || processo.getNumeroOriginalANTAQ() == null){
-				FacesContext.getCurrentInstance().
-	        	 addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Campos!", ""));
-				return "insertReidFail";
+		try{				
+			if(processo.getNumeroOriginalANTAQ().length()==0 || processo.getNumeroOriginalANTAQ() == null || projetosParaReidiMB.size() == 0){
+				FacesContext context = FacesContext.getCurrentInstance();		         
+		        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Favor preencher campo Nº original Antaq e verificar se há projeto inserido!","") );	
+		        messageProcesso = true;
+		        return "error";
 			}else{
-				projetoMB = ProjetoMB.getInstance();			
+				//projetoMB = ProjetoMB.getInstance();			
 				processoDAO = new ProcessoDAO();
-				processo.setProjeto(projetoMB.getProjetosParaReidiMB());
+				processo.setProjeto(this.getProjetosParaReidiMB());
 				processoDAO.insertBean(processo);
 				this.inserirProjetos();
 				this.clearFields();
-				projetoMB.clearFields();
+				this.clearFieldsProjeto();
 				this.findAllReid();
 				FacesContext.getCurrentInstance().
-		       	 addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Processo inserido com sucesso!"));
+			    addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Processo inserido com sucesso!"));
 				return "insertReidOK";
 			}
 		}catch(Exception e){
@@ -147,10 +196,16 @@ public class ProcessoMB extends HttpServlet implements Serializable{
 	
 	public String updateProcesso(){
 		try{
-			processoDAO = new ProcessoDAO();
-			processoDAO.updateBean(processoSelecionado);
-			findAllReid();
-			processoSelecionado = new Processo();
+			if(processoSelecionado.getNumeroOriginalANTAQ().length()==0 || processoSelecionado.getNumeroOriginalANTAQ() == null){
+				FacesContext context = FacesContext.getCurrentInstance();		         
+		        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Favor preencher campo Nº original Antaq!","") );			        
+		        return "error";
+			}else{
+				processoDAO = new ProcessoDAO();
+				processoDAO.updateBean(processoSelecionado);
+				findAllReid();
+				processoSelecionado = new Processo();
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -181,13 +236,16 @@ public class ProcessoMB extends HttpServlet implements Serializable{
 		}
 	}
 	
-	//Metodos para projeto
+	public void testar(TabChangeEvent event){		
+		FacesContext context = FacesContext.getCurrentInstance();		
+	}
 	
+	//Metodos para lista de projetos	
 	@SuppressWarnings("static-access")
 	private void inserirProjetos(){
 		try {			
 			projetoDAO = new ProjetoDAO();
-			for(Bean projeto : projetoMB.getProjetosParaReidiMB()){
+			for(Bean projeto : this.getProjetosParaReidiMB()){
 			((Projeto)projeto).setProcesso(processo);
 				projetoDAO.insertBean(projeto);
 			}
@@ -197,19 +255,34 @@ public class ProcessoMB extends HttpServlet implements Serializable{
 		}		
 	}
 	
-	public String updateProjeto(){
-		try{			
-			projetoDAO = new ProjetoDAO();
-			projetoDAO.updateBean(projetoSelecionado);
-			findAllReid();
-			projetoSelecionado = new Projeto();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return "updateOK";
+	
+	public String alterarProjeto(){
+		municipioDAO = new MunicipioDAO();
+		listMunicipios =  municipioDAO.findByUF(projetoSelecionado.getUf());
+		return "updateProjeto";
 	}
 	
-	public void deleteProjeto(){
+	public String updateProjeto(){
+		try{			
+			if(projetoSelecionado.getNome().length() == 0 || projetoSelecionado.getNome() == null ||	projetoSelecionado.getPessoaJuridica() == null ||  projetoSelecionado.getPessoaJuridica().getNomeEmpresarial() == null || projetoSelecionado.getPessoaJuridica().getNomeEmpresarial().length() < 1){
+				FacesContext context = FacesContext.getCurrentInstance();		         
+		        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Favor preencher campos obrigatórios (*) para o projeto!","") );
+		        return "updateFail";
+			}else{						
+				projetoDAO = new ProjetoDAO();
+				projetoDAO.updateBean(projetoSelecionado);
+				findAllReid();
+				projetoSelecionado = new Projeto();
+				return "updateOK";
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return "updateOK";
+		}
+		
+	}
+	
+/*	public void deleteProjeto(){
 		try{	
 			boolean flag = false;
 			if(projetoSelecionado.getProcesso().getProjeto().size() == 1)
@@ -228,18 +301,137 @@ public class ProcessoMB extends HttpServlet implements Serializable{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
+	//Métodos Projeto ProjetoMB
+		public void addProjeto(){
+			try {
+				if(projeto.getNome().length() == 0 || projeto.getNome() == null ||	projeto.getPessoaJuridica() == null ||  projeto.getPessoaJuridica().getNomeEmpresarial() == null || projeto.getPessoaJuridica().getNomeEmpresarial().length() < 1){
+					FacesContext context = FacesContext.getCurrentInstance();		         
+			        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Favor preencher campos obrigatórios (*) para o projeto!","") );
+			        messageProcesso = false;
+				}else{						
+					projetos.add(projeto);
+					projetosParaReidiMB.add(projeto);
+					this.novoProjeto();
+					pessoaJuridicaSelecionada = new PessoaJuridica();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	    public void deleteProjeto() {
+	        projetos.remove(projetoSelecionado);
+	        projetosParaReidiMB.remove(projetoSelecionado);
+	        projetoSelecionado = null;
+	    }
+	    
+	    public void deleteProjetos() {
+	        projetos.removeAll(projetosSelecionados);
+	        projetosParaReidiMB.removeAll(projetosSelecionados);
+	        projetosSelecionados = new ArrayList<Bean>();
+	    }
+	    
+/*		public String updateProjeto(){
+			try{
+				this.selecionarPessoaJuridica();
+				projetoDAO = new ProjetoDAO();
+				projetoDAO.updateBean(this.projeto);
+				this.clearFields();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			return "updateOK";
+		}*/
+	    
+		public void findAllBean(){
+			projetos = projetoDAO.findAllBean();
+			projetosParaReidiMB = projetos;
+		}
 	
+		//Metodos Pessoa Jurídica
+		public void selecionarPessoaJuridicaInicial(){
+			projeto.setPessoaJuridica(pessoaJuridicaSelecionada);
+		}
+		
+		public void selecionarPessoaJuridicaUpdate(){
+			projetoSelecionado.setPessoaJuridica(pessoaJuridicaSelecionada);
+		}
+		
+/*		public void salvarPessoaJurica(){
+			if(pessoaFisicaSelecionada == null){
+				FacesContext.getCurrentInstance().
+	       	   	addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info!", "Pessoa Física deve ser selecionada!"));
+				limparPJePF();
+			}else{			
+				if(pessoaJuridicaSelecionada == null){
+					FacesContext.getCurrentInstance().
+		          	   addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info!", "Pessoa Jurídica deve ser selecionada!"));
+					limparPJePF();
+				}else{
+					selecionarPessoaJuridica();
+				}
+			}
+		}*/
+		
+		public void clearFieldsProjeto(){
+			projeto = new Projeto();
+			projeto.setPessoaJuridica(new PessoaJuridica());
+			projetos = new ArrayList<Bean>();
+			projetosParaReidiMB = projetos;
+			projetosSelecionados = new ArrayList<Bean>();
+			projetoSelecionado = new Projeto();
+			listMunicipios = new ArrayList<String>();
+		}
+		
+		public void novoProjeto(){
+			projeto = new Projeto();
+			projeto.setPessoaJuridica(new PessoaJuridica());
+			projetoSelecionado = new Projeto();
+			listMunicipios = new ArrayList<String>();
+		}
+		
+		public void openTabPF(){
+			renderedPF = true;
+			renderedPJ = false;
+		}
+		
+		public void closeTabPF(){
+			renderedPF = false;
+			renderedPJ = true;
+		}
+		
+		private void limparPJePF(){
+			pessoaFisicaSelecionada = new PessoaFisica();
+			pessoaJuridicaSelecionada = new PessoaJuridica();
+		}
 	//Metodos Pessoa Jurídica
 	public void findAllPessoasJuridicas(){
 		pessoaJuridicaDAO = new PessoaJuridicaDAO();
 		pessoasJuridicas = pessoaJuridicaDAO.findAllBean();
 	}
 	
-	public void selecionarPessoaJuridica(){
+/*	public void selecionarPessoaJuridica(){
 		projetoSelecionado.setPessoaJuridica(pessoaJuridicaSelecionada);
-	}
+	}*/
+	
+	//Metodos Pessoa Física
+		private void findAllPessoasFisicas(){
+			pessoasFisicas = pessoaFisicaDAO.findAllBean();
+		}
+		
+		//Metodos para estados e municipios
+/*		public void carregarMunicipios(AjaxBehaviorEvent event){
+			try{
+				SelectOneMenu selectOneMenu = (SelectOneMenu) event.getSource();	
+				String ufTela = (String) selectOneMenu.getValue();
+				municipioDAO = new MunicipioDAO();
+				listMunicipios =  municipioDAO.findByUF(ufTela);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}*/
 	
 	//Metodo para gerar o relatorio
 	public void gerarPortaria(){
@@ -249,17 +441,17 @@ public class ProcessoMB extends HttpServlet implements Serializable{
 			String path = context.getExternalContext().getRealPath("/");
 			ServletOutputStream saida = response.getOutputStream();		
 			response.sendRedirect("portaria.pdf");
-			String str = Portaria.gerarPortaria(
+/*			String str = Portaria.gerarPortaria(
 					projetoSelecionado.getIdProjeto(),
 					"ID_PROJETO","C:\\Users\\luizhoa\\apache-tomcat-7.0.70\\webapps\\relatorios\\minuta_portaria_last.jrxml",
 					saida,
-					path);					
-/*			String str = Portaria.gerarPortaria(
+					path);*/					
+			String str = Portaria.gerarPortaria(
 					projetoSelecionado.getIdProjeto(),
 					"ID_PROJETO","C:\\apache-tomcat-7.0.72\\webapps\\relatorios\\minuta_portaria_last.jrxml",
 					saida,
 					path);					
-*/			
+			
 			context.responseComplete();					
 
 		}catch(Exception e){
@@ -281,19 +473,17 @@ public class ProcessoMB extends HttpServlet implements Serializable{
 		return "homePage";
 	}	
 	
-	public String alterarProjeto(){
-		municipioDAO = new MunicipioDAO();
-		listMunicipios =  municipioDAO.findByUF(projetoSelecionado.getUf());
-		return "updateProjeto";
-	}
-	
 	public String alterarProcesso(){	
 		return "updateProcesso";
 	}
 	
 	private void clearFields(){
 		processo = new Processo();
-		
+		projetosParaReidiMB = new ArrayList<>();
+		projetosSelecionados = new ArrayList<>();
+		projetos = new ArrayList<>();
+		projeto = new Projeto();
+		listMunicipios = new ArrayList<>();
 	}
 	
 	public void teste(){
@@ -313,13 +503,13 @@ public class ProcessoMB extends HttpServlet implements Serializable{
 		return processoDAO;
 	}
 
-	public ProjetoMB getProjetoMB() {
+/*	public ProjetoMB getProjetoMB() {
 		return projetoMB;
 	}
 
 	public void setProjetoMB(ProjetoMB projetoMB) {
 		this.projetoMB = projetoMB;
-	}
+	}*/
 
 	public ProjetoDAO getProjetoDAO() {
 		return projetoDAO;
@@ -445,6 +635,93 @@ public class ProcessoMB extends HttpServlet implements Serializable{
 
 	public void setListMunicipios(List<String> listMunicipios) {
 		this.listMunicipios = listMunicipios;
-	}		
+	}
 
+	public boolean isRenderedPF() {
+		return renderedPF;
+	}
+
+	public void setRenderedPF(boolean renderedPF) {
+		this.renderedPF = renderedPF;
+	}
+
+	public boolean isRenderedPJ() {
+		return renderedPJ;
+	}
+
+	public void setRenderedPJ(boolean renderedPJ) {
+		this.renderedPJ = renderedPJ;
+	}
+
+	public List<Bean> getProjetos() {
+		return projetos;
+	}
+
+	public void setProjetos(List<Bean> projetos) {
+		this.projetos = projetos;
+	}
+
+	public static List<Bean> getProjetosParaReidiMB() {
+		return projetosParaReidiMB;
+	}
+
+	public static void setProjetosParaReidiMB(List<Bean> projetosParaReidiMB) {
+		ProcessoMB.projetosParaReidiMB = projetosParaReidiMB;
+	}
+
+	public List<Bean> getProjetosSelecionados() {
+		return projetosSelecionados;
+	}
+
+	public void setProjetosSelecionados(List<Bean> projetosSelecionados) {
+		this.projetosSelecionados = projetosSelecionados;
+	}
+
+	public List<Bean> getPessoasFisicas() {
+		return pessoasFisicas;
+	}
+
+	public void setPessoasFisicas(List<Bean> pessoasFisicas) {
+		this.pessoasFisicas = pessoasFisicas;
+	}
+
+	public PessoaFisicaDAO getPessoaFisicaDAO() {
+		return pessoaFisicaDAO;
+	}
+
+	public void setPessoaFisicaDAO(PessoaFisicaDAO pessoaFisicaDAO) {
+		this.pessoaFisicaDAO = pessoaFisicaDAO;
+	}
+
+	public PessoaFisica getPessoaFisicaSelecionada() {
+		return pessoaFisicaSelecionada;
+	}
+
+	public void setPessoaFisicaSelecionada(PessoaFisica pessoaFisicaSelecionada) {
+		this.pessoaFisicaSelecionada = pessoaFisicaSelecionada;
+	}
+
+	public boolean isMessageProcesso() {
+		return messageProcesso;
+	}
+
+	public void setMessageProcesso(boolean messageProcesso) {
+		this.messageProcesso = messageProcesso;
+	}
+
+	public List<Processo> getFilterProcessos() {
+		return filterProcessos;
+	}
+
+	public void setFilterProcessos(List<Processo> filterProcessos) {
+		this.filterProcessos = filterProcessos;
+	}
+
+	public List<Projeto> getFilterProjeto() {
+		return filterProjeto;
+	}
+
+	public void setFilterProjeto(List<Projeto> filterProjeto) {
+		this.filterProjeto = filterProjeto;
+	}
 }

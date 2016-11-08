@@ -29,12 +29,12 @@ public class UsuarioDAO extends DataAcessObject implements Serializable{
 		return list;
 	}
 	
-	public Usuario findUsuarioLogin(String nomeUsuario, String senha) {
+	public Usuario findUsuarioLogin(String loginUsuario, String senha) {
 		try{
 			super.em = Conn.getEntityManager();
 			usuario = (Usuario) super.em.createQuery(
-				"SELECT u from Usuario u where u.nome = :name and u.senha = :senha")
-                .setParameter("name", nomeUsuario)
+				"SELECT u from Usuario u where u.login = :login and u.senha = :senha")
+                .setParameter("login", loginUsuario)
                 .setParameter("senha", senha).getSingleResult();
 			
 		}catch(Exception e){

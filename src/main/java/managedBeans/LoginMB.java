@@ -37,10 +37,10 @@ public class LoginMB implements Serializable{
 
 	public String envia() {
          
-         usuario = usuarioDAO.findUsuarioLogin(usuario.getNome(), usuario.getSenha());
+         usuario = usuarioDAO.findUsuarioLogin(usuario.getLogin(), usuario.getSenha());
          if (usuario == null) {        	 
         	 FacesContext.getCurrentInstance().
-        	 addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Nome de usúario ou senha inválidos!", ""));
+        	 addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nome de usúario ou senha inválidos!", ""));
         	 usuario = new Usuario();
         	 return "loginFail";
          } else {               
