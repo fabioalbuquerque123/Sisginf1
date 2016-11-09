@@ -143,7 +143,25 @@
 
 					<p:commandButton value="Voltar" action="#{ProcessoMB.homePage}"
 						style="font-weight: 10; font: 15px arial, sans-serif;"/>
-				</center> 		        
+				</center> 		 
+	
+				<p:dialog id="dialogProjecao" header="Aviso!" widgetVar="pjDialogIF" modal="true" showEffect="fade"
+		            	 hideEffect="fade" resizable="false"  style="font-weight: 10; font: 15px arial, sans-serif;" >
+				        
+				        <center>
+				        	<p:outputLabel value="Impacto Financeiro divergente do Esperado!" />
+				        </center>
+				        <center>
+				        	<p:outputLabel value="Confirma?" />
+				        </center>
+				        <br/>
+				        <center>
+				        	<p:commandButton value="Sim" update="formProjeto" action="#{ProcessoMB.saveUpdateProjeto}"></p:commandButton>		
+				        	<p:commandButton value="Não" update="formProjeto"></p:commandButton>
+				       	</center>
+																																												             	      
+		    	</p:dialog>  
+				       
 			</p:panel>   	 
            	                              	           				                 		            
      	</h:form>	            	        		          

@@ -119,6 +119,23 @@
 		            </center>
 		            <br/><br/>
 		            
+		            <p:dialog id="dialogProjecao" header="Aviso!" widgetVar="pjDialogIF" modal="true" showEffect="fade"
+		            	 hideEffect="fade" resizable="false"  style="font-weight: 10; font: 15px arial, sans-serif;" >
+				        
+				        <center>
+				        	<p:outputLabel value="Impacto Financeiro divergente do Esperado!" />
+				        </center>
+				        <center>
+				        	<p:outputLabel value="Confirma?" />
+				        </center>
+				        <br/>
+				        <center>
+				        	<p:commandButton value="Sim" update="formProjeto" action="#{ProcessoMB.insertProjeto}"></p:commandButton>		
+				        	<p:commandButton value="Não" update="formProjeto"></p:commandButton>
+				       	</center>
+																																												             	      
+		    		</p:dialog>  	     
+		            
 		            <center>
 			            <p:commandButton value="Inserir Projeto" actionListener="#{ProcessoMB.addProjeto}" update="formProjeto"
 		        			style="font-weight: 10; font: 15px arial, sans-serif;"/>   
@@ -136,11 +153,11 @@
 			                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
 						    		rowsPerPageTemplate="5,10,15">
 							
-							    	<p:column headerText="Nome"  style="font-weight: 10; font: 15px arial, sans-serif;" >
+							    	<p:column headerText="Nome"  style="font-weight: 10; font: 15px arial, sans-serif;" filterBy="#{pessoaJuridica.nomeEmpresarial}">
 							        	<h:outputText value="#{pessoaJuridica.nomeEmpresarial}"  style="font-weight: 10; font: 15px arial, sans-serif;" />
 					    			</p:column>
 					 
-					    			<p:column headerText="Cnpj"  style="font-weight: 10; font: 15px arial, sans-serif;" >
+					    			<p:column headerText="Cnpj"  style="font-weight: 10; font: 15px arial, sans-serif;" filterBy="#{pessoaJuridica.cnpj}">
 					        			<h:outputText value="#{pessoaJuridica.cnpj}"  style="font-weight: 10; font: 15px arial, sans-serif;" />
 					    			</p:column>			    	
 								</p:dataTable>
@@ -176,7 +193,7 @@
 						</p:dataTable>
 						<br/>
 						
-						<h:outputText value="*Não é possível inserir um Reidi, sem antes inserir um processo! Favor primeiro inserir pelo menos um projeto!" 
+						<h:outputText value="*Não é possível inserir um Reidi, sem antes inserir um projeto! Favor primeiro inserir pelo menos um projeto!" 
 							style="font-weight: 15; font: 12px arial, sans-serif;" />
 					</p:fieldset>			
 		            
@@ -192,27 +209,27 @@
 	       	<p:fieldset id="fsProcesso" legend="Processo" toggleable="true" toggleSpeed="100" style="font-weight: 10; font: 15px arial, sans-serif;">
 		        <h:form id="formProcesso">	       
 		        	 
-		            <h:panelGrid id="pgProcessos" columns="6" cellpadding="10">
+		            <h:panelGrid id="pgProcessos" columns="4" cellpadding="10">
 		                        	                                	    
 		            	
 		            	<p:outputLabel for="numeroOriginalAntaq" value="Nº Original Antaq: *"/>		            			     
 		        		<p:inputMask id="numeroOriginalAntaq" style="font-weight: 10; font: 15px arial, sans-serif;"
 		        			 value="#{ProcessoMB.processo.numeroOriginalANTAQ}" size="20" mask="99999.999999/9999-99" />     		
 		        		
-						<p:outputLabel for="numeroApensoAntaq" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nº Apenso Antaq:" /> 
-		        		<p:inputText id="numeroApensoAntaq"  style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProcessoMB.processo.numeroApensoANTAQ}" size="20" />       
+  		        		<p:outputLabel for="dataProtocoloSep" style="font-weight: 10; font: 15px arial, sans-serif;" value="Data Protocolo SEP:" />
+		        		<p:calendar id="dataProtocoloSep" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProcessoMB.processo.dataProtocoloSEP}" pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999" />		        		
 		        		
+		        		<p:outputLabel for="numeroApensoAntaq" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nº Apenso:" /> 
+		        		<p:inputText id="numeroApensoAntaq"  style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProcessoMB.processo.numeroApensoANTAQ}" size="20" />           		        		        		        		        		        	      		        		        		        		
+		        		
+						<p:outputLabel for="numeroProcessoSep" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nº Processo SEP:" rendered="false"/> 
+		        		<p:inputMask id="numeroProcessoSep"  style="font-weight: 10; font: 15px arial, sans-serif;"
+		        			value="#{ProcessoMB.processo.numeroProcessoSEP}" size="20"  mask="99999.999999/9999-99" rendered="false"/>  
+
 		        		<p:outputLabel for="localizacao" style="font-weight: 10; font: 15px arial, sans-serif;" value="Localização:" />         		        		
 		       			<p:selectOneMenu id="localizacao" value="#{ProcessoMB.processo.localizacao}" style="width:10px" >
 		            		<f:selectItems  value="#{ProcessoMB.localizaoSituacaoProcesso}" style="font-weight: 10; font: 15px arial, sans-serif;"  />            
-		        		</p:selectOneMenu> 		            		        		        		        		        		        	      		        		        		        		
-		        		
-						<p:outputLabel for="numeroProcessoSep" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nº Processo SEP:" /> 
-		        		<p:inputMask id="numeroProcessoSep"  style="font-weight: 10; font: 15px arial, sans-serif;"
-		        			value="#{ProcessoMB.processo.numeroProcessoSEP}" size="20"  mask="99999.999999/9999-99" />  
-		        		
-		        		<p:outputLabel for="dataProtocoloSep" style="font-weight: 10; font: 15px arial, sans-serif;" value="Data Protocolo SEP:" />
-		        		<p:calendar id="dataProtocoloSep" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProcessoMB.processo.dataProtocoloSEP}" pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999" />
+		        		</p:selectOneMenu> 				        				        		
 		        		
 		            </h:panelGrid>   
 		            
@@ -279,7 +296,7 @@
 				        		<h:column>
         							<p:inputText id="contador" value="#{PessoaJuridicaMB.pessoaJuridica.contadorPJ.nome}" size="20" readonly="true"/>
         							<p:commandButton id="btFindCont" update="formPJ" icon="ui-icon-search" title="View"
-        								oncomplete="PF('pjCont').show()" action="#{PessoaJuridicaMB.findAllCont}" />                		
+        								oncomplete="PF('pjCont').show()" action="#{PessoaJuridicaMB.findAllResp}" />                		
         						</h:column>  			
         						
 				            </h:panelGrid>
@@ -293,11 +310,11 @@
 			                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
 						    		rowsPerPageTemplate="5,10,15">
 						
-							    	<p:column headerText="Nome">
+							    	<p:column headerText="Nome" filterBy="#{responsavel.nome}">
 					        			<h:outputText value="#{responsavel.nome}" />
 			    					</p:column>
 			 
-					    			<p:column headerText="Cpf">
+					    			<p:column headerText="Cpf" filterBy="#{responsavel.cpf}">
 					        			<h:outputText value="#{responsavel.cpf}" />
 			    					</p:column>			    	
 								</p:dataTable>		
@@ -307,19 +324,19 @@
     						</p:dialog>  	
     						
     						<p:dialog id="dialogCont" header="Contador" widgetVar="pjCont" modal="true" showEffect="fade"
-            	 				hideEffect="fade" resizable="false">
+            	 				hideEffect="fade" resizable="false" >
 
-		        				<p:dataTable id="contadores" var="contador" value="#{PessoaJuridicaMB.listContador}" rowKey="#{contador.idPessoaFisica}"
+		        				<p:dataTable id="contadores" var="contador" value="#{PessoaJuridicaMB.listResponsavel}" rowKey="#{contador.idPessoaFisica}"
 									selection="#{PessoaJuridicaMB.contadorSelecionado}" selectionMode="single"  rows="5"
 						    		paginator="true"
 			                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
 						    		rowsPerPageTemplate="5,10,15">
 						
-							    	<p:column headerText="Nome">
+							    	<p:column headerText="Nome" filterBy="#{contador.nome}">
 					        			<h:outputText value="#{contador.nome}" />
 			    					</p:column>
 			 
-					    			<p:column headerText="Cpf">
+					    			<p:column headerText="Cpf" filterBy="#{contador.cpf}">
 					        			<h:outputText value="#{contador.cpf}" />
 			    					</p:column>			    	
 								</p:dataTable>	
@@ -361,7 +378,7 @@
 				
 				<br/>
 				
-				<h:selectOneRadio value="#{PessoaFisicaMB.tipoPessoaFisica}">
+				<h:selectOneRadio value="#{PessoaFisicaMB.tipoPessoaFisica}" rendered="false">
    						<f:selectItem itemValue="responsavel" itemLabel="Responsável*" />
    						<f:selectItem itemValue="contador" itemLabel="Contador*" />
    				</h:selectOneRadio>

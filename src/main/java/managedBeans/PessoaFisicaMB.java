@@ -59,7 +59,7 @@ public class PessoaFisicaMB implements Serializable{
 		}
 	}
 	
-	public void saveBean(){
+/*	public void saveBean(){
 		try{
 			if(tipoPessoaFisica.equals(listRadio.get(0))){
 				pessoaFisica = new ResponsavelLegalPJ();
@@ -72,6 +72,18 @@ public class PessoaFisicaMB implements Serializable{
 				pessoaFisica.setTipo("CONT");
 				this.insertBean();
 			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}*/
+	
+	public void saveBean(){
+		try{
+			pessoaFisica = new ResponsavelLegalPJ();
+			pessoaFisica.setTipo("RESP");
+			this.setPessoaFisicaGeral();
+			this.insertBean();
 		}catch(Exception e){
 			e.printStackTrace();
 		}

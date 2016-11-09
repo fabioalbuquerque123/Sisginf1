@@ -18,12 +18,12 @@
 	        		<p:inputMask id="numeroOriginalAntaq" style="font-weight: 10; font: 15px arial, sans-serif;"
 		        			 value="#{ProcessoMB.processoSelecionado.numeroOriginalANTAQ}" size="20" mask="99999.999999/9999-99" />
 	        		
-					<p:outputLabel for="numeroApensoAntaq" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nº Apenso Antaq:" /> 
+					<p:outputLabel for="numeroApensoAntaq" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nº Apenso:" /> 
 	        		<p:inputText id="numeroApensoAntaq"  style="font-weight: 10; font: 15px arial, sans-serif;" value="#{ProcessoMB.processoSelecionado.numeroApensoANTAQ}" size="20" />        		        
 	        		        		
-	        		<p:outputLabel for="numeroProcessoSep" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nº Processo SEP:" />    
+	        		<p:outputLabel for="numeroProcessoSep" style="font-weight: 10; font: 15px arial, sans-serif;" value="Nº Processo SEP:" rendered="false"/>    
 	        		<p:inputMask id="numeroProcessoSep"  style="font-weight: 10; font: 15px arial, sans-serif;"
-		        			value="#{ProcessoMB.processoSelecionado.numeroProcessoSEP}" size="20"  mask="99999.999999/9999-99" />      	
+		        			value="#{ProcessoMB.processoSelecionado.numeroProcessoSEP}" size="20"  mask="99999.999999/9999-99" rendered="false"/>      	
 	        		        		
 	        		<p:outputLabel for="dataProtocoloSep" style="font-weight: 10; font: 15px arial, sans-serif;" value="Data Protocolo SEP:" />
 	        		<p:calendar id="dataProtocoloSep" style="font-weight: 10; font: 15px arial, sans-serif;"  value="#{ProcessoMB.processoSelecionado.dataProtocoloSEP}" pattern="dd/MM/yyyy" showOn="button" mask="99/99/9999" />

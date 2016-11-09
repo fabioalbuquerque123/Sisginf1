@@ -124,6 +124,12 @@
 		                		<f:setPropertyActionListener value="#{projeto}" target="#{ProcessoMB.projetoSelecionado}" />
 		            		</p:commandButton>
 		        		</p:column>
+		        		<p:column style="width:32px;text-align: center" >		        			
+		        			<p:commandButton icon="ui-icon-alert" title="Valor de impacto financeiro divergente do esperado!" style="background: #FF0000;" disabled="true" 
+		        				rendered="#{((projeto.estimativaValBensCom + projeto.estimativaValOutrosCom + projeto.estimativaValServicosCom) - (projeto.estimativaValBensSem + projeto.estimativaValOutrosSem + projeto.estimativaValServicosSem)) != projeto.projecaoImpactoFinal ? true : false}" />							
+		        			<p:commandButton icon="ui-icon-check" title="Valor de impacto financeiro OK!" style="background: #228B22;"   disabled="true"
+		        				rendered="#{((projeto.estimativaValBensCom + projeto.estimativaValOutrosCom + projeto.estimativaValServicosCom) - (projeto.estimativaValBensSem + projeto.estimativaValOutrosSem + projeto.estimativaValServicosSem)) == projeto.projecaoImpactoFinal ? true : false}" />
+		        		</p:column>
 					</p:dataTable>
 					<br/>
 					<br/>

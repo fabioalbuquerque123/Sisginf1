@@ -58,7 +58,7 @@ public class PessoaJuridica extends Bean implements Serializable{
 	/*****RELACIONAMENTO*****/
 	@ManyToOne
 	@JoinColumn(name="idContador", referencedColumnName="idPessoaFisica")
-	private ContadorPJ contadorPJ;
+	private ResponsavelLegalPJ contadorPJ;
 	
 	@ManyToOne
 	@JoinColumn(name="idResponsavel", referencedColumnName="idPessoaFisica")
@@ -147,11 +147,11 @@ public class PessoaJuridica extends Bean implements Serializable{
 		this.projetos = projetos;
 	}
 
-	public ContadorPJ getContadorPJ() {
+	public ResponsavelLegalPJ getContadorPJ() {
 		return contadorPJ;
 	}
 
-	public void setContadorPJ(ContadorPJ contadorPJ) {
+	public void setContadorPJ(ResponsavelLegalPJ contadorPJ) {
 		this.contadorPJ = contadorPJ;
 	}
 

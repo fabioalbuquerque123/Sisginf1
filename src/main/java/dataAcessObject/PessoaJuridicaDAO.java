@@ -20,7 +20,7 @@ public class PessoaJuridicaDAO extends DataAcessObject implements Serializable{
 	public List<Bean> findAllBean() {
 		try{
 			super.em = Conn.getEntityManager();
-			list = super.em.createQuery("select u from PessoaJuridica u").getResultList();			
+			list = super.em.createQuery("select u from PessoaJuridica u order by u.nomeEmpresarial asc").getResultList();			
 		}catch(Exception e){
 			e.printStackTrace();
 		}

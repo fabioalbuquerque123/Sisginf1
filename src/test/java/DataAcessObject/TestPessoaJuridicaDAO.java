@@ -19,19 +19,19 @@ public class TestPessoaJuridicaDAO extends TestCase{
 	private PessoaFisicaDAO pessoaFisicaDAO;
 	private DataAcessObject dao;
 	private PessoaJuridica pessoaJuridica;
-	private ContadorPJ contadorPJ;
+	private ResponsavelLegalPJ contadorPJ;
 	private ResponsavelLegalPJ responsavel;
 	
 	@Test
 	public void testAinsertBean(){
 		try{
 			pessoaFisicaDAO = new PessoaFisicaDAO();
-			contadorPJ = LoadBean.getContadorPJ();
+			contadorPJ = LoadBean.getResponsavelLegalPJ();
 			responsavel = LoadBean.getResponsavelLegalPJ();
 			dao.insertBean(contadorPJ);
 			dao.insertBean(responsavel);	
-			contadorPJ = new ContadorPJ();
-			contadorPJ = (ContadorPJ) pessoaFisicaDAO.findAllContador().get(0);		
+			contadorPJ = new ResponsavelLegalPJ();
+			contadorPJ = (ResponsavelLegalPJ) pessoaFisicaDAO.findAllContador().get(0);		
 			responsavel = new ResponsavelLegalPJ();
 			responsavel = (ResponsavelLegalPJ) pessoaFisicaDAO.findAllResp().get(0);	
 			pessoaJuridica = LoadBean.getPessoaJuridica();
@@ -63,7 +63,7 @@ public class TestPessoaJuridicaDAO extends TestCase{
 			pessoaJuridica = (PessoaJuridica) dao.findAllBean().get(0);	
 			dao.deleteBean(pessoaJuridica);
 			pessoaFisicaDAO = new PessoaFisicaDAO();
-			contadorPJ = (ContadorPJ) pessoaFisicaDAO.findAllContador().get(0);
+			contadorPJ = (ResponsavelLegalPJ) pessoaFisicaDAO.findAllContador().get(0);
 			dao.deleteBean(contadorPJ);
 			responsavel = (ResponsavelLegalPJ) pessoaFisicaDAO.findAllResp().get(0);
 			dao.deleteBean(responsavel);

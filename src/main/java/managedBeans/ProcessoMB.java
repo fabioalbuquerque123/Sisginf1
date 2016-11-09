@@ -1,6 +1,8 @@
 package managedBeans;
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 
 import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.TabChangeEvent;
 
 import arquitetura.Bean;
@@ -217,9 +220,6 @@ public class ProcessoMB extends HttpServlet implements Serializable{
 		try{
 			processoDAO = new ProcessoDAO();
 			processos = processoDAO.findAllReidi();
-			for(Processo processo : processos){
-				System.out.println(((Processo)processo).getNumeroApensoANTAQ());
-			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -268,18 +268,30 @@ public class ProcessoMB extends HttpServlet implements Serializable{
 				FacesContext context = FacesContext.getCurrentInstance();		         
 		        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Favor preencher campos obrigatórios (*) para o projeto!","") );
 		        return "updateFail";
-			}else{						
-				projetoDAO = new ProjetoDAO();
-				projetoDAO.updateBean(projetoSelecionado);
-				findAllReid();
-				projetoSelecionado = new Projeto();
-				return "updateOK";
+			}else{
+				if(
+					((projetoSelecionado.getEstimativaValBensCom() + projetoSelecionado.getEstimativaValOutrosCom() + projetoSelecionado.getEstimativaValServicosCom()) -
+						(projetoSelecionado.getEstimativaValBensSem() + projetoSelecionado.getEstimativaValOutrosSem() + projetoSelecionado.getEstimativaValServicosSem())) != projetoSelecionado.getProjecaoImpactoFinal() 
+							){
+						RequestContext.getCurrentInstance().execute("PF('pjDialogIF').show()");
+						return "updateFail";
+					}else{
+						return this.saveUpdateProjeto();
+					}											
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 			return "updateOK";
 		}
 		
+	}
+	
+	public String saveUpdateProjeto() throws Exception{
+		projetoDAO = new ProjetoDAO();
+		projetoDAO.updateBean(projetoSelecionado);
+		findAllReid();
+		projetoSelecionado = new Projeto();
+		return "updateOK";
 	}
 	
 /*	public void deleteProjeto(){
@@ -310,15 +322,26 @@ public class ProcessoMB extends HttpServlet implements Serializable{
 					FacesContext context = FacesContext.getCurrentInstance();		         
 			        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Favor preencher campos obrigatórios (*) para o projeto!","") );
 			        messageProcesso = false;
-				}else{						
-					projetos.add(projeto);
-					projetosParaReidiMB.add(projeto);
-					this.novoProjeto();
-					pessoaJuridicaSelecionada = new PessoaJuridica();
+				}else{										
+					if(
+						((projeto.getEstimativaValBensCom() + projeto.getEstimativaValOutrosCom() + projeto.getEstimativaValServicosCom()) -
+						(projeto.getEstimativaValBensSem() + projeto.getEstimativaValOutrosSem() + projeto.getEstimativaValServicosSem())) != projeto.getProjecaoImpactoFinal() 
+							){
+						RequestContext.getCurrentInstance().execute("PF('pjDialogIF').show()");
+					}else{
+						this.insertProjeto();
+					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}
+		
+		public void insertProjeto(){
+			projetos.add(projeto);
+			projetosParaReidiMB.add(projeto);
+			this.novoProjeto();
+			pessoaJuridicaSelecionada = new PessoaJuridica();
 		}
 		
 	    public void deleteProjeto() {

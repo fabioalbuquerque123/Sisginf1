@@ -20,7 +20,7 @@ public class PessoaFisicaDAO extends DataAcessObject implements Serializable{
 	public List<Bean> findAllBean() {
 		try{
 			super.em = Conn.getEntityManager();
-			list = super.em.createQuery("select u from PessoaFisica u").getResultList();			
+			list = super.em.createQuery("select u from PessoaFisica u order by u.nome asc").getResultList();			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -31,7 +31,7 @@ public class PessoaFisicaDAO extends DataAcessObject implements Serializable{
 	public List<Bean> findAllContador(){
 		try{
 			super.em = Conn.getEntityManager();
-			list = super.em.createQuery("select c from PessoaFisica c where c.tipo like 'C%' ").getResultList();					
+			list = super.em.createQuery("select c from PessoaFisica c where c.tipo like 'C%' order by c.nome asc").getResultList();					
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -42,7 +42,7 @@ public class PessoaFisicaDAO extends DataAcessObject implements Serializable{
 	public List<Bean> findAllResp(){
 		try{
 			super.em = Conn.getEntityManager();
-			list = super.em.createQuery("select c from PessoaFisica c where c.tipo like 'R%' ").getResultList();			
+			list = super.em.createQuery("select c from PessoaFisica c where c.tipo like 'R%' order by c.nome asc").getResultList();			
 		}catch(Exception e){
 			e.printStackTrace();
 		}

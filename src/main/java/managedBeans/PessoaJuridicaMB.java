@@ -45,7 +45,7 @@ public class PessoaJuridicaMB implements Serializable{
 	
 	private List<Bean> listContador;
 	private List<Bean> listResponsavel;
-	private ContadorPJ contadorSelecionado;
+	private ResponsavelLegalPJ contadorSelecionado;
 	private ResponsavelLegalPJ responsavelSelecionado;
 	
 	//Estados
@@ -63,7 +63,7 @@ public class PessoaJuridicaMB implements Serializable{
 		super();
 		
 		pessoaJuridica = new PessoaJuridica();
-		pessoaJuridica.setContadorPJ(new ContadorPJ());
+		pessoaJuridica.setContadorPJ(new ResponsavelLegalPJ());
 		pessoaJuridica.setResponsavelLegalPJ(new ResponsavelLegalPJ());
 		pessoaJuridicaDAO = new PessoaJuridicaDAO();
 		pessoasJuridicas = new ArrayList<Bean>();
@@ -148,9 +148,9 @@ public class PessoaJuridicaMB implements Serializable{
 	private void clearFields(){
 		pessoaJuridica = new PessoaJuridica();	
 		pessoaJuridica.setResponsavelLegalPJ(new ResponsavelLegalPJ());
-		pessoaJuridica.setContadorPJ(new ContadorPJ());
+		pessoaJuridica.setContadorPJ(new ResponsavelLegalPJ());
 		responsavelSelecionado = new ResponsavelLegalPJ();
-		contadorSelecionado = new ContadorPJ();
+		contadorSelecionado = new ResponsavelLegalPJ();
 		listMunicipios = new ArrayList<String>();
 	}
 
@@ -218,11 +218,11 @@ public class PessoaJuridicaMB implements Serializable{
 		this.listResponsavel = listResponsavel;
 	}
 
-	public ContadorPJ getContadorSelecionado() {
+	public ResponsavelLegalPJ getContadorSelecionado() {
 		return contadorSelecionado;
 	}
 
-	public void setContadorSelecionado(ContadorPJ contadorSelecionado) {
+	public void setContadorSelecionado(ResponsavelLegalPJ contadorSelecionado) {
 		this.contadorSelecionado = contadorSelecionado;
 	}
 
