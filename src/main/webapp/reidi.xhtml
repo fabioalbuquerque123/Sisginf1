@@ -125,10 +125,10 @@
 		            		</p:commandButton>
 		        		</p:column>
 		        		<p:column style="width:32px;text-align: center" >		        			
-		        			<p:commandButton icon="ui-icon-alert" title="Valor de impacto financeiro divergente do esperado!" style="background: #FF0000;" disabled="true" 
-		        				rendered="#{((projeto.estimativaValBensCom + projeto.estimativaValOutrosCom + projeto.estimativaValServicosCom) - (projeto.estimativaValBensSem + projeto.estimativaValOutrosSem + projeto.estimativaValServicosSem)) != projeto.projecaoImpactoFinal ? true : false}" />							
-		        			<p:commandButton icon="ui-icon-check" title="Valor de impacto financeiro OK!" style="background: #228B22;"   disabled="true"
-		        				rendered="#{((projeto.estimativaValBensCom + projeto.estimativaValOutrosCom + projeto.estimativaValServicosCom) - (projeto.estimativaValBensSem + projeto.estimativaValOutrosSem + projeto.estimativaValServicosSem)) == projeto.projecaoImpactoFinal ? true : false}" />
+		        			<p:graphicImage url="images/error1.jpg"  width="20px" height="20px" style="vertical-align:middle;" title="Valor do impacto financeiro divergente do esperado!"
+		        				rendered="#{((projeto.estimativaValBensCom + projeto.estimativaValOutrosCom + projeto.estimativaValServicosCom) - (projeto.estimativaValBensSem + projeto.estimativaValOutrosSem + projeto.estimativaValServicosSem)) != projeto.projecaoImpactoFinal ? true : false}" />
+		        			<p:graphicImage url="images/check1.jpg"  width="20px" height="20px" style="vertical-align:middle;" title="Valor do impacto financeiro OK!"
+		        				rendered="#{((projeto.estimativaValBensCom + projeto.estimativaValOutrosCom + projeto.estimativaValServicosCom) - (projeto.estimativaValBensSem + projeto.estimativaValOutrosSem + projeto.estimativaValServicosSem)) != projeto.projecaoImpactoFinal ? false : true}" />		        			
 		        		</p:column>
 					</p:dataTable>
 					<br/>
