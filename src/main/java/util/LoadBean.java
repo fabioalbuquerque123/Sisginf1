@@ -25,8 +25,8 @@ public class LoadBean {
 
 	public static Usuario getUsuario() {
 		usuario = new Usuario();
-		usuario.setNome("admin");
-		usuario.setLogin("admin");
+		usuario.setNome("teste");
+		usuario.setLogin("teste");
 		usuario.setEmail("admin@portosdobrasil.gov.br");
 		usuario.setSenha("123");
 		return usuario;

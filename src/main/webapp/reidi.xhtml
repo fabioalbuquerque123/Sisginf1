@@ -57,6 +57,11 @@
 		               		<f:setPropertyActionListener value="#{processo}" target="#{ProcessoMB.processoSelecionado}" />
 		            	</p:commandButton>
 		        </p:column>
+		        <p:column style="width:32px;text-align: center">
+		            	<p:commandButton icon="ui-icon ui-icon-plusthick" title="Novo Projeto" action="#{ProcessoMB.incluirNovoProjeto}">
+		               		<f:setPropertyActionListener value="#{processo}" target="#{ProcessoMB.processoSelecionado}" />
+		            	</p:commandButton>
+		        </p:column>
 		 
 		        <p:rowExpansion >
 					<p:dataTable var="projeto" value="#{processo.projeto}">

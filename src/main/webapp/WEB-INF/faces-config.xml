@@ -46,6 +46,11 @@
 	            <to-view-id>/updateProcesso.xhtml</to-view-id>
 	            <redirect />
       		</navigation-case>
+      		<navigation-case>
+            	<from-outcome>novoProjeto</from-outcome>
+	            <to-view-id>/novoProjeto.xhtml</to-view-id>
+	            <redirect />
+      		</navigation-case>
 	</navigation-rule>
 	
 	<navigation-rule>
@@ -107,5 +112,18 @@
 	            <redirect/> 
       		</navigation-case>
 	</navigation-rule>
-	
+	<navigation-rule>
+    	<from-view-id>novoProjeto.xhtml</from-view-id>
+    	<navigation-case>
+           	<from-outcome>homePage</from-outcome>
+	        <to-view-id>/reidi.xhtml</to-view-id>
+	        <redirect />
+      	</navigation-case>
+    	<navigation-case>
+           	<from-outcome>success</from-outcome>
+	        <to-view-id>/reidi.xhtml</to-view-id>
+	        <redirect />
+      	</navigation-case>      	
+	</navigation-rule>
+		
 </faces-config>

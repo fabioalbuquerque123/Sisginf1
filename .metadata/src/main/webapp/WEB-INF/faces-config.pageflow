@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14714600257920" configfile="/sisginf_versao1/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="554" y="279" id="pf14721512878300" referenceLink="//@navigationRule.2/@navigationCase.3/@toViewId|" outlinks="pf14721512948384 pf14744043423240" inlinks="pf14721512948384 pf14749847558330 pf14749847558431" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="554" y="434" id="pf14721512878300" referenceLink="//@navigationRule.2/@navigationCase.3/@toViewId|" outlinks="pf14721512948384 pf14744043423240" inlinks="pf14721512948384 pf14749847558330 pf14749847558431" path="/login.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="inicial.xhtml" x="122" y="178" id="pf14721512878513" referenceLink="//@navigationRule.2/@navigationCase.4/@toViewId|" outlinks="pf14739546819551 pf14739554900093 pf14749847558432 pf14749847558431 pf14782836550950" inlinks="pf14739554900093 pf14749847558433 pf14782836550950" path="/inicial.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="reidi.xhtml" x="338" y="178" id="pf14739546819552" referenceLink="//@navigationRule.4/@navigationCase.1/@toViewId|" outlinks="pf14749847558433 pf14749847558330 pf14749847558434 pf14756166719730" inlinks="pf14739546819551 pf14744043423240 pf14749847558432 pf14750039559148 pf14756171410522 pf14775965458061 pf14779144526150" path="/reidi.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="updateProjeto.xhtml" id="pf14749847558435" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf14750039559148 pf14775965458061" inlinks="pf14749847558434" path="/updateProjeto.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="updateProcesso.xhtml" id="pf14756166719741" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf14756171410522 pf14779144526150" inlinks="pf14756166719730" path="/updateProcesso.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="reidi.xhtml" x="338" y="562" id="pf14739546819552" referenceLink="//@navigationRule.5/@navigationCase.1/@toViewId|" outlinks="pf14749847558433 pf14749847558330 pf14749847558434 pf14756166719730 pf14806995231312" inlinks="pf14739546819551 pf14744043423240 pf14749847558432 pf14750039559148 pf14756171410522 pf14775965458061 pf14779144526150 pf14807020062539 pf148070460260411" path="/reidi.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="updateProjeto.xhtml" x="122" y="562" id="pf14749847558435" referenceLink="//@navigationRule.3/@navigationCase.2/@toViewId|" outlinks="pf14750039559148 pf14775965458061 pf14806995143181" inlinks="pf14749847558434 pf14806995143181" path="/updateProjeto.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="updateProcesso.xhtml" x="122" y="946" id="pf14756166719741" referenceLink="//@navigationRule.5/@fromViewId|" outlinks="pf14756171410522 pf14779144526150" inlinks="pf14756166719730" path="/updateProcesso.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="novoProjeto.xhtml" id="pf14806995231313" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" inlinks="pf14806995231312" path="/novoProjeto.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="novoProjeto.xhtml" id="pf148070200625310" referenceLink="//@navigationRule.5/@fromViewId|" outlinks="pf14807020062539 pf148070460260411" path="novoProjeto.xhtml"/>
   <links id="pf14739546819551" target="pf14739546819552" source="pf14721512878513" outcome="insertReidOK" redirect="true"/>
   <links id="pf14744043423240" target="pf14739546819552" source="pf14721512878300" outcome="loginOk" redirect="true"/>
   <links id="pf14749847558433" target="pf14721512878513" source="pf14739546819552" outcome="novoReidi" redirect="true"/>
   <links id="pf14749847558330" target="pf14721512878300" source="pf14739546819552" outcome="logout" redirect="true"/>
   <links id="pf14749847558432" target="pf14739546819552" source="pf14721512878513" outcome="homePage" redirect="true"/>
   <links id="pf14749847558431" target="pf14721512878300" source="pf14721512878513" outcome="logout" redirect="true"/>
+  <links id="pf14749847558434" target="pf14749847558435" source="pf14739546819552" outcome="updateProjeto" redirect="true"/>
+  <links id="pf14750039559148" target="pf14739546819552" source="pf14749847558435" outcome="updateOK" redirect="true"/>
+  <links id="pf14756166719730" target="pf14756166719741" source="pf14739546819552" outcome="updateProcesso" redirect="true"/>
+  <links id="pf14756171410522" target="pf14739546819552" source="pf14756166719741" outcome="updateProcessoOK" redirect="true"/>
+  <links id="pf14775965458061" target="pf14739546819552" source="pf14749847558435" outcome="homePage" redirect="true"/>
+  <links id="pf14779144526150" target="pf14739546819552" source="pf14756166719741" outcome="homePage" redirect="true"/>
   <links id="pf14721512948384" target="pf14721512878300" source="pf14721512878300" outcome="loginFail">
     <bendPoints d1Height="-36" d2Height="-36"/>
     <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
@@ -21,11 +29,17 @@
     <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
     <bendPoints d1Width="-64" d2Width="-64"/>
   </links>
-  <links id="pf14749847558434" target="pf14749847558435" source="pf14739546819552" outcome="updateProjeto" redirect="true"/>
-  <links id="pf14750039559148" target="pf14739546819552" source="pf14749847558435" outcome="updateOK" redirect="true"/>
-  <links id="pf14756166719730" target="pf14756166719741" source="pf14739546819552" outcome="updateProcesso" redirect="true"/>
-  <links id="pf14756171410522" target="pf14739546819552" source="pf14756166719741" outcome="updateProcessoOK" redirect="true"/>
-  <links id="pf14775965458061" target="pf14739546819552" source="pf14749847558435" outcome="homePage" redirect="true"/>
-  <links id="pf14779144526150" target="pf14739546819552" source="pf14756166719741" outcome="homePage" redirect="true"/>
-  <links id="pf14782836550950" target="pf14721512878513" source="pf14721512878513" outcome="error"/>
+  <links id="pf14782836550950" target="pf14721512878513" source="pf14721512878513" outcome="error">
+    <bendPoints d1Height="-66" d2Height="-66"/>
+    <bendPoints d1Width="-94" d1Height="-66" d2Width="-94" d2Height="-66"/>
+    <bendPoints d1Width="-94" d2Width="-94"/>
+  </links>
+  <links id="pf14806995143181" target="pf14749847558435" source="pf14749847558435" outcome="updateFail">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf14806995231312" target="pf14806995231313" source="pf14739546819552" outcome="novoProjeto" redirect="true"/>
+  <links id="pf14807020062539" target="pf14739546819552" source="pf148070200625310" outcome="homePage" redirect="true"/>
+  <links id="pf148070460260411" target="pf14739546819552" source="pf148070200625310" outcome="success" redirect="true"/>
 </pageflow:Pageflow>

@@ -255,6 +255,39 @@ public class ProcessoMB extends HttpServlet implements Serializable{
 		}		
 	}
 	
+	public String inserirNovoProjeto(){
+		try {
+			if(projeto.getNome().length() == 0 || projeto.getNome() == null ||	projeto.getPessoaJuridica() == null ||  projeto.getPessoaJuridica().getNomeEmpresarial() == null || projeto.getPessoaJuridica().getNomeEmpresarial().length() < 1){
+				FacesContext context = FacesContext.getCurrentInstance();		         
+		        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Favor preencher campos obrigatórios (*) para o projeto!","") );
+		        messageProcesso = false;
+			}else{										
+				if(
+					((projeto.getEstimativaValBensCom() + projeto.getEstimativaValOutrosCom() + projeto.getEstimativaValServicosCom()) -
+					(projeto.getEstimativaValBensSem() + projeto.getEstimativaValOutrosSem() + projeto.getEstimativaValServicosSem())) != projeto.getProjecaoImpactoFinal() 
+						){
+					RequestContext.getCurrentInstance().execute("PF('pjDialogIF').show()");
+				}else{
+					insertNovoProjeto();
+				}
+			}			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return "success";
+	}
+	
+	public void insertNovoProjeto(){
+		try{
+			projetoDAO = new ProjetoDAO();
+			projeto.setProcesso(processoSelecionado);
+			projetoDAO.insertBean(projeto);		
+			this.findAllReid();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public String alterarProjeto(){
 		municipioDAO = new MunicipioDAO();
@@ -413,6 +446,10 @@ public class ProcessoMB extends HttpServlet implements Serializable{
 			projeto.setPessoaJuridica(new PessoaJuridica());
 			projetoSelecionado = new Projeto();
 			listMunicipios = new ArrayList<String>();
+		}
+		
+		public String incluirNovoProjeto(){
+			return "novoProjeto";
 		}
 		
 		public void openTabPF(){
