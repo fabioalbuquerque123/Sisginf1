@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-10-21T16:23:22 -->
+<!-- 2016-12-12T10:40:44 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="minuta_portaria" pageWidth="595" pageHeight="842" columnWidth="463" leftMargin="122" rightMargin="10" topMargin="94" bottomMargin="90" uuid="8a8cbcc9-b65a-40ff-96d8-e7a07d64fa3d">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
 	<parameter name="ID_PROJETO" class="java.lang.Integer"/>
 	<queryString language="SQL">
 		<![CDATA[select projeto.nome, projeto.localidade, projeto.uf,
@@ -16,21 +16,14 @@ inner join tb_pessoajuridica as pj
 on projeto.idpessoajuridica = pj.idpessoajuridica
 where projeto.idprojeto =  $P{ID_PROJETO}]]>
 	</queryString>
-	<field name="nome" class="java.lang.String">
-		<fieldDescription><![CDATA[nome]]></fieldDescription>
-	</field>
-	<field name="localidade" class="java.lang.String">
-		<fieldDescription><![CDATA[localidade]]></fieldDescription>
-	</field>
-	<field name="uf" class="java.lang.String">
-		<fieldDescription><![CDATA[uf]]></fieldDescription>
-	</field>
-	<field name="descricao" class="java.lang.String">
-		<fieldDescription><![CDATA[descricao]]></fieldDescription>
-	</field>
-	<field name="valorTotalProjeto" class="java.lang.Double">
-		<fieldDescription><![CDATA[valorTotalProjeto]]></fieldDescription>
-	</field>
+	<field name="nome" class="java.lang.String"/>
+	<field name="localidade" class="java.lang.String"/>
+	<field name="uf" class="java.lang.String"/>
+	<field name="nomeEmpresarial" class="java.lang.String"/>
+	<field name="numeroOriginalANTAQ" class="java.lang.String"/>
+	<field name="cnpj" class="java.lang.String"/>
+	<field name="descricao" class="java.lang.String"/>
+	<field name="valorTotalProjeto" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -48,14 +41,14 @@ where projeto.idprojeto =  $P{ID_PROJETO}]]>
 				<textElement textAlignment="Justified">
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Aprova o enquadramento no Regime Especial de Incentivos para o Desenvolvimento da Infraestrutura – REIDI, do Projeto de Investimento em Infraestrutura no Setor de Transportes – Portos."+$F{nome}+", "+$F{localidade}+"-"+$F{uf}+", da empresa "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Aprova o enquadramento no Regime Especial de Incentivos para o Desenvolvimento da Infraestrutura – REIDI, do Projeto de Investimento em Infraestrutura no Setor de Transportes – Portos."+$F{nome}+", "+$F{localidade}+"-"+$F{uf}+", da empresa "+$F{nomeEmpresarial}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="2" y="130" width="400" height="140" uuid="05c4c7e1-3457-4a13-8276-02bccc96ded8"/>
 				<textElement textAlignment="Justified" markup="html">
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O <b>MINISTRO DE ESTADO DOS TRANSPORTES, PORTOS E AVIAÇÃO CIVIL</b>, no uso de suas atribuições legais que lhe confere o art. 87, parágrafo único, incisos II e IV, da Constituição Federal e tendo em vista o disposto no art. 27, inciso XXI e § 8º, da Lei nº 10.683, de 28 de maio de 2003; a Lei 11.488, de 15 de junho de 2007; o art. 6º, parágrafo 3º, do Decreto nº 6.144, de 3 de julho de 2007; a Portaria SEP/PR nº 124, de 29 de agosto de 2013; e considerando o que consta na Resolução ANTAQ nº 4.409, de 14 de Outubro de 2015; bem como no Processo ANTAQ nº , resolve:"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O <b>MINISTRO DE ESTADO DOS TRANSPORTES, PORTOS E AVIAÇÃO CIVIL</b>, no uso de suas atribuições legais que lhe confere o art. 87, parágrafo único, incisos II e IV, da Constituição Federal e tendo em vista o disposto no art. 27, inciso XXI e § 8º, da Lei nº 10.683, de 28 de maio de 2003; a Lei 11.488, de 15 de junho de 2007; o art. 6º, parágrafo 3º, do Decreto nº 6.144, de 3 de julho de 2007; a Portaria SEP/PR nº 124, de 29 de agosto de 2013; e considerando o que consta na Resolução ANTAQ nº 4.409, de 14 de Outubro de 2015; bem como no Processo ANTAQ nº "+$F{numeroOriginalANTAQ}+", resolve:"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
 				<reportElement x="2" y="269" width="401" height="86" uuid="d4615f4c-f614-4187-b12b-7ee2fd8497fa"/>

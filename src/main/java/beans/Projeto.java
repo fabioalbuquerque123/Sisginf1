@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import arquitetura.Bean;
 
@@ -106,6 +107,15 @@ public class Projeto extends Bean implements Serializable{
 	
 	@Column
 	private String pathPortaria;
+	
+	@Transient
+	private String nomeEmpresarial;
+	
+	@Transient
+	private String numeroOriginalANTAQ;
+	
+	@Transient
+	private String cnpj;
 
 	public int getIdProjeto() {
 		return idProjeto;
@@ -313,5 +323,29 @@ public class Projeto extends Bean implements Serializable{
 
 	public void setPathPortaria(String pathPortaria) {
 		this.pathPortaria = pathPortaria;
+	}
+
+	public String getNomeEmpresarial() {
+		return nomeEmpresarial;
+	}
+
+	public void setNomeEmpresarial(String nomeEmpresarial) {
+		this.nomeEmpresarial = nomeEmpresarial;
+	}
+
+	public String getNumeroOriginalANTAQ() {
+		return numeroOriginalANTAQ;
+	}
+
+	public void setNumeroOriginalANTAQ(String numeroOriginalANTAQ) {
+		this.numeroOriginalANTAQ = numeroOriginalANTAQ;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
 	}
 }

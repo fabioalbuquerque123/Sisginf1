@@ -1,12 +1,15 @@
 package util;
 
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
 
-
+import arquitetura.Bean;
+import beans.Projeto;
 import dataAcessObject.ProjetoDAO;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
@@ -35,6 +38,10 @@ public class Portaria {
 	private static JasperViewer viewer;
 	private static EntityManager em;
 	private static ProjetoDAO projetoDAO;
+	private static List<Bean> list1;
+	private static List<Bean> list2;
+	private static Projeto projeto;
+	
 	@SuppressWarnings("deprecation")
 	private static JRExporter<ExporterInput, PdfReportConfiguration, PdfExporterConfiguration, OutputStreamExporterOutput> exporter;
 
@@ -46,7 +53,15 @@ public class Portaria {
 				parametros = new HashMap<>();				
 				parametros.put(parametro,idProjeto);			
 				projetoDAO = new ProjetoDAO();
-				JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(projetoDAO.findToReport(idProjeto));
+				list1 = projetoDAO.findToReport(idProjeto);
+				projeto = ((Projeto)list1.get(0));
+				projeto.setNomeEmpresarial(projeto.getPessoaJuridica().getNomeEmpresarial());
+				projeto.setNumeroOriginalANTAQ(projeto.getProcesso().getNumeroOriginalANTAQ());
+				projeto.setCnpj(projeto.getPessoaJuridica().getCnpj());
+				list2 = new ArrayList<>();
+				list2.add(projeto);
+				
+				JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(list2);
 				impressao = JasperFillManager.fillReport(relatorio, parametros, beanCollectionDataSource);						
 		
 				JasperExportManager.exportReportToPdfFile(impressao,path+"/portaria.pdf");
@@ -111,5 +126,29 @@ public class Portaria {
 
 	public static void setEm(EntityManager em) {
 		Portaria.em = em;
+	}
+
+	public static Projeto getProjeto() {
+		return projeto;
+	}
+
+	public static void setProjeto(Projeto projeto) {
+		Portaria.projeto = projeto;
+	}
+
+	public static List<Bean> getList1() {
+		return list1;
+	}
+
+	public static void setList1(List<Bean> list1) {
+		Portaria.list1 = list1;
+	}
+
+	public static List<Bean> getList2() {
+		return list2;
+	}
+
+	public static void setList2(List<Bean> list2) {
+		Portaria.list2 = list2;
 	}
 }

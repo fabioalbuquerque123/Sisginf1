@@ -503,7 +503,7 @@ public class ProcessoMB extends HttpServlet implements Serializable{
 			response.sendRedirect("portaria.pdf");
 			String str = Portaria.gerarPortaria(
 					projetoSelecionado.getIdProjeto(),
-					"ID_PROJETO","C:\\Users\\luizhoa\\apache-tomcat-7.0.70\\webapps\\relatorios\\minuta_portaria_last.jrxml",
+					"ID_PROJETO","C:\\Users\\02985274133\\apache-tomcat-7.0.70\\webapps\\relatorios\\minuta_portaria_last.jrxml",
 					saida,
 					path);					
 /*			String str = Portaria.gerarPortaria(
